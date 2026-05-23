@@ -42,6 +42,7 @@
   font-size: 0.8125rem;
   color: var(--primary);
   margin-bottom: 24px;
+  animation: hero-fade-up 0.6s ease both;
 }
 
 .hero-badge-dot {
@@ -50,20 +51,6 @@
   border-radius: 50%;
   background: var(--primary);
   animation: dot-pulse 2s ease-in-out infinite;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(38, 224, 212, 0.1);
-  border: 1px solid rgba(38, 224, 212, 0.2);
-  padding: 6px 14px;
-  border-radius: 100px;
-  font-size: 0.8125rem;
-  color: var(--primary);
-  margin-bottom: 24px;
-  animation: hero-fade-up 0.6s ease both;
 }
 
 .hero-title {
@@ -76,21 +63,12 @@
   animation: hero-fade-up 0.6s ease 0.15s both;
 }
 
-.hero-title {
-  font-size: 3.75rem;
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: var(--light);
-  margin-bottom: 20px;
-}
-
-.hero-title em {
-  font-style: normal;
+.hero-title span {
   background: linear-gradient(135deg, var(--primary), var(--primary-soft));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  white-space: nowrap;
 }
 
 .hero-description {
@@ -142,7 +120,7 @@
   width: 240px;
   filter: drop-shadow(0 20px 60px rgba(38, 224, 212, 0.15));
   will-change: transform;
-  transition: transform 0.4s ease;
+  transition: transform 0.6s ease-out;
 }
 
 .hero-phone-2 {
@@ -152,7 +130,7 @@
   right: -20px;
   bottom: 40px;
   opacity: 0.7;
-  transition: transform 0.4s ease;
+  transition: transform 0.6s ease-out;
   filter: drop-shadow(0 12px 40px rgba(0,0,0,0.3));
   will-change: transform;
 }

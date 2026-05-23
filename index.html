@@ -3,9 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UrbanTech — Premium Tech & Repair</title>
-  <meta name="description" content="Premium iPhones, refurbished devices, accessories, and expert phone repair services.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>📱</text></svg>">
+  <title>UrbanTech — Tecnología sin límites</title>
+  <meta name="description" content="iPhones premium, dispositivos reacondicionados, accesorios y reparación de celulares.">
+  <meta property="og:title" content="UrbanTech — Tecnología sin límites">
+  <meta property="og:description" content="iPhones premium, dispositivos reacondicionados, accesorios y reparación de celulares en Medellín.">
+  <meta property="og:url" content="https://urbantech.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:image" content="assets/img/favicon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UrbanTech — Tecnología sin límites">
+  <meta name="twitter:description" content="iPhones premium, dispositivos reacondicionados, accesorios y reparación de celulares.">
+  <meta name="wa-number" content="573242923238">
+  <link rel="canonical" href="https://urbantech.com">
+  <link rel="preload" href="css/styles.css" as="style">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -13,14 +25,14 @@
   <!-- ======== NAV ======== -->
   <nav class="nav" role="navigation" aria-label="Navegación principal">
     <div class="container">
-      <a href="/" class="nav-logo"><span>Urban</span>Tech</a>
-      <ul class="nav-links">
-        <li><a href="#services">Servicios</a></li>
-        <li><a href="#productos">Productos</a></li>
-        <li><a href="#accesorios">Accesorios</a></li>
-        <li><a href="#testimonios">Reseñas</a></li>
+      <a href="/" class="nav-logo"><img src="assets/img/icon-ut.png" alt="" class="nav-icon"><span>Urban</span>Tech</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services" class="nav-link">Servicios</a></li>
+        <li><a href="#productos" class="nav-link">Productos</a></li>
+        <li><a href="#accesorios" class="nav-link">Accesorios</a></li>
+        <li><a href="#testimonios" class="nav-link">Reseñas</a></li>
       </ul>
-      <button class="mobile-toggle" aria-label="Menu">☰</button>
+      <button class="mobile-toggle" aria-label="Menú" aria-controls="nav-links" aria-expanded="false">☰</button>
     </div>
   </nav>
 
@@ -34,13 +46,14 @@
           UrbanTech
         </div>
         <h1 class="hero-title">
-          <em>Tecnología sin límites<br></em>a tu alcance
+          <span>Tecnología sin límites<br></span>a tu alcance
         </h1>
         <p class="hero-description">
-          Expertos en reparacion y solución tecnológica, venta de accesorios y todo con 12 meses de garantía.
+          Expertos en reparación y solución tecnológica, venta de accesorios y todo con 12 meses de garantía.
         </p>
         <div class="hero-actions">
           <a href="#services" class="btn btn-primary">Servicios</a>
+          <a href="#productos" class="btn btn-outline">Ver productos</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -50,15 +63,16 @@
         <img
           class="hero-phone-1"
           src="assets/img/iphone-1.png?v=2"
-          alt="iPhone front view"
+           alt="iPhone al frente"
           width="240"
           height="480"
           loading="eager"
+          fetchpriority="high"
         >
         <img
           class="hero-phone-2"
           src="assets/img/iphone-2.png?v=2"
-          alt="iPhone angled view"
+           alt="iPhone vista lateral"
           width="200"
           height="400"
           loading="lazy"
@@ -71,7 +85,7 @@
     <div class="container">
       <div class="reveal">
         <span class="section-label">Lo Que Hacemos</span>
-        <h2 class="section-title" style="color: var(--light);">Servicios de Reparación</h2>
+          <h2 class="section-title section-title--light">Servicios de Reparación</h2>
         <p class="section-subtitle">
           ¿Pantalla rota? ¿Batería quemada? No importa el problema, lo solucionamos fácil y rápido.
         </p>
@@ -91,11 +105,7 @@
             <li>Reparación de puerto de carga</li>
             <li>Problemas de software</li>
           </ul>
-          <!-- <div class="pricing-tag">
-            <span class="price">$30</span>
-            <span class="label">/ desde</span>
-          </div> -->
-          <a href="https://wa.me/573242923238?text=Hola%2C%20quiero%20agendar%20una%20reparaci%C3%B3n" class="btn btn-primary" target="_blank">Agendar Reparación</a>
+          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20agendar%20una%20reparaci%C3%B3n" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero agendar una reparación">Agendar Reparación ↗</a>
         </div>
         <div class="service-cards-secondary">
           <div class="service-card reveal">
@@ -120,36 +130,39 @@
   <!-- ======== PRODUCTOS ======== -->
   <section class="section" id="productos">
     <div class="container">
-      <div class="reveal" style="text-align: center;">
-        <span class="section-label">Dispositivos</span>
-        <h2 class="section-title">Destacados</h2>
-        <p class="section-subtitle" style="margin: 0 auto 48px;">
-          Dispositivos nuevos y reacondicionados certificados, probados, listos para usar y con garantía.
+      <div class="reveal text-center">
+        <span class="section-label">Productos</span>
+        <h2 class="section-title">Dispositivos Nuevos y Reacondicionados</h2>
+        <p class="section-subtitle section-subtitle--centered">
+          Todos nuestros dispositivos pasan por pruebas de certificación para que te lleguen funcionando al 100%, listos para usar desde el primer momento, con 12 meses de garantía.
         </p>
       </div>
       <div class="products-grid">
         <div class="product-card reveal">
           <span class="product-badge badge-new">Nuevo</span>
-          <img class="product-img" src="assets/img/iphone-1.png" alt="iPhone 15 Pro" loading="lazy">
+          <img class="product-img" src="assets/img/iphone-1.png?v=2" alt="iPhone 15 Pro" width="160" height="200" loading="lazy">
           <h3>iPhone 15 Pro</h3>
-          <div class="price">$999</div>
-          <a href="https://wa.me/573242923238?text=Hola%2C%20quiero%20comprar%20un%20iPhone" class="btn btn-primary" target="_blank">Comprar</a>
+          <span class="stock-badge">En stock</span>
+          <div class="price">$999 USD</div>
+          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20comprar%20un%20iPhone%2015%20Pro" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero comprar un iPhone 15 Pro">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <span class="product-badge badge-refurbished">Reacondicionado</span>
-          <img class="product-img" src="assets/img/iphone-2.png" alt="iPhone 14" loading="lazy">
-          <h3>iPhone 14 — Reacondicionado</h3>
-          <div class="price">$599</div>
-          <div class="old-price">$799</div>
-          <a href="https://wa.me/573242923238?text=Hola%2C%20quiero%20comprar%20un%20iPhone" class="btn btn-primary" target="_blank">Comprar</a>
+          <img class="product-img" src="assets/img/iphone-2.png?v=2" alt="iPhone 14" width="160" height="200" loading="lazy">
+          <h3>iPhone 14 Reacondicionado</h3>
+          <span class="stock-badge">En stock</span>
+          <div class="price">$599 USD</div>
+          <div class="old-price">$799 USD</div>
+          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20comprar%20un%20iPhone%2014%20Reacondicionado" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero comprar un iPhone 14 Reacondicionado">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <span class="product-badge badge-deal">Mejor Oferta</span>
-          <img class="product-img" src="assets/img/iphone-1.png" alt="iPhone 13" loading="lazy">
-          <h3>iPhone 13 — Reacondicionado</h3>
-          <div class="price">$429</div>
-          <div class="old-price">$599</div>
-          <a href="https://wa.me/573242923238?text=Hola%2C%20quiero%20comprar%20un%20iPhone" class="btn btn-primary" target="_blank">Comprar</a>
+          <img class="product-img" src="assets/img/iphone-3.png?v=2" alt="iPhone 13" width="160" height="200" loading="lazy">
+          <h3>iPhone 13 Reacondicionado</h3>
+          <span class="stock-badge">En stock</span>
+          <div class="price">$429 USD</div>
+          <div class="old-price">$599 USD</div>
+          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20comprar%20un%20iPhone%2013%20Reacondicionado" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero comprar un iPhone 13 Reacondicionado">Comprar ↗</a>
         </div>
       </div>
     </div>
@@ -157,10 +170,10 @@
   <!-- ======== ACCESORIOS ======== -->
   <section class="section" id="accesorios">
     <div class="container">
-      <div class="reveal" style="text-align: center;">
+      <div class="reveal text-center">
         <span class="section-label">Equípate</span>
         <h2 class="section-title">Accesorios</h2>
-        <p class="section-subtitle" style="margin: 0 auto 48px;">
+        <p class="section-subtitle section-subtitle--centered">
           Fundas, cargadores, cables y más de la mejor calidad y con mucho estilo.
         </p>
       </div>
@@ -168,25 +181,25 @@
         <div class="accessory-card reveal">
           <div class="accessory-icon">📦</div>
           <h4>Funda de Silicona</h4>
-          <div class="price">$29</div>
+          <div class="price">$29 USD</div>
           <p>Protección antigolpes, tacto suave</p>
         </div>
         <div class="accessory-card reveal">
           <div class="accessory-icon">⚡</div>
           <h4>Cargador Rápido</h4>
-          <div class="price">$39</div>
+          <div class="price">$39 USD</div>
           <p>30W USB-C, carga rápida</p>
         </div>
         <div class="accessory-card reveal">
           <div class="accessory-icon">🎧</div>
           <h4>AirPods Pro</h4>
-          <div class="price">$199</div>
+          <div class="price">$199 USD</div>
           <p>Cancelación de ruido, nuevos</p>
         </div>
         <div class="accessory-card reveal">
           <div class="accessory-icon">🛡️</div>
           <h4>Vidrio Templado</h4>
-          <div class="price">$12</div>
+          <div class="price">$12 USD</div>
           <p>Resistente a rayones, 2 piezas</p>
         </div>
       </div>
@@ -195,7 +208,7 @@
   <!-- ======== PAYMENT METHODS ======== -->
   <section class="section payment-carousel-section">
     <div class="container">
-      <div class="reveal" style="text-align: center;">
+      <div class="reveal text-center">
         <span class="section-label">Métodos de Pago</span>
       </div>
       <div class="payment-track reveal">
@@ -324,10 +337,10 @@
   <!-- ======== TESTIMONIOS ======== -->
   <section class="section" id="testimonios">
     <div class="container">
-      <div class="reveal" style="text-align: center;">
+      <div class="reveal text-center">
         <span class="section-label">Reseñas</span>
         <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
-        <p class="section-subtitle" style="margin: 0 auto 48px; color: var(--gray);">
+        <p class="section-subtitle section-subtitle--centered">
           Más de 100 reseñas de 5 estrellas esto es lo que opinan.
         </p>
       </div>
@@ -336,9 +349,9 @@
           <div class="testimonial-stars">★★★★★</div>
           <blockquote>"Me arreglaron la pantalla en menos de una hora. Quedó como nueva. Muy recomendados."</blockquote>
           <div class="testimonial-author">
-            <div class="testimonial-avatar">JD</div>
+            <div class="testimonial-avatar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             <div>
-              <div class="testimonial-name">James D.</div>
+              <div class="testimonial-name">Carlos M.</div>
               <div class="testimonial-role">Reparación de Pantalla</div>
             </div>
           </div>
@@ -347,9 +360,9 @@
           <div class="testimonial-stars">★★★★★</div>
           <blockquote>"Compré un iPhone 14 reacondicionado impecable a la mitad del precio."</blockquote>
           <div class="testimonial-author">
-            <div class="testimonial-avatar">SM</div>
+            <div class="testimonial-avatar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             <div>
-              <div class="testimonial-name">Sara M.</div>
+              <div class="testimonial-name">María G.</div>
               <div class="testimonial-role">Compra iPhone 14</div>
             </div>
           </div>
@@ -358,9 +371,9 @@
           <div class="testimonial-stars">★★★★★</div>
           <blockquote>"El cambio de batería fue rápido y económico. El equipo fue muy amable."</blockquote>
           <div class="testimonial-author">
-            <div class="testimonial-avatar">AL</div>
+            <div class="testimonial-avatar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             <div>
-              <div class="testimonial-name">Alex L.</div>
+              <div class="testimonial-name">Andrés R.</div>
               <div class="testimonial-role">Servicio de Batería</div>
             </div>
           </div>
@@ -371,31 +384,44 @@
   <!-- ======== FOOTER ======== -->
   <footer class="footer">
     <div class="container">
-      <a href="/" class="nav-logo"><span>Urban</span>Tech</a>
+      <a href="/" class="nav-logo"><img src="assets/img/icon-ut.png" alt="" class="nav-icon"><span>Urban</span>Tech</a>
       <div class="footer-social">
-        <a href="https://www.instagram.com/urbantech_col/" target="_blank" aria-label="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <a href="https://www.instagram.com/urbantech_col?igsh=bHNydXhsc2diZ3No&utm_source=qr" target="_blank" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="4"/>
             <circle cx="12" cy="12" r="5"/>
             <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
           </svg>
         </a>
-        <a href="https://www.facebook.com/urbantechcol" target="_blank" aria-label="Facebook">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <a href="https://www.facebook.com/share/1B76NNCD7K/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2z"/>
           </svg>
         </a>
-        <a href="https://wa.me/573242923238?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20productos" target="_blank" aria-label="WhatsApp">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <a href="https://www.tiktok.com/@urbantech_col?_r=1&_t=ZS-96XEhQYiXgX" target="_blank" aria-label="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 12a4 4 0 1 0 4 4V4h3a4 4 0 0 0 4 4"/>
+          </svg>
+        </a>
+        <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20informaci%C3%B3n%20sobre%20sus%20productos" target="_blank" aria-label="WhatsApp" data-wa="Hola 👋 ! quiero información sobre sus productos">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
             <path d="M9 9a.5.5 0 0 0-.5.5v1a3.5 3.5 0 0 0 3.5 3.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1"/>
           </svg>
         </a>
       </div>
-      <p class="footer-copy">&copy; 2026 UrbanTech. All rights reserved.</p>
+      <div class="footer-info">
+        <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Cra. 48 # 10 - 45, Medellín, Antioquia</p>
+        <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Lun–Sáb 9:00 AM &middot; 7:00 PM</p>
+        <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Dom 10:00 AM &middot; 4:00 PM</p>
+      </div>
+      <p class="footer-copy">&copy; 2026 UrbanTech. Todos los derechos reservados.</p>
     </div>
   </footer>
 
+  <button class="back-to-top" aria-label="Volver arriba">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

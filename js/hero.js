@@ -19,9 +19,15 @@ export function initHero() {
   });
 
   hero.addEventListener('mouseleave', () => {
-    requestAnimationFrame(() => {
-      phone1.style.transform = '';
-      if (phone2) phone2.style.transform = '';
-    });
+    phone1.style.transition = 'transform 0.6s ease-out';
+    phone1.style.transform = '';
+    if (phone2) {
+      phone2.style.transition = 'transform 0.6s ease-out';
+      phone2.style.transform = '';
+    }
+    setTimeout(() => {
+      phone1.style.transition = '';
+      if (phone2) phone2.style.transition = '';
+    }, 700);
   });
 }

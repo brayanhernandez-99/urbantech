@@ -21,10 +21,18 @@
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 3px;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--light);
   letter-spacing: -0.02em;
+}
+
+.nav-icon {
+  width: 32px;
+  height: 32px;
 }
 
 .nav-logo span {
@@ -63,6 +71,14 @@
   width: 100%;
 }
 
+.nav-link--active {
+  color: var(--light) !important;
+}
+
+.nav-link--active::after {
+  width: 100% !important;
+}
+
 .mobile-toggle {
   display: none;
   background: none;
@@ -87,6 +103,7 @@
 
   .nav-links.open {
     display: flex;
+    animation: nav-slide-down 0.3s ease-out;
   }
 
   .mobile-toggle {
@@ -143,7 +160,7 @@
 }
 
 .service-card-featured::before {
-  content: 'PRIMARY SERVICE';
+  content: 'SERVICIO PRINCIPAL';
   position: absolute;
   top: 16px;
   right: -32px;
@@ -597,6 +614,10 @@
   animation: payment-scroll 12s linear infinite;
 }
 
+.payment-track:hover .payment-track-inner {
+  animation-play-state: paused;
+}
+
 .payment-item {
   flex-shrink: 0;
   width: 120px;
@@ -671,9 +692,95 @@
   transform: translateY(-2px);
 }
 
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-info p {
+  font-size: 0.8125rem;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-info svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
 .footer-copy {
   font-size: 0.8125rem;
   color: var(--gray);
+}
+
+/* ======== BACK TO TOP ======== */
+
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 99;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--dark);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(38, 224, 212, 0.3);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(38, 224, 212, 0.4);
+}
+
+.back-to-top:active {
+  transform: scale(0.9);
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ======== STOCK BADGE ======== */
+
+.stock-badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #1b5e20;
+  background: #a5d6a7;
+  padding: 2px 10px;
+  border-radius: 100px;
+  margin-bottom: 8px;
+}
+
+/* ======== TESTIMONIAL AVATAR SVG ======== */
+
+.testimonial-avatar svg {
+  width: 20px;
+  height: 20px;
 }
 
 @media (max-width: 768px) {
