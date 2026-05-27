@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initWhatsApp() {
-  document.querySelectorAll('[message-whatsapp]').forEach((el) => {
-    el.setAttribute('href', whatsappLink(el.getAttribute('message-whatsapp')));
+  document.querySelectorAll('[data-wa]').forEach((el) => {
+    el.setAttribute('href', whatsappLink(el.getAttribute('data-wa')));
   });
 }
 
