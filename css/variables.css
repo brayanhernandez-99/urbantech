@@ -14,6 +14,15 @@
   --light: #FDFDFD;
   --glow: rgba(38, 224, 212, 0.35);
 
+  --badge-refurb-bg: #fff3e0;
+  --badge-refurb-text: #e65100;
+  --badge-new-bg: #e0f7fa;
+  --badge-new-text: #006064;
+  --badge-deal-bg: #fce4ec;
+  --badge-deal-text: #c62828;
+  --badge-stock-bg: #a5d6a7;
+  --badge-stock-text: #1b5e20;
+
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --max-width: 1200px;
   --nav-height: 72px;

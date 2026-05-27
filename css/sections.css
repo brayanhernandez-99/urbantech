@@ -373,18 +373,24 @@
 }
 
 .badge-refurbished {
-  background: #fff3e0;
-  color: #e65100;
+  background: var(--badge-refurb-bg);
+  color: var(--badge-refurb-text);
 }
 
 .badge-new {
-  background: #e0f7fa;
-  color: #006064;
+  background: var(--badge-new-bg);
+  color: var(--badge-new-text);
 }
 
 .badge-deal {
-  background: #fce4ec;
-  color: #c62828;
+  background: var(--badge-deal-bg);
+  color: var(--badge-deal-text);
+}
+
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -611,6 +617,7 @@
   display: flex;
   gap: 16px;
   width: max-content;
+  will-change: transform;
   animation: payment-scroll 12s linear infinite;
 }
 
@@ -769,8 +776,8 @@
   display: inline-block;
   font-size: 0.6875rem;
   font-weight: 700;
-  color: #1b5e20;
-  background: #a5d6a7;
+  color: var(--badge-stock-text);
+  background: var(--badge-stock-bg);
   padding: 2px 10px;
   border-radius: 100px;
   margin-bottom: 8px;

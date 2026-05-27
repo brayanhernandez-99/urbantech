@@ -1,0 +1,12 @@
+# Allow all crawlers (Google respects sitemap and Host directives below)
+User-agent: *
+Allow: /
+
+# If you need to reduce crawl rate for non-Google bots, add Crawl-delay for those agents.
+# Crawl-delay: 10
+
+# Point crawlers to the sitemap (absolute URL recommended)
+Sitemap: https://urbantech.com/sitemap.xml
+
+# Preferred host (non-standard but respected by some crawlers)
+Host: https://urbantech.com

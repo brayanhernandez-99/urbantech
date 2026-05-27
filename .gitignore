@@ -2,3 +2,12 @@
 node_modules/
 .env
 *.log
+
+# Agent / OpenCode artifacts (local agent sessions, caches, configs)
+.opencode/
+.opencode.json
+.opencode.jsonc
+.opencode_cache
+.opencode_sessions
+.cursor/
+.cursorrules
