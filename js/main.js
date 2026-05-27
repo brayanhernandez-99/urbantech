@@ -1,19 +1,5 @@
 import { initHero } from './hero.js';
 import { initScroll } from './scroll.js';
-import { whatsappLink } from './config.js';
-
-document.addEventListener('DOMContentLoaded', () => {
-  initHero();
-  initScroll();
-  initWhatsApp();
-  initBackToTop();
-});
-
-function initWhatsApp() {
-  document.querySelectorAll('[data-wa]').forEach((el) => {
-    el.setAttribute('href', whatsappLink(el.getAttribute('data-wa')));
-  });
-}
 
 function initBackToTop() {
   const btn = document.querySelector('.back-to-top');

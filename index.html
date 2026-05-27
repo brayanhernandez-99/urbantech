@@ -10,19 +10,39 @@
   <meta property="og:url" content="https://urbantech.com">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CO">
-  <meta property="og:image" content="assets/images/favicon.png">
+  <meta property="og:image" content="assets/images/hero-phone.png">
+  <meta name="theme-color" content="#030303">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="UrbanTech — Tecnología sin límites">
   <meta name="twitter:description" content="iPhones premium, dispositivos reacondicionados, accesorios y reparación de celulares.">
   <meta name="wa-number" content="573242923238">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "UrbanTech",
+    "description": "Expertos en reparación y solución tecnológica, venta de accesorios y todo con 12 meses de garantía.",
+    "url": "https://urbantech.com",
+    "telephone": "+573242923238",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Medellín",
+      "addressCountry": "CO"
+    },
+    "openingHours": "Mo-Sa 09:00-18:00",
+    "priceRange": "$COP"
+  }
+  </script>
   <link rel="canonical" href="https://urbantech.com">
   <link rel="preload" href="css/styles.css" as="style">
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- ======== NAV ======== -->
   <nav class="nav" role="navigation" aria-label="Navegación principal">
     <div class="container">
       <a href="/" class="nav-logo"><img src="assets/images/icon-ut.png" alt="" class="nav-icon"><span>Urban</span>Tech</a>
@@ -32,11 +52,16 @@
         <li><a href="#accesorios" class="nav-link">Accesorios</a></li>
         <li><a href="#testimonios" class="nav-link">Reseñas</a></li>
       </ul>
-      <button class="mobile-toggle" aria-label="Menú" aria-controls="nav-links" aria-expanded="false">☰</button>
+      <button class="mobile-toggle" aria-label="Abrir menú de navegación" aria-controls="nav-links" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <!-- ======== HERO ======== -->
   <section class="hero" id="hero">
     <div class="hero-bg-glow"></div>
     <div class="container">
@@ -61,19 +86,23 @@
           <div class="hero-halo">
             <div class="hero-halo-inner"></div>
           </div>
-          <img
-            class="hero-phone"
-            src="assets/images/hero-phone.png?v=2"
-             alt="iPhone"
-            width="300"
-            loading="eager"
-            fetchpriority="high"
-          >
+          <div class="hero-phone-wrapper">
+            <picture>
+              <source srcset="assets/images/hero-phone.webp?v=1" type="image/webp">
+              <img
+                class="hero-phone"
+                src="assets/images/hero-phone.png?v=2"
+                 alt="iPhone"
+                width="300"
+                loading="eager"
+                fetchpriority="high"
+              >
+            </picture>
+          </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- ======== SERVICES ======== -->
   <section class="section" id="services">
     <div class="container">
       <div class="reveal">
@@ -98,7 +127,7 @@
             <li>Reparación de puerto de carga</li>
             <li>Problemas de software</li>
           </ul>
-          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20agendar%20una%20reparaci%C3%B3n" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero agendar una reparación">Agendar Reparación ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero agendar una reparación">Agendar Reparación ↗</a>
         </div>
         <div class="service-cards-secondary">
           <div class="service-card reveal">
@@ -120,7 +149,6 @@
       </div>
     </div>
   </section>
-  <!-- ======== PRODUCTOS ======== -->
   <section class="section" id="productos">
     <div class="container">
       <div class="reveal text-center">
@@ -133,34 +161,33 @@
       <div class="products-grid">
         <div class="product-card reveal">
           <span class="product-badge badge-new">Nuevo</span>
-          <img class="product-img" src="assets/images/products/iphone.png?v=2" alt="iPhone 15 Pro" width="160" height="200" loading="lazy">
+          <img class="product-img" src="assets/images/products/iphone.png?v=2" alt="iPhone 15 Pro nuevo" width="160" height="200" loading="lazy">
           <h3>iPhone 15 Pro</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$999 USD</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20comprar%20un%20iPhone%2015%20Pro" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero comprar un iPhone 15 Pro">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar un iPhone 15 Pro">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <span class="product-badge badge-refurbished">Reacondicionado</span>
-          <img class="product-img" src="assets/images/products/iphone.png?v=2" alt="iPhone 14" width="160" height="200" loading="lazy">
+          <img class="product-img" src="assets/images/products/iphone.png?v=2" alt="iPhone 14 Reacondicionado" width="160" height="200" loading="lazy">
           <h3>iPhone 14 Reacondicionado</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$599 USD</div>
           <div class="old-price">$799 USD</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20comprar%20un%20iPhone%2014%20Reacondicionado" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero comprar un iPhone 14 Reacondicionado">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar un iPhone 14 Reacondicionado">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <span class="product-badge badge-deal">Mejor Oferta</span>
-          <img class="product-img" src="assets/images/products/iphone.png?v=2" alt="iPhone 13" width="160" height="200" loading="lazy">
+          <img class="product-img" src="assets/images/products/iphone.png?v=2" alt="iPhone 13 Reacondicionado" width="160" height="200" loading="lazy">
           <h3>iPhone 13 Reacondicionado</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$429 USD</div>
           <div class="old-price">$599 USD</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20comprar%20un%20iPhone%2013%20Reacondicionado" class="btn btn-primary" target="_blank" data-wa="Hola 👋 ! quiero comprar un iPhone 13 Reacondicionado">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar un iPhone 13 Reacondicionado">Comprar ↗</a>
         </div>
       </div>
     </div>
   </section>
-  <!-- ======== ACCESORIOS ======== -->
   <section class="section" id="accesorios">
     <div class="container">
       <div class="reveal text-center">
@@ -177,110 +204,109 @@
           <h3>Adaptador USB-C 20W</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$129.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Adaptador%20USB-C%2020W" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Adaptador USB-C 20W">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Adaptador USB-C 20W">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/accesorios.webp" alt="Cable de USB-C a Lightning (1 m)" width="160" height="200" loading="lazy">
           <h3>Cable USB-C a Lightning 1m</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$119.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Cable%20USB-C%20a%20Lightning" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Cable USB-C a Lightning">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Cable USB-C a Lightning">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/cable-usbc-240w.webp" alt="Cable de carga USB-C de 240 W (2 m)" width="160" height="200" loading="lazy">
           <h3>Cable USB-C 240W 2m</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$199.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Cable%20USB-C%20240W" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Cable USB-C 240W">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Cable USB-C 240W">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/earpods-lightning.webp" alt="EarPods con conector Lightning" width="160" height="200" loading="lazy">
           <h3>EarPods Lightning</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$119.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20EarPods%20Lightning" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar EarPods Lightning">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar EarPods Lightning">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/earpods-usbc.webp" alt="EarPods con conector USB-C" width="160" height="200" loading="lazy">
           <h3>EarPods USB-C</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$129.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20EarPods%20USB-C" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar EarPods USB-C">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar EarPods USB-C">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/adaptador-usbc-70w.webp" alt="Adaptador de corriente USB-C de 70 W" width="160" height="200" loading="lazy">
           <h3>Adaptador USB-C 70W</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$419.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Adaptador%20USB-C%2070W" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Adaptador USB-C 70W">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Adaptador USB-C 70W">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/adaptador-usbc-35mm.webp" alt="Adaptador de USB-C a entrada de 3.5 mm" width="160" height="200" loading="lazy">
           <h3>Adaptador USB-C a 3.5mm</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$59.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Adaptador%20USB-C%20a%203.5mm" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Adaptador USB-C a 3.5mm">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Adaptador USB-C a 3.5mm">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/airpods-4.webp" alt="AirPods 4" width="160" height="200" loading="lazy">
           <h3>AirPods 4</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$699.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20AirPods%204" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar AirPods 4">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar AirPods 4">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/bateria-magsafe-iphone.webp" alt="Batería MagSafe para el iPhone" width="160" height="200" loading="lazy">
           <h3>Batería MagSafe iPhone</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$619.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Bater%C3%ADa%20MagSafe%20iPhone" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Batería MagSafe iPhone">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Batería MagSafe iPhone">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/cargador-magsafe-1m.webp" alt="Cargador MagSafe de 1 m" width="160" height="200" loading="lazy">
           <h3>Cargador MagSafe 1m</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$229.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Cargador%20MagSafe%201m" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Cargador MagSafe 1m">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Cargador MagSafe 1m">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/cargador-magsafe-2m.webp" alt="Cargador MagSafe de 2 m" width="160" height="200" loading="lazy">
           <h3>Cargador MagSafe 2m</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$279.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Cargador%20MagSafe%202m" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Cargador MagSafe 2m">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Cargador MagSafe 2m">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/case-catalyst-iphone16-black.webp" alt="Case Catalyst para iPhone 16 Negro" width="160" height="200" loading="lazy">
           <h3>Case Catalyst iPhone 16 Negro</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$199.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Case%20Catalyst%20iPhone%2016%20Negro" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Case Catalyst iPhone 16 Negro">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Case Catalyst iPhone 16 Negro">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/case-catalyst-iphone16-purple.webp" alt="Case Catalyst para iPhone 16 Púrpura" width="160" height="200" loading="lazy">
           <h3>Case Catalyst iPhone 16 Púrpura</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$199.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Case%20Catalyst%20iPhone%2016%20P%C3%BArpura" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Case Catalyst iPhone 16 Púrpura">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Case Catalyst iPhone 16 Púrpura">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/case-catalyst-iphone16pm-blue.webp" alt="Case Catalyst para iPhone 16 Pro Max Azul" width="160" height="200" loading="lazy">
           <h3>Case Catalyst iPhone 16 Pro Max Azul</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$199.000 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Case%20Catalyst%20iPhone%2016%20Pro%20Max%20Azul" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Case Catalyst iPhone 16 Pro Max Azul">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Case Catalyst iPhone 16 Pro Max Azul">Comprar ↗</a>
         </div>
         <div class="product-card reveal">
           <img class="product-img" src="assets/images/accessories/protector-belkin-iphone16.webp" alt="Protector de pantalla Belkin para iPhone 16" width="160" height="200" loading="lazy">
           <h3>Protector Belkin iPhone 16</h3>
           <span class="stock-badge">En stock</span>
           <div class="price">$135.199 COP</div>
-          <a href="https://wa.me/573242923238?text=Hola%20%21%20quiero%20comprar%20Protector%20Belkin%20iPhone%2016" class="btn btn-primary" target="_blank" data-wa="Hola ! quiero comprar Protector Belkin iPhone 16">Comprar ↗</a>
+          <a href="#" onclick="return openWhatsApp(this)" class="btn btn-primary" message="Hola ! quiero comprar Protector Belkin iPhone 16">Comprar ↗</a>
         </div>
       </div>
     </div>
   </section>
-  <!-- ======== PAYMENT METHODS ======== -->
   <section class="section payment-carousel-section">
     <div class="container">
       <div class="reveal text-center">
@@ -346,7 +372,7 @@
               <text x="50" y="60" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-weight="500" font-family="sans-serif">Crédito</text>
             </svg>
           </div>
-          <!-- Duplicate for seamless loop -->
+        
           <div class="payment-item">
             <svg viewBox="0 0 100 70" fill="none">
               <rect width="100" height="70" rx="10" fill="#1a1a1a" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
@@ -409,7 +435,6 @@
       </div>
     </div>
   </section>
-  <!-- ======== TESTIMONIOS ======== -->
   <section class="section" id="testimonios">
     <div class="container">
       <div class="reveal text-center">
@@ -456,7 +481,6 @@
       </div>
     </div>
   </section>
-  <!-- ======== FOOTER ======== -->
   <footer class="footer">
     <div class="container">
       <a href="/" class="nav-logo"><img src="assets/images/icon-ut.png" alt="" class="nav-icon"><span>Urban</span>Tech</a>
@@ -478,7 +502,7 @@
             <path d="M9 12a4 4 0 1 0 4 4V4h3a4 4 0 0 0 4 4"/>
           </svg>
         </a>
-        <a href="https://wa.me/573242923238?text=Hola%20%F0%9F%91%8B%20%21%20quiero%20informaci%C3%B3n%20sobre%20sus%20productos" target="_blank" aria-label="WhatsApp" data-wa="Hola 👋 ! quiero información sobre sus productos">
+        <a href="" onclick="return openWhatsApp(this)" aria-label="WhatsApp" message="Hola ! quiero información sobre sus productos">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
             <path d="M9 9a.5.5 0 0 0-.5.5v1a3.5 3.5 0 0 0 3.5 3.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1"/>
@@ -497,6 +521,7 @@
   <button class="back-to-top" aria-label="Volver arriba">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
+  <script src="js/whatsapp.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

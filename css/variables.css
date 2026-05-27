@@ -23,7 +23,7 @@
   --badge-stock-bg: #a5d6a7;
   --badge-stock-text: #1b5e20;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --max-width: 1200px;
   --nav-height: 72px;
   --radius-sm: 8px;

@@ -1,3 +1,12 @@
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(0.8deg);
+  }
+}
+
 @keyframes halo-pulse {
   0%, 100% {
     box-shadow: 0 0 40px var(--glow), 0 0 80px rgba(38, 224, 212, 0.15);
@@ -42,6 +51,10 @@
 .reveal.hidden {
   opacity: 0;
   transform: translateY(30px);
+}
+
+.hero-phone-wrapper {
+  animation: float 4s ease-in-out infinite;
 }
 
 .hero-halo {

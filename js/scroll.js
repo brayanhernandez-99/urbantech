@@ -8,7 +8,6 @@ export function initScroll() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.remove('hidden');
-          entry.target.classList.add('revealed');
           observer.unobserve(entry.target);
         }
       });
