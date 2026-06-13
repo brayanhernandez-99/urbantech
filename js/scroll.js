@@ -1,4 +1,4 @@
-export function initScroll() {
+function initScroll() {
   const revealElements = document.querySelectorAll('.reveal');
 
   revealElements.forEach((el) => el.classList.add('hidden'));
@@ -66,7 +66,7 @@ function initScrollSpy() {
         });
       });
     },
-    { threshold: 0.3, rootMargin: '-80px 0px 0px 0px' }
+    { threshold: 0.15, rootMargin: '-72px 0px 0px 0px' }
   );
 
   sections.forEach((section) => observer.observe(section));

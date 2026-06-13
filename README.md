@@ -1,4 +1,4 @@
-UrbanTech
+Urban Tech
 
 Pequeña web estática (landing) creada con HTML, CSS y JS (módulos ES). Sin framework ni paso de build.
 

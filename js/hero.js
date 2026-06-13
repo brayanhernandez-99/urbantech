@@ -1,4 +1,4 @@
-export function initHero() {
+function initHero() {
   const hero = document.querySelector('.hero');
   const phone = document.querySelector('.hero-phone');
 

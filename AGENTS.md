@@ -1,4 +1,4 @@
-UrbanTech — AGENTS.md
+Urban Tech — AGENTS.md
 
 Keep this file minimal and high-signal. Only include facts an OpenCode session would likely miss.
 
