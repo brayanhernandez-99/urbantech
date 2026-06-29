@@ -128,7 +128,7 @@
 }
 
 .hero-phone {
-  width: 300px;
+  width: 480px;
   filter: drop-shadow(0 20px 60px rgba(38, 224, 212, 0.15));
   will-change: transform;
 }
@@ -161,7 +161,7 @@
   }
 
   .hero-phone {
-    width: 270px;
+    width: 420px;
   }
 }
 
@@ -181,7 +181,7 @@
   }
 
   .hero-phone {
-    width: 220px;
+    width: 340px;
   }
 }
 
@@ -201,6 +201,6 @@
   }
 
   .hero-phone {
-    width: 170px;
+    width: 280px;
   }
 }
