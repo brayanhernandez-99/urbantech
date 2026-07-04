@@ -379,13 +379,13 @@
   margin-bottom: 16px;
 }
 
-.product-card:has(.product-color) .price {
+.products-grid .product-card .price {
   display: inline-block;
   margin-right: 8px;
   margin-bottom: 10px;
 }
 
-.product-card:has(.product-color) .capacity-chip {
+.products-grid .product-card .capacity-chip {
   display: inline-block;
   margin-bottom: 10px;
 }
