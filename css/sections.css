@@ -379,6 +379,17 @@
   margin-bottom: 16px;
 }
 
+.product-card:has(.product-color) .price {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 10px;
+}
+
+.product-card:has(.product-color) .capacity-chip {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
 .product-card .btn {
   width: 100%;
   justify-content: center;
@@ -780,4 +791,87 @@
     text-align: center;
   }
 
+}
+
+/* ======== MODEL DIVIDERS ======== */
+
+.model-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  grid-column: 1 / -1;
+  margin: 32px 0 8px;
+}
+
+.model-divider::before,
+.model-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e5e5e5;
+}
+
+.model-divider span {
+  font-size: 0.813rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* ======== CAPACITY CHIP ======== */
+
+.capacity-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.688rem;
+  font-weight: 600;
+  background: rgba(38, 224, 212, 0.1);
+  color: #1ab8ae;
+  margin-bottom: 10px;
+}
+
+/* ======== PRODUCT COLOR ======== */
+
+.product-color {
+  display: block;
+  font-size: 0.875rem;
+  color: #777;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+/* ======== DUAL CAPACITY (iPhone 16) ======== */
+
+.dual-capacity {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.dual-capacity-option {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+}
+
+.dual-capacity-option .price {
+  margin-bottom: 0;
+}
+
+.dual-capacity-option .capacity-chip {
+  margin-bottom: 0;
+}
+
+.dual-capacity > .btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 12px;
 }
