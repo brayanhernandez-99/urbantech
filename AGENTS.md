@@ -24,7 +24,7 @@ Conventions & gotchas
 - Small-screen hero sizing is controlled by CSS breakpoints; `hero.js` only manipulates `transform`.
 - Products section uses `<div class="model-divider"><span>Model Name</span></div>` between model groups, spanning full grid width.
 - Card element order: badge → img → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → stock badge → price → `<span class="capacity-chip">[GB]</span>` → button. Price and chip render inline (same line) via CSS `display: inline-block`.
-- iPhone 16 cards use `.dual-capacity` layout with two `.dual-capacity-option` blocks (one per capacity, each with price → chip) and a single `.btn` below both. All other models have single capacity.
+- All product cards use `.dual-capacity` > `.dual-capacity-option` layout. iPhone 16 has two options (256 GB + 128 GB), all others have one option. Each option has price → chip inline. A single `.btn` sits at the end of `.dual-capacity`.
 - iPhone 16 image filenames use Spanish color names (`rosa`, `verde`, `azul`), not English.
 
 Where to look next (high value files)

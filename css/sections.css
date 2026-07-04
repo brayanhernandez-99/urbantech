@@ -379,17 +379,6 @@
   margin-bottom: 16px;
 }
 
-.products-grid .product-card .price {
-  display: inline-block;
-  margin-right: 8px;
-  margin-bottom: 10px;
-}
-
-.products-grid .product-card .capacity-chip {
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
 .product-card .btn {
   width: 100%;
   justify-content: center;
