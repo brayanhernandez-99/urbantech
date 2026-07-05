@@ -6,7 +6,7 @@ Allow: /
 # Crawl-delay: 10
 
 # Point crawlers to the sitemap (absolute URL recommended)
-Sitemap: https://urbantech.com/sitemap.xml
+Sitemap: https://urbantechcol.com/sitemap.xml
 
 # Preferred host (non-standard but respected by some crawlers)
-Host: https://urbantech.com
+Host: https://urbantechcol.com
