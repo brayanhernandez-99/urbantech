@@ -1,5 +1,3 @@
-/* ======== NAV ======== */
-
 .nav {
   position: fixed;
   top: 0;
@@ -132,8 +130,6 @@
     display: block;
   }
 }
-
-/* ======== SERVICES ======== */
 
 #services {
   background: var(--dark);
@@ -307,8 +303,6 @@
   }
 }
 
-/* ======== PRODUCTS ======== */
-
 #productos {
   background: var(--light);
   position: relative;
@@ -454,8 +448,6 @@
   }
 }
 
-/* ======== ACCESSORIES ======== */
-
 #accesorios {
   background: #f9f9f9;
   position: relative;
@@ -536,8 +528,6 @@
     grid-template-columns: 1fr;
   }
 }
-
-/* ======== TESTIMONIALS ======== */
 
 #testimonios {
   background: var(--dark);
@@ -636,8 +626,6 @@
   }
 }
 
-/* ======== PAYMENT METHODS CAROUSEL ======== */
-
 .payment-carousel-section {
   background: var(--dark);
   padding: 60px 0;
@@ -686,13 +674,14 @@
 
 .payment-item {
   flex-shrink: 0;
-  width: 120px;
-  height: 84px;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   opacity: 0.6;
   filter: grayscale(0.2);
   transition: var(--transition);
   border-radius: 6px;
-  overflow: hidden;
 }
 
 .payment-item:hover {
@@ -702,11 +691,20 @@
 
 .payment-item svg {
   width: 100%;
-  height: 100%;
-  border-radius: 4px;
+  height: 72px;
+  border-radius: 6px;
+  display: block;
 }
 
-/* ======== FOOTER ======== */
+.payment-label {
+  margin-top: 4px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+  font-family: sans-serif;
+  text-align: center;
+  line-height: 1.2;
+}
 
 .footer {
   background: #000;
@@ -782,8 +780,6 @@
   color: var(--gray);
 }
 
-/* ======== STOCK BADGE ======== */
-
 .stock-badge {
   display: inline-block;
   font-size: 0.6875rem;
@@ -800,8 +796,6 @@
   background: #ffcdd2;
 }
 
-/* ======== TESTIMONIAL AVATAR SVG ======== */
-
 .testimonial-avatar svg {
   width: 20px;
   height: 20px;
@@ -815,8 +809,6 @@
   }
 
 }
-
-/* ======== MODEL DIVIDERS ======== */
 
 .model-divider {
   display: flex;
@@ -843,8 +835,6 @@
   white-space: nowrap;
 }
 
-/* ======== CAPACITY CHIP ======== */
-
 .capacity-chip {
   display: inline-block;
   padding: 2px 10px;
@@ -856,8 +846,6 @@
   margin-bottom: 10px;
 }
 
-/* ======== PRODUCT COLOR ======== */
-
 .product-color {
   display: block;
   font-size: 0.875rem;
@@ -865,8 +853,6 @@
   margin-bottom: 10px;
   line-height: 1.3;
 }
-
-/* ======== DUAL CAPACITY (iPhone 16) ======== */
 
 .dual-capacity {
   display: flex;

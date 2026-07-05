@@ -66,7 +66,7 @@ function initScrollSpy() {
         });
       });
     },
-    { threshold: 0.15, rootMargin: '-72px 0px 0px 0px' }
+    { threshold: 0, rootMargin: '-72px 0px 0px 0px' }
   );
 
   sections.forEach((section) => observer.observe(section));
