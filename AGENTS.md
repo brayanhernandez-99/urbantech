@@ -53,7 +53,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 ## Assets & cache-busting
 - Images: `assets/images/` (products/, accessories/, payments/, avatars/)
 - Cache-busting is manual: URLs include `?v=N`. Bump `v` when replacing an image.
-- Payment images: `addi.png`, `banco-bogota.png`, `efectivo.png`, `sistecredito.png`, `t-credito.png`, `t-debito.png`, `transferencia.png`, `addi.svg` (placeholder).
+- Payment images: `addi.png`, `banco-bogota.png`, `efectivo.png`, `sistecredito.png`, `t-credito.png`, `t-debito.png`, `transferencia.png`.
 - Product images follow convention: `iphone-{model}-{color}.webp` (English color names).
 - Accessory images follow convention: `{descriptive-name}.webp`.
 
