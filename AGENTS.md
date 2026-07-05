@@ -26,6 +26,7 @@ Conventions & gotchas
 - Card element order: badge → img → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → stock badge → price → `<span class="capacity-chip">[GB]</span>` → button. Price and chip render inline (same line) via CSS `display: inline-block`.
 - All product cards use `.dual-capacity` > `.dual-capacity-option` layout. iPhone 16 has two options (256 GB + 128 GB), all others have one option. Each option has price → chip inline. A single `.btn` sits at the end of `.dual-capacity`.
 - iPhone 16 image filenames use Spanish color names (`rosa`, `verde`, `azul`), not English.
+- iPhone 16 256 GB option has an Exhibición label (`.badge-deal.badge-sm`) next to the capacity chip.
 
 Where to look next (high value files)
 - `index.html`, `js/main.js`, `js/config.js`, `js/hero.js`, `css/styles.css`, `assets/images/`.
