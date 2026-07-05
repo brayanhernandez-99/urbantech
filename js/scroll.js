@@ -50,24 +50,26 @@ function initMobileToggle() {
 }
 
 function initScrollSpy() {
+  const NAV_HEIGHT = 72;
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
   if (!sections.length || !navLinks.length) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach((link) => {
-          link.classList.toggle(
-            'nav-link--active',
-            link.getAttribute('href') === `#${entry.target.id}`
-          );
-        });
-      });
-    },
-    { threshold: 0, rootMargin: '-72px 0px 0px 0px' }
-  );
+  function setActive(id) {
+    navLinks.forEach((link) => {
+      link.classList.toggle('nav-link--active', link.getAttribute('href') === `#${id}`);
+    });
+  }
 
-  sections.forEach((section) => observer.observe(section));
+  function update() {
+    const scrollY = window.scrollY + NAV_HEIGHT;
+    let current = '';
+    for (const section of sections) {
+      if (scrollY >= section.offsetTop) current = section.id;
+    }
+    if (current) setActive(current);
+  }
+
+  update();
+  window.addEventListener('scroll', update, { passive: true });
 }
