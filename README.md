@@ -1,35 +1,69 @@
-Urban Tech
+# Urban Tech Colombia
 
-Pequeña web estática (landing) creada con HTML, CSS y JS (módulos ES). Sin framework ni paso de build.
+Sitio web estático (landing page) para Urban Tech Colombia — venta de iPhones premium, accesorios y reparación de celulares en Medellín.
 
-Requisitos
-- Node no es necesario, pero para servir localmente usa un servidor HTTP (ej. `npx serve .`).
+Stack: HTML, CSS, JavaScript (ES modules). Sin framework, sin build step.
 
-Ejecutar localmente
-1. Desde la raíz del proyecto ejecuta:
+## Requisitos
 
-```
+- Node no es necesario. Para servir localmente: `npx serve .`
+
+## Ejecutar localmente
+
+```bash
 npx serve .
 ```
 
-2. Abre el URL que imprima el servidor (no uses `file://` — los módulos ES requieren origen HTTP).
+Abrir la URL que imprime el servidor. **No usar `file://`** — los módulos ES requieren origen HTTP.
 
-Puntos de entrada importantes
-- `index.html` — landing de una sola página.
-- `js/main.js` — punto de entrada JS que orquesta el sitio.
-- `js/config.js` — cambia `WA_NUMBER` aquí para actualizar todos los enlaces de WhatsApp.
-- `js/hero.js` — controla el parallax del hero (solo modifica `transform`).
-- `css/styles.css` — estilos principales (importa los parciales).
-- `assets/images/` — imágenes (productos, accesorios, favicon).
+## Estructura del proyecto
 
-Convenciones útiles
-- Enlaces de WhatsApp: los anchors usan `data-wa="mensaje"` y `main.js` reemplaza sus `href` en tiempo de ejecución con `WA_NUMBER`.
-- Cache-busting: las imágenes usan `?v=N` en la URL; al reemplazar una imagen, incrementa `v` donde se referencia.
-- Pruebas locales: usar siempre un servidor HTTP por el CORS de `<script type="module">`.
+```
+├── index.html              # Landing page (única)
+├── robots.txt              # Crawl rules, apunta a sitemap
+├── sitemap.xml             # URLs para Google
+├── css/
+│   ├── styles.css          # Entry point CSS (importa parciales)
+│   ├── sections.css        # Estilos por sección
+│   └── animations.css      # Keyframes
+├── js/
+│   ├── main.js             # Entry point JS
+│   ├── config.js           # WA_NUMBER (fuente única para WhatsApp)
+│   ├── hero.js             # Parallax del hero
+│   ├── scroll.js           # Scroll spy
+│   └── whatsapp.js         # openWhatsApp() handler
+└── assets/images/
+    ├── products/           # Fotos de iPhones por modelo
+    ├── accessories/        # Fotos de accesorios
+    ├── payments/           # Iconos de métodos de pago
+    └── avatars/            # Fotos de reseñas
+```
 
-Contribuir
-- Este repo no tiene tests ni linters. Para cambios visuales, actualiza las imágenes y bumpea `?v=` según corresponda.
-- Si agregas tooling o builds, actualiza `AGENTS.md` y este README para reflejar el nuevo flujo.
+## Convenciones
 
-Licencia
-- No se incluye licencia en este repositorio.
+- **WhatsApp**: los anchors usan `onclick="return openWhatsApp(this)"` con atributo `message`. El número se define en `js/config.js` (`WA_NUMBER`). Desde la última actualización, los `href` son URLs reales de `wa.me` (rastreables por Google), y el JS previene la navegación por defecto si está disponible.
+- **Cache-busting**: las URLs de imágenes incluyen `?v=N`. Al reemplazar una imagen, incrementar `v`.
+- **JSON-LD**: hay dos schemas en el `<head>`: `LocalBusiness` (información de la tienda) e `ItemList` con 48 productos (iPhones + accesorios), cada uno con `Product` + `Offer` (precio, disponibilidad, condición).
+- **Productos**: ordenados de más nuevo a más viejo (iPhone 17 Pro Max → iPhone 13). Cada modelo agrupado con `<div class="model-divider">`. Usan `<article class="product-card">` semántico.
+- **Métodos de pago**: carrusel infinito con 2 sets idénticos (12 items). Las imágenes llenan el SVG con `preserveAspectRatio="xMidYMid slice"` y el texto queda debajo en `.payment-label`.
+
+## SEO / indexación
+
+El sitio está optimizado para Google:
+- ✅ Sitemap.xml funcional con URL canónica
+- ✅ robots.txt permisivo
+- ✅ Meta robots: index, follow
+- ✅ JSON-LD con `ItemList` + `Product` + `Offer` para todos los items
+- ✅ WhatsApp links con `href` real (`wa.me`) — rastreables sin JS
+- ✅ Open Graph con URL absoluta y dimensiones
+- ✅ Heading hierarchy: h1 → h2 → h3 (sin saltos)
+- ✅ Alt text descriptivo en todas las imágenes de producto
+
+## Dominio
+
+Todas las referencias (canonical, og:url, JSON-LD, sitemap) apuntan a:
+**https://urbantechcol.com**
+
+## Política de commits
+
+No se hace commit ni push automático. Toda modificación se sube únicamente por instrucción explícita del usuario.
