@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (hash) {
     const target = document.querySelector(hash);
     if (target) {
-      target.classList.remove('hidden');
+      const card = target.closest('.product-card') || target;
+      card.classList.remove('hidden');
       setTimeout(() => {
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        target.classList.add('anchor-highlight');
-        setTimeout(() => target.classList.remove('anchor-highlight'), 3000);
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('anchor-highlight');
+        setTimeout(() => card.classList.remove('anchor-highlight'), 3000);
       }, 100);
     }
   }
