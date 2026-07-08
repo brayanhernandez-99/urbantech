@@ -3,7 +3,7 @@
 Keep this file minimal and high-signal. Only include facts an OpenCode session would likely miss.
 
 ## Git & Push
-- **NUNCA** hacer commit o push sin instrucción explícita del usuario. Preguntar siempre antes de subir cualquier cambio.
+- **NUNCA** hacer commit, push ni ninguna operación de git sin instrucción explícita del usuario. Preguntar siempre. Cero excepciones.
 
 ## Environment & Run
 - No Node tooling: pure static site (HTML/CSS/JS ES modules). No package.json, build, test, or lint step.
