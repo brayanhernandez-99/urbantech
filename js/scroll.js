@@ -18,9 +18,12 @@ function initScroll() {
   revealElements.forEach((el) => observer.observe(el));
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    const href = anchor.getAttribute('href');
+    // WhatsApp CTAs usan href="#" y JS construye la URL de wa.me
+    if (!href || href === '#') return;
     anchor.addEventListener('click', (e) => {
       e.preventDefault();
-      const target = document.querySelector(anchor.getAttribute('href'));
+      const target = document.querySelector(href);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
       }

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "code-reviewer",
+  "instructions": ["AGENTS.md", ".opencode/project-structure.md"]
+}

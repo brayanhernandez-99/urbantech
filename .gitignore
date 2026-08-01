@@ -4,7 +4,6 @@ node_modules/
 *.log
 
 # Agent / OpenCode artifacts (local agent sessions, caches, configs)
-.opencode/
 .opencode.json
 .opencode.jsonc
 .opencode_cache

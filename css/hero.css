@@ -68,7 +68,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  white-space: nowrap;
 }
 
 .hero-description {
@@ -187,7 +186,7 @@
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 2rem;
+    font-size: 1.85rem;
   }
 
   .hero-center {
