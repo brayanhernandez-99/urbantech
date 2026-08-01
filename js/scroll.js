@@ -26,6 +26,7 @@ function initScroll() {
       const target = document.querySelector(href);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', href);
       }
     });
   });
