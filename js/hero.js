@@ -4,12 +4,15 @@ function initHero() {
 
   if (!hero || !phone) return;
 
+  let rafId = 0;
+
   hero.addEventListener('mousemove', (e) => {
     const rect = hero.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    requestAnimationFrame(() => {
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
       phone.style.transform = `translate(${x * -20}px, ${y * -20}px)`;
     });
   });

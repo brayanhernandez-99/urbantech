@@ -374,8 +374,7 @@
   color: var(--badge-new-text);
 }
 
-.dual-capacity-option .badge-new,
-.dual-capacity-option .badge-deal.badge-sm {
+.dual-capacity-option .badge-new {
   margin-bottom: 0;
 }
 
@@ -394,6 +393,7 @@
 }
 
 .dual-capacity-option .badge-deal.badge-sm {
+  margin-bottom: 0;
   font-size: 0.688rem;
   font-weight: 600;
   padding: 2px 10px;

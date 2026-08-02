@@ -46,7 +46,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - iPhone 13: Midnight has dual capacity (Nuevo + Exhibición); Blue/Green/Red/Pink single capacity (Exhibición)
 
 ## Payment carousel
-- 6 methods × 2 sets = 12 items for infinite scroll animation
+- 7 methods × 2 sets = 14 items for infinite scroll animation
 - Images fill SVG (`x="0" y="0" width="100" height="70"`, `preserveAspectRatio="xMidYMid slice"`)
 - Text label below SVG in `<span class="payment-label">`
 - Animation: `payment-scroll` translates -50% (needs duplicate set for seamless loop)

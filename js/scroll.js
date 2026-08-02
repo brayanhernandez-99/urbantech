@@ -55,7 +55,9 @@ function initMobileToggle() {
 
 function initScrollSpy() {
   const NAV_HEIGHT = 72;
-  const sections = document.querySelectorAll('section[id]');
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const footer = document.querySelector('footer[id]');
+  if (footer) sections.push(footer);
   const navLinks = document.querySelectorAll('.nav-link');
   if (!sections.length || !navLinks.length) return;
 
@@ -71,7 +73,7 @@ function initScrollSpy() {
     for (const section of sections) {
       if (scrollY >= section.offsetTop) current = section.id;
     }
-    if (current) setActive(current);
+    setActive(current);
   }
 
   update();
