@@ -1039,3 +1039,142 @@ section[id],
 footer[id] {
   scroll-margin-top: var(--nav-height);
 }
+
+/* ============ Banda de confianza ============ */
+.trust-band {
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 28px 0;
+}
+
+.trust-band-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px 48px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trust-item svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.trust-item strong {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--light);
+}
+
+.trust-item span {
+  font-size: 0.8125rem;
+  color: var(--gray);
+}
+
+@media (max-width: 768px) {
+  .trust-band-inner {
+    gap: 16px 28px;
+  }
+
+  .trust-item {
+    width: 100%;
+  }
+}
+
+/* ============ Filtro de catálogo ============ */
+.product-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.product-filter-btn {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--gray-light);
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.product-filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.product-filter-btn[aria-pressed="true"] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--dark);
+}
+
+.is-filtered {
+  display: none !important;
+}
+
+/* ============ Selección de variante ============ */
+.dual-capacity-option {
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 6px 8px;
+  transition: var(--transition);
+}
+
+.dual-capacity-option:hover {
+  background: rgba(38, 224, 212, 0.06);
+}
+
+.dual-capacity-option.selected {
+  border-color: var(--primary);
+  background: rgba(38, 224, 212, 0.08);
+}
+
+.dual-capacity-option:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.product-finance {
+  margin-top: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* ============ Mapa del footer ============ */
+.footer-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--gray);
+  transition: var(--transition);
+}
+
+.footer-map:hover {
+  color: var(--primary);
+}
+
+.footer-map svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .product-filters .product-filter-btn {
+    white-space: nowrap;
+  }
+}

@@ -184,5 +184,12 @@
     });
   }
 
+  window.prefillCredit = function(value) {
+    var input = document.getElementById('credit-amount');
+    if (!input || typeof value !== 'number' || !isFinite(value)) return;
+    input.value = String(Math.round(value)).replace(/[^\d]/g, '');
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  };
+
   window.initCreditCalculator = initCreditCalculator;
 })();

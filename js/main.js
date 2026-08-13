@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHero();
   initScroll();
   initGallery();
+  initProducts();
   initCreditCalculator();
 
   const hash = window.location.hash;

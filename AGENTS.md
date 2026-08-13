@@ -15,11 +15,12 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 
 ## Entrypoints & important files
 - `index.html` — single-page landing; primary edit point for content/markup.
-- `js/main.js` — runtime entry; calls `initHero()`, `initScroll()`, `initGallery()`, `initCreditCalculator()` on DOMContentLoaded.
+- `js/main.js` — runtime entry; calls `initHero()`, `initScroll()`, `initGallery()`, `initProducts()`, `initCreditCalculator()` on DOMContentLoaded.
 - `js/gallery.js` — product image carousel arrows (`data-images` on `.product-img-wrapper`) + lightbox.
 - `js/hero.js` — controls hero parallax transforms (applies `transform` on `.hero-phone` img only).
-- `js/scroll.js` — scroll spy / reveal animations.
-- `js/credit.js` — "Calcula tu crédito": data de entidades, `formatCOP()`, cálculo y render del simulador.
+- `js/scroll.js` — scroll spy / reveal animations + mobile menu (scroll lock, Escape).
+- `js/products.js` — enhances product cards: variante seleccionable (`.selected`, `role="radio"`), CTA "Comprar" refleja variante, enlace "Financiar" (LLena el simulador vía `window.prefillCredit`) y filtro por modelo en `#productos`.
+- `js/credit.js` — "Calcula tu crédito": data de entidades, `formatCOP()`, cálculo y render del simulador; expone `window.prefillCredit(value)`.
 - `js/whatsapp.js` — defines `WA_NUMBER` + `openWhatsApp()` for all CTAs.
 - `css/styles.css` — entry point; imports `variables.css`, `hero.css`, `sections.css`, `credit.css`, `animations.css`.
 - `css/variables.css` — CSS custom properties (colors, fonts, spacing).
@@ -42,6 +43,8 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Cards use `<article class="product-card reveal">` (semantic HTML5)
 - Card element order: badge → img → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → stock badge → price → `<span class="capacity-chip">[GB]</span>` → button
 - All product cards use `.dual-capacity` > `.dual-capacity-option` layout
+- `js/products.js` inyecta en cada card: selección de variante (primera opción preseleccionada; clic o flechas/Enter cambian), botón "Comprar" con la variante (mensaje WhatsApp incluye modelo + color + capacidad + SIM/E-SIM/Exhibición/Nuevo) y enlace "Financiar" (`href="#calcula-tu-credito"` con `data-amount` del precio seleccionado).
+- Barra de filtros `.product-filters` en `#productos` (generada por `js/products.js` desde los `.model-divider`); cards ocultas usan `.is-filtered` (no confundir con `.hidden` de reveal).
 - iPhone 13 Midnight: dual capacity (Nuevo + Exhibición)
 - iPhone 16: two options (256 GB Exhibición + 128 GB Nuevo), English color names in filenames (`pink`, `teal`, `ultramarine`)
 - iPhone 15 Green/Yellow/Pink: `stock-badge--out` (Agotado), button shows "Agotado" disabled
@@ -55,6 +58,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Results rendered by JS into `#credit-results`; per-entity card shows `Recargo (X.X%)` (real % on cash price, derived from `additional / cash`) + additional in money + TOTAL (primary) + CTA "Solicitar crédito" via `openWhatsApp`.
 - Results include a `Precio de contado` summary line and a disclaimer note ("Valores aproximados. Sujetos a aprobación de la entidad."). Form card has a `.credit-hint` explaining "recargo". Cards fade in only on first valid render (`.credit-results--anim`).
 - Formatting COP (`$1.176.471`, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js` (same rules as UrbanPay).
+- `window.prefillCredit(value)` (global en `credit.js`) llena `#credit-amount` y dispara un evento `input`; lo usa el enlace "Financiar" de `js/products.js` con el precio de la variante seleccionada.
 
 ## Payment carousel
 - 7 methods × 2 sets = 14 items for infinite scroll animation
@@ -75,7 +79,8 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Products with `stock-badge--out` have disabled buttons (no comprar).
 - "Agotado" items still show price (for reference).
 - Hero alt text: descriptive, e.g. `alt="iPhone 17 Pro Max Cosmic Orange - Urban Tech"`.
-- Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `credit.js` → `main.js` (globals, no ES module imports).
+- Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `products.js` → `credit.js` → `main.js` (globals, no ES module imports).
+- Trust band `.trust-band` (Garantía, Envíos, Pago seguro, 100% original) entre hero y `#services`; horarios reales en footer y JSON-LD: Lun-Sáb 10:00-19:00, Dom-Fes 10:30-16:00.
 - Indentation: product cards use 10-space indent for `<article>`/children, 12 for `.dual-capacity-option`, 14 for price/chip, 8 for `</article>`. Accessories use flat 10-space indent.
 
 ## SEO-critical
@@ -87,7 +92,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - og:image: absolute URL with width/height
 
 ## Where to look next
-- `index.html`, `js/main.js`, `js/whatsapp.js`, `js/hero.js`, `css/styles.css`, `assets/images/`.
+- `index.html`, `js/main.js`, `js/products.js`, `js/whatsapp.js`, `js/hero.js`, `css/styles.css`, `assets/images/`.
 
 ## If you change structure or add tooling
 - Update this file immediately so future agents don't assume "no build step".
