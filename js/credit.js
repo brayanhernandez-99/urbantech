@@ -34,7 +34,6 @@
       var additional = calculated - cashValue;
       return {
         name: entity.name,
-        divisor: entity.divisor,
         additionalValue: additional,
         totalValue: cashValue + additional
       };
@@ -42,7 +41,7 @@
   }
 
   function validate(value) {
-    if (value === null || value === undefined) {
+    if (value === null) {
       return 'Ingresa el valor.';
     }
     if (value <= 0) {
@@ -113,8 +112,7 @@
     return card;
   }
 
-  function renderResults(cashValue, animate) {
-    var container = document.getElementById('credit-results');
+  function renderResults(container, cashValue, animate) {
     if (!container) return;
 
     container.innerHTML = '';
@@ -145,8 +143,7 @@
     container.appendChild(note);
   }
 
-  function renderPlaceholder() {
-    var container = document.getElementById('credit-results');
+  function renderPlaceholder(container) {
     if (!container) return;
 
     container.innerHTML = '';
@@ -159,9 +156,10 @@
   function initCreditCalculator() {
     var input = document.getElementById('credit-amount');
     var errorEl = document.getElementById('credit-error');
-    if (!input || !errorEl) return;
+    var resultsEl = document.getElementById('credit-results');
+    if (!input || !errorEl || !resultsEl) return;
 
-    renderPlaceholder();
+    renderPlaceholder(resultsEl);
     var hasResults = false;
 
     input.addEventListener('input', function() {
@@ -177,10 +175,10 @@
       errorEl.textContent = error || '';
 
       if (error === null) {
-        renderResults(value, !hasResults);
+        renderResults(resultsEl, value, !hasResults);
         hasResults = true;
       } else {
-        renderPlaceholder();
+        renderPlaceholder(resultsEl);
         hasResults = false;
       }
     });

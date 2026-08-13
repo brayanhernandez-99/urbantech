@@ -20,6 +20,7 @@
   --badge-deal-text: var(--badge-new-text);
   --badge-stock-bg: #a5d6a7;
   --badge-stock-text: #1b5e20;
+  --danger: #ff8a8a;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --max-width: 1200px;

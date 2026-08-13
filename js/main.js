@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hash = window.location.hash;
   if (hash) {
-    const target = document.querySelector(hash);
+    const target = document.getElementById(hash.slice(1));
     if (target) {
       const card = target.closest('.product-card');
       setTimeout(() => {

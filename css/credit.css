@@ -108,7 +108,7 @@
   min-height: 20px;
   margin-top: 8px;
   font-size: 0.875rem;
-  color: #ff8a8a;
+  color: var(--danger);
 }
 
 .credit-error:empty {
