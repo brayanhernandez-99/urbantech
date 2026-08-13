@@ -33,10 +33,9 @@
       <ul class="nav-links" id="nav-links">
         <li><a href="#services" class="nav-link">Servicios</a></li>
         <li><a href="#productos" class="nav-link">Productos</a></li>
+        <li><a href="#calcula-tu-credito" class="nav-link">Calcula tu crédito</a></li>
         <li><a href="#accesorios" class="nav-link">Accesorios</a></li>
-        <li><a href="#metodos-de-pago" class="nav-link">Pagos</a></li>
         <li><a href="#testimonios" class="nav-link">Reseñas</a></li>
-        <li><a href="#contacto" class="nav-link">Contacto</a></li>
       </ul>
       <button class="mobile-toggle" aria-label="Abrir menú de navegación" aria-controls="nav-links" aria-expanded="false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -65,6 +64,7 @@
         <div class="hero-actions">
           <a href="#services" class="btn btn-primary">Servicios</a>
           <a href="#productos" class="btn btn-outline">Ver productos</a>
+          <a href="#calcula-tu-credito" class="btn btn-outline">Calcula tu crédito</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -833,7 +833,38 @@
         </div>
     </div>
   </section>
-<section class="section" id="accesorios">
+  <section class="section credit-section" id="calcula-tu-credito">
+    <div class="container">
+      <div class="reveal text-center">
+        <span class="section-label">Financiamiento</span>
+        <h2 class="section-title section-title--light">Calcula tu crédito</h2>
+        <p class="section-subtitle section-subtitle--centered">
+          Ingresa el valor de contado del equipo y compara en segundos las opciones de financiación de nuestras alianzas.
+        </p>
+      </div>
+      <div class="credit-calculator reveal">
+        <div class="credit-form-card">
+          <label class="credit-label" for="credit-amount">Valor del celular</label>
+          <div class="credit-input-wrap">
+            <span class="credit-currency" aria-hidden="true">$</span>
+            <input
+              type="text"
+              id="credit-amount"
+              class="credit-input"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="1.000.000"
+              maxlength="14"
+              aria-describedby="credit-error"
+            >
+          </div>
+          <p class="credit-error" id="credit-error" role="alert"></p>
+        </div>
+        <div class="credit-results" id="credit-results" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="accesorios">
     <div class="container">
       <div class="reveal text-center">
         <span class="section-label">Equípate</span>
@@ -1213,6 +1244,7 @@
   <script src="js/gallery.js"></script>
   <script src="js/hero.js"></script>
   <script src="js/scroll.js"></script>
+  <script src="js/credit.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -15,13 +15,15 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 
 ## Entrypoints & important files
 - `index.html` — single-page landing; primary edit point for content/markup.
-- `js/main.js` — runtime entry; calls `initHero()`, `initScroll()`, `initGallery()` on DOMContentLoaded.
+- `js/main.js` — runtime entry; calls `initHero()`, `initScroll()`, `initGallery()`, `initCreditCalculator()` on DOMContentLoaded.
 - `js/gallery.js` — product image carousel arrows (`data-images` on `.product-img-wrapper`) + lightbox.
 - `js/hero.js` — controls hero parallax transforms (applies `transform` on `.hero-phone` img only).
 - `js/scroll.js` — scroll spy / reveal animations.
+- `js/credit.js` — "Calcula tu crédito": data de entidades, `formatCOP()`, cálculo y render del simulador.
 - `js/whatsapp.js` — defines `WA_NUMBER` + `openWhatsApp()` for all CTAs.
-- `css/styles.css` — entry point; imports `variables.css`, `hero.css`, `sections.css`, `animations.css`.
+- `css/styles.css` — entry point; imports `variables.css`, `hero.css`, `sections.css`, `credit.css`, `animations.css`.
 - `css/variables.css` — CSS custom properties (colors, fonts, spacing).
+- `css/credit.css` — estilos del simulador de crédito (sección oscura).
 
 ## WhatsApp links
 - Anchors use `onclick="return openWhatsApp(this)"` with `message` attribute (plain text, no URL encoding).
@@ -45,6 +47,14 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - iPhone 15 Green/Yellow/Pink: `stock-badge--out` (Agotado), button shows "Agotado" disabled
 - iPhone 13: Midnight has dual capacity (Nuevo + Exhibición); Blue/Green/Red/Pink single capacity (Exhibición)
 
+## Credit simulator
+- Section `#calcula-tu-credito` between `#productos` and `#accesorios` (dark background).
+- Nav link "Calcula tu crédito" in menu; `#metodos-de-pago` and `#contacto` remain as sections but are NOT in the nav.
+- 3 entities: Banco de Bogotá (0.85), ADDI (0.77), Sistecrédito (0.70). Formula: `calculated = cash / divisor`, `additional = calculated - cash`, `total = cash + additional`.
+- Input `#credit-amount` (digits only, max 12, live thousands separator). Errors: "Ingresa el valor." (empty) / "El valor debe ser mayor a cero." (≤0).
+- Results rendered by JS into `#credit-results`; per-entity card shows `interés (0.XX%)` (divisor) + additional in money + TOTAL (primary) + CTA "Quiero este crédito" via `openWhatsApp`.
+- Formatting COP (`$1.176.471`, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js` (same rules as UrbanPay).
+
 ## Payment carousel
 - 7 methods × 2 sets = 14 items for infinite scroll animation
 - Images fill SVG (`x="0" y="0" width="100" height="70"`, `preserveAspectRatio="xMidYMid slice"`)
@@ -64,7 +74,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Products with `stock-badge--out` have disabled buttons (no comprar).
 - "Agotado" items still show price (for reference).
 - Hero alt text: descriptive, e.g. `alt="iPhone 17 Pro Max Cosmic Orange - Urban Tech"`.
-- Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `main.js` (globals, no ES module imports).
+- Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `credit.js` → `main.js` (globals, no ES module imports).
 - Indentation: product cards use 10-space indent for `<article>`/children, 12 for `.dual-capacity-option`, 14 for price/chip, 8 for `</article>`. Accessories use flat 10-space indent.
 
 ## SEO-critical

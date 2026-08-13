@@ -1033,3 +1033,9 @@
   font-family: var(--font-sans);
   z-index: 1001;
 }
+
+/* Anclas: compensa el nav fijo al saltar a una sección (hash o clic) */
+section[id],
+footer[id] {
+  scroll-margin-top: var(--nav-height);
+}

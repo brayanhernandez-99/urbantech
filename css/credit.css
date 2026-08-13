@@ -1,0 +1,199 @@
+/* ============ Calcula tu crédito ============ */
+
+.credit-section {
+  background: var(--dark);
+  position: relative;
+}
+
+.credit-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(38, 224, 212, 0.25), transparent);
+  box-shadow: 0 0 6px rgba(38, 224, 212, 0.15);
+  z-index: 0;
+}
+
+.credit-calculator {
+  margin-top: 48px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.credit-form-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  transition: var(--transition);
+}
+
+.credit-form-card:focus-within {
+  border-color: rgba(38, 224, 212, 0.35);
+}
+
+.credit-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--light);
+  margin-bottom: 12px;
+}
+
+.credit-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.credit-currency {
+  position: absolute;
+  left: 16px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  pointer-events: none;
+}
+
+.credit-input {
+  width: 100%;
+  padding: 16px 16px 16px 42px;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--light);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: var(--transition);
+  font-family: var(--font-sans);
+  -moz-appearance: textfield;
+}
+
+.credit-input::-webkit-outer-spin-button,
+.credit-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.credit-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 500;
+}
+
+.credit-input:focus {
+  border-color: var(--primary);
+}
+
+.credit-error {
+  min-height: 20px;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #ff8a8a;
+}
+
+.credit-error:empty {
+  display: none;
+}
+
+/* Resultados */
+.credit-results {
+  margin-top: 32px;
+}
+
+.credit-results-placeholder {
+  text-align: center;
+  color: var(--gray);
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 24px 0;
+}
+
+.credit-results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.credit-result-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.credit-result-card:hover {
+  border-color: rgba(38, 224, 212, 0.25);
+  transform: translateY(-3px);
+}
+
+.credit-result-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--light);
+  margin-bottom: 20px;
+}
+
+.credit-result-interest {
+  font-size: 0.875rem;
+  color: var(--gray);
+  margin-bottom: 4px;
+}
+
+.credit-result-amount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--light);
+}
+
+.credit-result-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+}
+
+.credit-result-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.credit-result-total-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--light);
+}
+
+.credit-result-total-amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.credit-result-card .btn {
+  margin-top: 24px;
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .credit-results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .credit-results-grid {
+    grid-template-columns: 1fr;
+  }
+}

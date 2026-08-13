@@ -22,12 +22,14 @@ urbantech/
 │   ├── variables.css       # Custom properties (colores, fuentes, espaciado)
 │   ├── hero.css            # Estilos del hero
 │   ├── sections.css        # Estilos de secciones y productos
+│   ├── credit.css          # Estilos del simulador de crédito (sección oscura)
 │   └── animations.css      # Animaciones (reveal, wa-bounce, payment-scroll)
 ├── js/
-│   ├── main.js             # Entry de runtime: initHero(), initScroll(), initGallery()
+│   ├── main.js             # Entry de runtime: initHero(), initScroll(), initGallery(), initCreditCalculator()
 │   ├── gallery.js          # Carrusel de imágenes del producto + lightbox
 │   ├── hero.js             # Parallax del hero (solo transform en .hero-phone img)
 │   ├── scroll.js           # Scroll spy / reveal animations
+│   ├── credit.js           # Simulador "Calcula tu crédito" (3 entidades, formatCOP, render)
 │   └── whatsapp.js         # WA_NUMBER + openWhatsApp() para todos los CTA
 └── assets/images/
     ├── products/           # iphone-{model}-{color}.webp
@@ -56,8 +58,12 @@ urbantech/
   (o `stock-badge--out` para agotados).
 - WhatsApp: `href="#"` + `onclick="return openWhatsApp(this)"` con `message`.
 - Colores de producto en inglés (Deep Blue, Cosmic Orange, Silver).
-- Carga de scripts: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `main.js`
-  (globales, sin imports ES).
+- Simulador de crédito: sección `#calcula-tu-credito`, 3 entidades (Banco de
+  Bogotá 0.85, ADDI 0.77, Sistecrédito 0.70), fórmula de UrbanPay, formato COP
+  local en `credit.js`. Las secciones `#metodos-de-pago` y `#contacto` existen
+  pero no están en el menú.
+- Carga de scripts: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` →
+  `credit.js` → `main.js` (globales, sin imports ES).
 
 ## Flujo de trabajo para el agente
 
