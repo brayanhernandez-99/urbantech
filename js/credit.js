@@ -59,19 +59,20 @@
     name.className = 'credit-result-name';
     name.textContent = result.name;
 
-    var interestRow = document.createElement('div');
-    interestRow.className = 'credit-result-interest-row';
+    var additionalRow = document.createElement('div');
+    additionalRow.className = 'credit-result-additional-row';
 
-    var interestLabel = document.createElement('span');
-    interestLabel.className = 'credit-result-interest-label';
-    interestLabel.textContent = 'interés (' + result.divisor.toFixed(2) + '%)';
+    var additionalLabel = document.createElement('span');
+    additionalLabel.className = 'credit-result-additional-label';
+    var realPct = (result.additionalValue / cashValue) * 100;
+    additionalLabel.textContent = 'Valor adicional (' + realPct.toFixed(1) + '%)';
 
-    var interestAmount = document.createElement('span');
-    interestAmount.className = 'credit-result-interest-amount';
-    interestAmount.textContent = formatCOP(result.additionalValue);
+    var additionalAmount = document.createElement('span');
+    additionalAmount.className = 'credit-result-additional-amount';
+    additionalAmount.textContent = formatCOP(result.additionalValue);
 
-    interestRow.appendChild(interestLabel);
-    interestRow.appendChild(interestAmount);
+    additionalRow.appendChild(additionalLabel);
+    additionalRow.appendChild(additionalAmount);
 
     var divider = document.createElement('div');
     divider.className = 'credit-result-divider';
@@ -105,7 +106,7 @@
 
     card.appendChild(name);
     card.appendChild(divider);
-    card.appendChild(interestRow);
+    card.appendChild(additionalRow);
     card.appendChild(total);
     card.appendChild(cta);
 
