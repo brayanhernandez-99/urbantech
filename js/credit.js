@@ -65,7 +65,7 @@
     var additionalLabel = document.createElement('span');
     additionalLabel.className = 'credit-result-additional-label';
     var realPct = (result.additionalValue / cashValue) * 100;
-    additionalLabel.textContent = 'Valor adicional (' + realPct.toFixed(1) + '%)';
+    additionalLabel.textContent = 'Recargo (' + realPct.toFixed(1) + '%)';
 
     var additionalAmount = document.createElement('span');
     additionalAmount.className = 'credit-result-additional-amount';
