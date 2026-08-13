@@ -5,6 +5,20 @@
   position: relative;
 }
 
+.credit-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  opacity: 0.3;
+  z-index: 0;
+}
+
 .credit-section::after {
   content: '';
   position: absolute;
@@ -101,6 +115,13 @@
   display: none;
 }
 
+.credit-hint {
+  margin-top: 10px;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+}
+
 /* Resultados */
 .credit-results {
   margin-top: 32px;
@@ -112,6 +133,35 @@
   font-size: 1rem;
   line-height: 1.6;
   padding: 24px 0;
+}
+
+.credit-results-summary {
+  text-align: center;
+  color: var(--gray-light);
+  font-size: 0.9375rem;
+  margin-bottom: 20px;
+}
+
+.credit-results-note {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+@keyframes credit-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.credit-results--anim .credit-result-card {
+  animation: credit-card-in 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .credit-results-grid {

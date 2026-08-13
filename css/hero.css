@@ -184,6 +184,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hero-cta-credit {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-title {
     font-size: 1.85rem;

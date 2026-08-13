@@ -53,6 +53,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - 3 entities: Banco de Bogotá (0.85), ADDI (0.77), Sistecrédito (0.70). Formula: `calculated = cash / divisor`, `additional = calculated - cash`, `total = cash + additional`.
 - Input `#credit-amount` (digits only, max 12, live thousands separator). Errors: "Ingresa el valor." (empty) / "El valor debe ser mayor a cero." (≤0).
 - Results rendered by JS into `#credit-results`; per-entity card shows `interés (0.XX%)` (divisor) + additional in money + TOTAL (primary) + CTA "Quiero este crédito" via `openWhatsApp`.
+- Results include a `Precio de contado` summary line and a disclaimer note ("Valores aproximados. Sujetos a aprobación de la entidad."). Form card has a `.credit-hint` explaining "valor adicional". Cards fade in only on first valid render (`.credit-results--anim`).
 - Formatting COP (`$1.176.471`, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js` (same rules as UrbanPay).
 
 ## Payment carousel

@@ -112,19 +112,36 @@
     return card;
   }
 
-  function renderResults(cashValue) {
+  function renderResults(cashValue, animate) {
     var container = document.getElementById('credit-results');
     if (!container) return;
 
     container.innerHTML = '';
+    container.classList.toggle('credit-results--anim', animate === true);
+
+    var summary = document.createElement('p');
+    summary.className = 'credit-results-summary';
+    summary.textContent = 'Precio de contado: ' + formatCOP(cashValue);
+
     var grid = document.createElement('div');
     grid.className = 'credit-results-grid';
 
-    calculate(cashValue).forEach(function(result) {
-      grid.appendChild(buildResultCard(result, cashValue));
+    var results = calculate(cashValue);
+    results.forEach(function(result, index) {
+      var card = buildResultCard(result, cashValue);
+      if (animate) {
+        card.style.animationDelay = (index * 60) + 'ms';
+      }
+      grid.appendChild(card);
     });
 
+    var note = document.createElement('p');
+    note.className = 'credit-results-note';
+    note.textContent = 'Valores aproximados. Sujetos a aprobación de la entidad.';
+
+    container.appendChild(summary);
     container.appendChild(grid);
+    container.appendChild(note);
   }
 
   function renderPlaceholder() {
@@ -144,6 +161,7 @@
     if (!input || !errorEl) return;
 
     renderPlaceholder();
+    var hasResults = false;
 
     input.addEventListener('input', function() {
       var digits = input.value.replace(/[^\d]/g, '').slice(0, MAX_LENGTH);
@@ -158,9 +176,11 @@
       errorEl.textContent = error || '';
 
       if (error === null) {
-        renderResults(value);
+        renderResults(value, !hasResults);
+        hasResults = true;
       } else {
         renderPlaceholder();
+        hasResults = false;
       }
     });
   }
