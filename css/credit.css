@@ -242,6 +242,14 @@
   justify-content: center;
 }
 
+.credit-result-card .btn:hover .cart-icon {
+  transform: translateX(4px);
+}
+
+.credit-result-card .btn:active .cart-icon {
+  transform: translateX(6px);
+}
+
 @media (max-width: 900px) {
   .credit-results-grid {
     grid-template-columns: repeat(2, 1fr);
