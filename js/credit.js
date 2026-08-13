@@ -59,13 +59,19 @@
     name.className = 'credit-result-name';
     name.textContent = result.name;
 
-    var interest = document.createElement('p');
-    interest.className = 'credit-result-interest';
-    interest.textContent = 'interés (' + result.divisor.toFixed(2) + '%)';
+    var interestRow = document.createElement('div');
+    interestRow.className = 'credit-result-interest-row';
 
-    var amount = document.createElement('p');
-    amount.className = 'credit-result-amount';
-    amount.textContent = formatCOP(result.additionalValue);
+    var interestLabel = document.createElement('span');
+    interestLabel.className = 'credit-result-interest-label';
+    interestLabel.textContent = 'interés (' + result.divisor.toFixed(2) + '%)';
+
+    var interestAmount = document.createElement('span');
+    interestAmount.className = 'credit-result-interest-amount';
+    interestAmount.textContent = formatCOP(result.additionalValue);
+
+    interestRow.appendChild(interestLabel);
+    interestRow.appendChild(interestAmount);
 
     var divider = document.createElement('div');
     divider.className = 'credit-result-divider';
@@ -98,9 +104,8 @@
     });
 
     card.appendChild(name);
-    card.appendChild(interest);
-    card.appendChild(amount);
     card.appendChild(divider);
+    card.appendChild(interestRow);
     card.appendChild(total);
     card.appendChild(cta);
 

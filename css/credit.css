@@ -142,14 +142,20 @@
   margin-bottom: 20px;
 }
 
-.credit-result-interest {
-  font-size: 0.875rem;
-  color: var(--gray);
-  margin-bottom: 4px;
+.credit-result-interest-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
 }
 
-.credit-result-amount {
-  font-size: 1.75rem;
+.credit-result-interest-label {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.credit-result-interest-amount {
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--light);
 }

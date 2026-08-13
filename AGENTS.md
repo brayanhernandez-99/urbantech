@@ -48,7 +48,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - iPhone 13: Midnight has dual capacity (Nuevo + Exhibición); Blue/Green/Red/Pink single capacity (Exhibición)
 
 ## Credit simulator
-- Section `#calcula-tu-credito` between `#productos` and `#accesorios` (dark background).
+- Section `#calcula-tu-credito` after `#accesorios`, before `#metodos-de-pago` (dark background).
 - Nav link "Calcula tu crédito" in menu; `#metodos-de-pago` and `#contacto` remain as sections but are NOT in the nav.
 - 3 entities: Banco de Bogotá (0.85), ADDI (0.77), Sistecrédito (0.70). Formula: `calculated = cash / divisor`, `additional = calculated - cash`, `total = cash + additional`.
 - Input `#credit-amount` (digits only, max 12, live thousands separator). Errors: "Ingresa el valor." (empty) / "El valor debe ser mayor a cero." (≤0).
