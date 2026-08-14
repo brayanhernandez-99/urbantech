@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         if (card) {
           card.classList.remove('hidden');
+          card.classList.remove('is-filtered');
           card.scrollIntoView({ behavior: 'smooth', block: 'center' });
           card.classList.add('anchor-highlight');
           setTimeout(() => card.classList.remove('anchor-highlight'), 3000);

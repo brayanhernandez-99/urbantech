@@ -14,6 +14,20 @@ function getCardColor(card) {
   return el ? el.textContent.trim() : '';
 }
 
+function dotForColor(hex) {
+  hex = String(hex == null ? '' : hex).trim();
+  if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return hex;
+  var lin = function(c) {
+    c /= 255;
+    return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  };
+  var r = lin(parseInt(hex.substr(1, 2), 16));
+  var g = lin(parseInt(hex.substr(3, 2), 16));
+  var b = lin(parseInt(hex.substr(5, 2), 16));
+  var L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return L > 0.75 ? '#26E0D4' : hex;
+}
+
 function parsePrice(text) {
   var digits = String(text == null ? '' : text).replace(/[^\d]/g, '');
   return parseInt(digits, 10) || 0;
@@ -41,6 +55,18 @@ function optionPrice(option) {
   return priceNode ? parsePrice(priceNode.textContent) : 0;
 }
 
+function flashHintIn(card) {
+  var hint = card.querySelector('.buy-hint');
+  if (!hint) return;
+  hint.classList.remove('buy-hint--show');
+  void hint.offsetWidth;
+  hint.classList.add('buy-hint--show');
+  if (hint.__timer) clearTimeout(hint.__timer);
+  hint.__timer = setTimeout(function() {
+    hint.classList.remove('buy-hint--show');
+  }, 2600);
+}
+
 function initVariantSelection() {
   var groups = document.querySelectorAll('.dual-capacity');
 
@@ -50,8 +76,30 @@ function initVariantSelection() {
 
     var card = dc.closest('.product-card');
     if (!card) return;
+    var colorDot = card.querySelector('.product-color');
+    if (colorDot) {
+      var hex = colorDot.style.getPropertyValue('--dot');
+      if (hex) dc.style.setProperty('--dot', dotForColor(hex));
+    }
     var buy = dc.querySelector('.btn.btn-primary');
     if (!buy) return;
+
+    buy.classList.add('is-disabled');
+    buy.setAttribute('aria-disabled', 'true');
+
+    var hint = document.createElement('p');
+    hint.className = 'buy-hint';
+    hint.textContent = 'Selecciona una opción para continuar';
+    dc.appendChild(hint);
+
+    buy.onclick = function(e) {
+      if (buy.classList.contains('is-disabled')) {
+        e.preventDefault();
+        flashHintIn(card);
+        return false;
+      }
+      return openWhatsApp(buy);
+    };
 
     dc.setAttribute('role', 'radiogroup');
 
@@ -60,8 +108,15 @@ function initVariantSelection() {
       var cap = optionCapacity(option);
       var type = optionType(option);
       var finance = card.querySelector('.product-finance');
-      if (finance) finance.dataset.amount = String(price || 0);
-      if (!buy) return;
+      if (finance) {
+        finance.dataset.amount = String(price || 0);
+        finance.classList.remove('is-disabled');
+        finance.setAttribute('aria-disabled', 'false');
+      }
+
+      buy.classList.remove('is-disabled');
+      buy.setAttribute('aria-disabled', 'false');
+      hint.classList.remove('buy-hint--show');
 
       var label = 'Comprar';
       if (cap) label += ' ' + cap;
@@ -78,7 +133,12 @@ function initVariantSelection() {
       buy.innerHTML = (svg ? svg.outerHTML : '') + ' ' + label;
     }
 
-    function select(option, focus) {
+    function select(option, focus, allowDeselect) {
+      if (allowDeselect && option.classList.contains('selected')) {
+        deselect();
+        if (focus) option.focus();
+        return;
+      }
       options.forEach(function(o) {
         var sel = o === option;
         o.classList.toggle('selected', sel);
@@ -89,16 +149,45 @@ function initVariantSelection() {
       updateCta(option);
     }
 
-    options.forEach(function(option, idx) {
+    function deselect() {
+      options.forEach(function(o) {
+        o.classList.remove('selected');
+        o.setAttribute('aria-checked', 'false');
+        o.tabIndex = -1;
+      });
+      options[0].tabIndex = 0;
+
+      var msg = 'Hola! quiero comprar un ' + getCardModel(card);
+      var color = getCardColor(card);
+      if (color) msg += ' ' + color;
+      buy.setAttribute('message', msg);
+      var svg = buy.querySelector('svg.cart-icon');
+      buy.innerHTML = (svg ? svg.outerHTML : '') + ' Comprar';
+      buy.classList.add('is-disabled');
+      buy.setAttribute('aria-disabled', 'true');
+
+      var finance = card.querySelector('.product-finance');
+      if (finance) {
+        finance.classList.add('is-disabled');
+        finance.setAttribute('aria-disabled', 'true');
+      }
+    }
+
+    options.forEach(function(option) {
       option.setAttribute('role', 'radio');
       option.setAttribute('aria-checked', 'false');
       option.tabIndex = -1;
       option.addEventListener('click', function() {
-        select(option, false);
+        select(option, false, true);
       });
       option.addEventListener('keydown', function(e) {
         var current = options.indexOf(option);
         var next = -1;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          select(option, false, true);
+          return;
+        }
         if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
           next = (current + 1) % options.length;
         } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
@@ -115,34 +204,38 @@ function initVariantSelection() {
       });
     });
 
-    select(options[0], false);
+    options[0].tabIndex = 0;
   });
 }
 
 function initFinanceLinks() {
   document.querySelectorAll('.product-card').forEach(function(card) {
-    var buy = card.querySelector('.btn.btn-primary');
+    var dc = card.querySelector('.dual-capacity');
+    if (!dc) return;
+
+    var buy = dc.querySelector('.btn.btn-primary');
     if (!buy) return;
 
     var link = document.createElement('a');
     link.href = '#calcula-tu-credito';
-    link.className = 'btn btn-outline product-finance';
+    link.className = 'product-finance';
     link.textContent = 'Financiar';
 
-    var dc = card.querySelector('.dual-capacity');
-    var price = 0;
-    if (dc) {
-      var first = dc.querySelector('.dual-capacity-option');
-      if (first) price = optionPrice(first);
-      dc.appendChild(link);
-    } else {
-      price = parsePrice(card.querySelector('.price').textContent);
-      buy.parentNode.insertBefore(link, buy.nextSibling);
-    }
+    var first = dc.querySelector('.dual-capacity-option');
+    var price = first ? optionPrice(first) : 0;
+    var hint = dc.querySelector('.buy-hint');
+    if (hint) dc.insertBefore(link, hint);
+    else dc.appendChild(link);
     link.dataset.amount = String(price || 0);
+    link.classList.add('is-disabled');
+    link.setAttribute('aria-disabled', 'true');
 
     link.addEventListener('click', function(e) {
       e.preventDefault();
+      if (link.classList.contains('is-disabled')) {
+        flashHintIn(card);
+        return;
+      }
       var amount = parseInt(link.dataset.amount, 10) || 0;
       if (amount > 0 && window.prefillCredit) window.prefillCredit(amount);
       var target = document.getElementById('calcula-tu-credito');
@@ -211,8 +304,10 @@ function initProductFilters() {
     });
     children.forEach(function(child) {
       if (child.classList.contains('product-card')) {
+        var wasFiltered = child.classList.contains('is-filtered');
         var show = !model || child.dataset.model === model;
         child.classList.toggle('is-filtered', !show);
+        if (show && wasFiltered) child.classList.remove('hidden');
       }
     });
     children.forEach(function(child) {
@@ -240,5 +335,10 @@ function initProductFilters() {
   });
 
   grid.parentNode.insertBefore(bar, grid);
-  apply('', allBtn);
+
+  var defaultBtn = allBtn;
+  buttons.forEach(function(b) {
+    if (b.textContent === 'iPhone 17 Pro Max') defaultBtn = b;
+  });
+  apply(defaultBtn === allBtn ? '' : 'iPhone 17 Pro Max', defaultBtn);
 }

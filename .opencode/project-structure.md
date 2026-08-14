@@ -29,7 +29,7 @@ urbantech/
 │   ├── gallery.js          # Carrusel de imágenes del producto + lightbox
 │   ├── hero.js             # Parallax del hero (solo transform en .hero-phone img)
 │   ├── scroll.js           # Scroll spy / reveal + menú móvil (scroll lock, Escape)
-│   ├── products.js         # Selección de variante, botón "Financiar" (prefillCredit) y filtro por modelo
+│   ├── products.js         # Selección de variante, botón "Financiar" (solo iPhones; prefillCredit) y filtro por modelo
 │   ├── credit.js           # Simulador "Calcula tu crédito" (3 entidades, formatCOP, render, prefillCredit)
 │   └── whatsapp.js         # WA_NUMBER + openWhatsApp() para todos los CTA
 └── assets/images/

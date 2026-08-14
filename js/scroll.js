@@ -21,6 +21,8 @@ function initScroll() {
     const href = anchor.getAttribute('href');
     // WhatsApp CTAs usan href="#" y JS construye la URL de wa.me
     if (!href || href === '#') return;
+    // El enlace "Financiar" gestiona su propio scroll/pushState (products.js)
+    if (anchor.classList.contains('product-finance')) return;
     anchor.addEventListener('click', (e) => {
       e.preventDefault();
       const target = document.querySelector(href);
