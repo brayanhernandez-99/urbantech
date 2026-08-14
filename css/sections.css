@@ -515,6 +515,32 @@
   margin-top: 48px;
 }
 
+.rating-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.rating-summary-stars {
+  color: var(--primary);
+  font-size: 1rem;
+  letter-spacing: 3px;
+}
+
+.rating-summary-score {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--light);
+}
+
+.rating-summary-text {
+  font-size: 0.9375rem;
+  color: var(--gray);
+}
+
 .testimonial-card {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.06);
@@ -960,6 +986,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .product-img-wrapper .product-img {
@@ -1115,6 +1142,28 @@
 section[id],
 footer[id] {
   scroll-margin-top: var(--nav-height);
+}
+
+/* Enlace "Saltar al contenido": visible solo al recibir foco (accesibilidad) */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: var(--primary);
+  color: var(--dark);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
 }
 
 /* ============ Banda de confianza ============ */

@@ -23,6 +23,8 @@ function initScroll() {
     if (!href || href === '#') return;
     // El enlace "Financiar" gestiona su propio scroll/pushState (products.js)
     if (anchor.classList.contains('product-finance')) return;
+    // El skip-link debe usar el salto nativo (mueve el foco al destino)
+    if (anchor.classList.contains('skip-link')) return;
     anchor.addEventListener('click', (e) => {
       e.preventDefault();
       const target = document.querySelector(href);
@@ -55,6 +57,12 @@ function initMobileToggle() {
 
   links.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!links.classList.contains('open')) return;
+    if (links.contains(e.target) || toggle.contains(e.target)) return;
+    setMenu(false);
   });
 
   document.addEventListener('keydown', (e) => {

@@ -190,10 +190,6 @@
   .hero {
     padding-bottom: 56px;
   }
-
-  .hero-cta-credit {
-    display: none;
-  }
 }
 
 @media (max-width: 480px) {

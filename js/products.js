@@ -89,6 +89,7 @@ function initVariantSelection() {
 
     var hint = document.createElement('p');
     hint.className = 'buy-hint';
+    hint.setAttribute('role', 'status');
     hint.textContent = 'Selecciona una opción para continuar';
     dc.appendChild(hint);
 
@@ -316,6 +317,13 @@ function initProductFilters() {
         child.classList.toggle('is-filtered', !show);
       }
     });
+
+    var url = window.location.pathname;
+    var params = new URLSearchParams(window.location.search);
+    if (model) params.set('modelo', model);
+    else params.delete('modelo');
+    var qs = params.toString();
+    history.replaceState(null, '', url + (qs ? '?' + qs : '') + window.location.hash);
   }
 
   var allBtn = addButton('Todos');
@@ -336,9 +344,16 @@ function initProductFilters() {
 
   grid.parentNode.insertBefore(bar, grid);
 
+  var urlModel = new URLSearchParams(window.location.search).get('modelo') || '';
   var defaultBtn = allBtn;
   buttons.forEach(function(b) {
-    if (b.textContent === 'iPhone 17 Pro Max') defaultBtn = b;
+    if (b.textContent === urlModel) defaultBtn = b;
   });
-  apply(defaultBtn === allBtn ? '' : 'iPhone 17 Pro Max', defaultBtn);
+  if (defaultBtn === allBtn) {
+    buttons.forEach(function(b) {
+      if (b.textContent === 'iPhone 17 Pro Max') defaultBtn = b;
+    });
+  }
+  var defaultModel = defaultBtn === allBtn ? '' : (urlModel || 'iPhone 17 Pro Max');
+  apply(defaultModel, defaultBtn);
 }

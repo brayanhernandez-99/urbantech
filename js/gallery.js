@@ -5,6 +5,7 @@ function initGallery() {
   var lightboxCounter = lightbox.querySelector('.lightbox-counter');
   var currentIndex = 0;
   var currentImages = [];
+  var lastFocused = null;
 
   wrappers.forEach(function(wrapper) {
     var images = JSON.parse(wrapper.dataset.images);
@@ -30,6 +31,8 @@ function initGallery() {
 
     wrapper.addEventListener('click', function() {
       currentImages = images;
+      wrapper.tabIndex = -1;
+      lastFocused = wrapper;
       var currentSrc = img.getAttribute('src');
       var matchIdx = images.findIndex(function(u) {
         return currentSrc.indexOf(u) !== -1 || u.indexOf(currentSrc.split('/').pop()) !== -1;
@@ -46,11 +49,13 @@ function initGallery() {
     lightboxCounter.textContent = (currentIndex + 1) + ' / ' + currentImages.length;
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
+    lightbox.querySelector('.lightbox-close').focus();
   }
 
   function closeLightbox() {
     lightbox.hidden = true;
     document.body.style.overflow = '';
+    if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
   }
 
   function navigate(delta) {

@@ -20,7 +20,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - `js/gallery.js` — product image carousel arrows (`data-images` on `.product-img-wrapper`) + lightbox.
 - `js/hero.js` — controls hero parallax transforms (applies `transform` on `.hero-phone` img only).
 - `js/scroll.js` — scroll spy / reveal animations + mobile menu (scroll lock, Escape).
-- `js/products.js` — enhances product cards: variante seleccionable (`.selected`, `role="radio"`), CTA "Comprar" refleja variante, enlace "Financiar" (solo en celulares con `.dual-capacity`; llene el simulador vía `window.prefillCredit`) y filtro por modelo en `#productos`.
+- `js/products.js` — enhances product cards: variante seleccionable (`.selected`, `role="radio"`), CTA "Comprar" refleja variante, enlace "Financiar" (solo en celulares con `.dual-capacity`; llene el simulador vía `window.prefillCredit`) y filtro por modelo en `#productos` (el filtro activo se persiste en la URL vía `?modelo=…` con `history.replaceState`).
 - `js/credit.js` — "Calcula tu crédito": data de entidades, `formatCOP()`, cálculo y render del simulador; expone `window.prefillCredit(value)`.
 - `js/whatsapp.js` — defines `WA_NUMBER` + `openWhatsApp()` for all CTAs.
 - `css/styles.css` — entry point; imports `variables.css`, `hero.css`, `sections.css`, `credit.css`, `animations.css`.
