@@ -346,14 +346,10 @@ function initProductFilters() {
 
   var urlModel = new URLSearchParams(window.location.search).get('modelo') || '';
   var defaultBtn = allBtn;
-  buttons.forEach(function(b) {
-    if (b.textContent === urlModel) defaultBtn = b;
-  });
-  if (defaultBtn === allBtn) {
+  if (urlModel) {
     buttons.forEach(function(b) {
-      if (b.textContent === 'iPhone 17 Pro Max') defaultBtn = b;
+      if (b.textContent === urlModel) defaultBtn = b;
     });
   }
-  var defaultModel = defaultBtn === allBtn ? '' : (urlModel || 'iPhone 17 Pro Max');
-  apply(defaultModel, defaultBtn);
+  apply(defaultBtn === allBtn ? '' : defaultBtn.textContent, defaultBtn);
 }
