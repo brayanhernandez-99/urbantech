@@ -56,7 +56,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Nav link "Calcula tu crédito" in menu; `#metodos-de-pago` and `#contacto` remain as sections but are NOT in the nav.
 - 3 entities: Banco de Bogotá (0.85), ADDI (0.77), Sistecrédito (0.70). Formula: `calculated = cash / divisor`, `additional = calculated - cash`, `total = cash + additional`.
 - Input `#credit-amount` (digits only, max 12, live thousands separator). Errors: "Ingresa el valor." (empty) / "El valor debe ser mayor a cero." (≤0).
-- Results rendered by JS into `#credit-results`; per-entity card shows `Recargo (X.X%)` (real % on cash price, derived from `additional / cash`) + additional in money + TOTAL (primary) + CTA "Solicitar crédito" via `openWhatsApp`.
+- Results rendered by JS into `#credit-results`; per-entity card shows `Recargo 0.85` (the financing factor, `divisor.toFixed(2)`) + additional in money + TOTAL (primary) + CTA "Solicitar crédito" via `openWhatsApp`.
 - Results include a `Precio de contado` summary line and a disclaimer note ("Valores aproximados. Sujetos a aprobación de la entidad."). Form card has a `.credit-hint` explaining "recargo". Cards fade in only on first valid render (`.credit-results--anim`).
 - Formatting COP (`$1.176.471`, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js` (same rules as UrbanPay).
 - `window.prefillCredit(value)` (global en `credit.js`) llena `#credit-amount` y dispara un evento `input`; lo usa el enlace "Financiar" de `js/products.js` con el precio de la variante seleccionada.
@@ -81,7 +81,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - "Agotado" items still show price (for reference).
 - Hero alt text: descriptive, e.g. `alt="iPhone 17 Pro Max Cosmic Orange - Urban Tech"`.
 - Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `products.js` → `credit.js` → `main.js` (globals, no ES module imports).
-- Trust band `.trust-band` (Garantía, Envíos, Pago seguro, 100% original) anclada al pie del hero (position absolute, visible en la pantalla principal); horarios reales en footer y JSON-LD: Lun-Sáb 10:00-19:00, Dom-Fes 10:30-16:00.
+- Trust band `.trust-band` (Garantía, Envíos, Pago seguro, 100% original) en flujo al pie del hero (hero es flex column, `.container` con `flex: 1`; la banda es `position: relative`, no absolute); en ≤940px usa grid 2×2 con título y descripción apilados (frases nowrap). Horarios reales en footer y JSON-LD: Lun-Sáb 10:00-19:00, Dom-Fes 10:30-16:00.
 - Indentation: product cards use 10-space indent for `<article>`/children, 12 for `.dual-capacity-option`, 14 for price/chip, 8 for `</article>`. Accessories use flat 10-space indent.
 
 ## SEO-critical

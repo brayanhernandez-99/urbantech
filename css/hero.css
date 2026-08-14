@@ -3,11 +3,10 @@
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   background: var(--dark);
   overflow: hidden;
   padding-top: var(--nav-height);
-  padding-bottom: 96px;
 }
 
 .hero-bg-glow {
@@ -22,6 +21,7 @@
 }
 
 .hero .container {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -111,6 +111,7 @@
   inset: 0;
   border-radius: 50%;
   border: 1.5px solid rgba(38, 224, 212, 0.12);
+  box-shadow: 0 0 50px var(--glow), 0 0 100px rgba(38, 224, 212, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,12 +184,6 @@
 
   .hero-phone {
     width: 340px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding-bottom: 56px;
   }
 }
 

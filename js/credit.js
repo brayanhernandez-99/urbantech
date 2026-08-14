@@ -34,6 +34,7 @@
       var additional = calculated - cashValue;
       return {
         name: entity.name,
+        divisor: entity.divisor,
         additionalValue: additional,
         totalValue: cashValue + additional
       };
@@ -63,8 +64,7 @@
 
     var additionalLabel = document.createElement('span');
     additionalLabel.className = 'credit-result-additional-label';
-    var realPct = (result.additionalValue / cashValue) * 100;
-    additionalLabel.textContent = 'Recargo (' + realPct.toFixed(1) + '%)';
+    additionalLabel.textContent = 'Recargo ' + result.divisor.toFixed(2);
 
     var additionalAmount = document.createElement('span');
     additionalAmount.className = 'credit-result-additional-amount';

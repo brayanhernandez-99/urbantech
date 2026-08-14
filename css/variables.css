@@ -22,16 +22,18 @@
   --badge-stock-text: #1b5e20;
   --danger: #ff8a8a;
 
+  --text-soft: #777;
+  --text-faint: #999;
+  --input-bg: #f8f8f8;
+  --accent-bg: #f9f9f9;
+
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --max-width: 1200px;
   --nav-height: 72px;
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
-  --radius-xl: 32px;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
   --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-  --shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
   --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   scroll-behavior: smooth;
@@ -41,6 +43,16 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--dark);
+}
+
+button {
+  font-family: inherit;
 }
 
 body {
@@ -102,7 +114,8 @@ ul {
   line-height: 1.7;
 }
 
-.btn {
+.btn,
+.btn-sold-out {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -114,6 +127,7 @@ ul {
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-sans);
+  min-height: 48px;
 }
 
 .btn-primary {
