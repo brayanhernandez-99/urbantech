@@ -1,6 +1,22 @@
 # Urban Tech — AGENTS.md
-
 Keep this file minimal and high-signal. Only include facts an OpenCode session would likely miss.
+
+## Política de documentación
+
+- **Documenta patrones, no inventario.** En `AGENTS.md` solo debe explicarse **CÓMO** funciona el proyecto: selectores, clases CSS, funciones JS, atributos `data-*`, flujos, convenciones y gotchas.
+- **NUNCA documentes datos cambiantes.** No escribas precios, modelos, colores, capacidades, estados de stock, conteos, SKUs, handles, nombres comerciales, códigos hex ligados a un SKU o cualquier lista de productos.
+- **Genérico ante todo.** Si puedes decirlo con "cualquier tarjeta", "cualquier variante" o "según el markup", hazlo así. Si solo aplica a UN producto concreto hoy, **no lo pongas**.
+- **Pertenece al HTML/JS.** El contenido real vive en `index.html` y `js/*.js`. La documentación debe explicar las **reglas** para leer/escribir ese contenido.
+- **Al editar documentación:** Solo añade lo estrictamente necesario para entender el patrón arquitectural.
+
+## Reglas de implementación de código
+
+- **Solo lo estrictamente necesario para que funcione.** Implementa únicamente lo imprescindible para cumplir el requisito exacto. No escribas código "por si acaso".
+- **Código útil y mínimo.** Cada línea debe resolver lo solicitado AHORA. Usa la solución más simple, directa y corta (KISS). No anticipes lo no solicitado (YAGNI).
+- **Sin features no solicitados ni código especulativo.** No añadas helpers, utilidades, validaciones, estados, efectos, clases o abstracciones que no se hayan pedido explícitamente.
+- **Cambios quirúrgicos.** Modifica solo lo necesario. No refactorices, reformatees, muevas, reorganices ni toques código ajeno al objetivo.
+- **Sin ruido ni código muerto.** No incluyas `console.log`, código comentado, TODOs, mocks o datos de prueba sin pedido explícito. Elimina imports, variables, funciones o clases sin usar tras el cambio.
+- **Prioriza simple sobre complejo.** Si cabe en menos líneas, úsalo. Si dudas, pregunta.
 
 ## Git & Push
 - **NUNCA** hacer commit, push ni ninguna operación de git sin instrucción explícita del usuario. Preguntar siempre. Cero excepciones.
@@ -36,42 +52,48 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 ## JSON-LD
 - Two schemas in `<head>`:
   1. `LocalBusiness` — store info, address (Medellín), phone
-  2. `ItemList` — 48 products (36 iPhones + 12 accessories) with `Product` + `Offer` (price, currency COP, availability, condition)
+  2. `ItemList` — one `ListItem` per published variant, each with `Product` + `Offer` (price, currency COP, availability, condition). `position` is sequential `1..N` with no gaps: **adding or removing an entry means renumbering every `position` after it.**
+     - **Entry-count rule:** a card contributes **one entry per `id` on its `.dual-capacity-option`s**, or **1 entry if it has none**. It is *not* "one entry per capacity" — a card can hold two options of the same capacity (SIM vs E-SIM) and then contributes 2.
+     - **Every option of a multi-option card must carry an `id`.** Without ids the card can only publish one entry, so the remaining variants are invisible to Google and unreachable by deep-link.
+     - **Each entry publishes its own option's price and condition** — never the card's cheapest, and never a price that is absent from that option or borrowed from a sibling option.
+     - **Name suffix rule:** append ` SIM` / ` E-SIM` to the JSON-LD `name` **only when the card offers two options with the same capacity** (otherwise the name would be duplicated). A published name is frozen: renaming it breaks the deep-link Google already indexed.
+     - Option `id` format: `<article-id>-<capacity-lowercase>-<sim|esim>`, e.g. `iphone-17-pro-max-cosmic-orange-256gb-sim`. The `<article>` may keep its own `id`; ids must be unique document-wide.
 
 ## Products
-- Ordered newest → oldest: 17 Pro Max → 17 Pro → 17 → 16 Pro Max → 16 → 15 → 13 → accessories
+- Order: newest model first, accessories last. Within a model group, one card per color.
 - Each model group separated by `<div class="model-divider"><span>Model Name</span></div>` spanning full grid width
 - Cards use `<article class="product-card reveal">` (semantic HTML5)
-- Card element order: badge → img → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → stock badge → price → `<span class="capacity-chip">[GB]</span>` → button
+- Card element order: `<span class="stock-badge">` → `.product-img-wrapper` → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → `.dual-capacity` (price → `.capacity-chip` → badge → `.btn`). Inside a `.dual-capacity-option` the order is always price → chip → badge; **no card puts a badge before the chip**.
 - All product cards use `.dual-capacity` > `.dual-capacity-option` layout
 - `js/products.js` inyecta en cada card: selección de variante SIN preselección (nada chequeado al cargar; clic o flechas/Enter cambian, dot coloreado solo en la elegida, clic sobre la marcada la desmarca), botón "Comprar" y enlace "Financiar" empiezan deshabilitados (`.is-disabled` + `aria-disabled`); al no elegir una variante, click en cualquiera muestra el mensaje rojo "Selecciona una opción..." (`.buy-hint`, fade, auto-hide) sin abrir WhatsApp. Al seleccionar, se habilitan y el CTA pasa a "Comprar [capacidad] · [tipo]" (mensaje WhatsApp incluye modelo + color + capacidad + SIM/E-SIM/Exhibición/Nuevo; "Financiar" con `data-amount` del precio seleccionado). Los accesorios (sin `.dual-capacity`) no tienen financiamiento ni gating.
 - Barra de filtros `.product-filters` en `#productos` (generada por `js/products.js` desde los `.model-divider`); cards ocultas usan `.is-filtered` (no confundir con `.hidden` de reveal).
-- iPhone 13 Midnight: dual capacity (Nuevo + Exhibición)
-- iPhone 16: two options (256 GB Exhibición + 128 GB Nuevo), English color names in filenames (`pink`, `teal`, `ultramarine`)
-- iPhone 15 Green/Yellow/Pink: `stock-badge--out` (Agotado), button shows "Agotado" disabled
-- iPhone 13: Midnight has dual capacity (Nuevo + Exhibición); Blue/Green/Red/Pink single capacity (Exhibición)
+- **Cards differ in options, not in structure.** Any card may offer 1 or N `.dual-capacity-option`s over any combination of capacity, SIM type and condition. Read the actual card before assuming a pattern from a neighbouring model.
+- **Carousel photos must all be distinct.** If two frames of a source gallery are identical (or near-identical), drop one and renumber the survivors `-2..-N` consecutively — never ship the same photo twice in one carousel, and never leave a gap in the numbering. Check for cross-colour duplicates before committing.
+- **One image folder per model**: `products/iphone-{model}/`, even when two models share a prefix (`iphone-16-pro/` vs `iphone-16-pro-max/`), otherwise their galleries overwrite each other.
+- **Color swatch:** `--dot` on `.product-color` is the swatch hex. `dotForColor()` (`js/products.js`) forces any swatch above relative luminance 0.75 to cyan `#26E0D4`, so keep very light colors just under that or pick a darker hex.
+- ⚠️ **Pending:** some cards still use provisional images sourced externally; replace them with photos of the store's own units.
 
 ## Credit simulator
 - Section `#calcula-tu-credito` after `#accesorios`, before `#metodos-de-pago` (dark background).
 - Nav link "Calcula tu crédito" in menu; `#metodos-de-pago` and `#contacto` remain as sections but are NOT in the nav.
-- 3 entities: Banco de Bogotá (0.85), ADDI (0.77), Sistecrédito (0.70). Formula: `calculated = cash / divisor`, `additional = calculated - cash`, `total = cash + additional`.
+- Entities and their financing factors live in `js/credit.js` (`{ name, divisor }`) — edit them there, never in the HTML. Formula: `calculated = cash / divisor`, `additional = calculated - cash`, `total = cash + additional`.
 - Input `#credit-amount` (digits only, max 12, live thousands separator). Errors: "Ingresa el valor." (empty) / "El valor debe ser mayor a cero." (≤0).
-- Results rendered by JS into `#credit-results`; per-entity card shows `Recargo 0.85` (the financing factor, `divisor.toFixed(2)`) + additional in money + TOTAL (primary) + CTA "Solicitar crédito" via `openWhatsApp`.
+- Results rendered by JS into `#credit-results`; per-entity card shows `Recargo <factor>` (the financing factor, `divisor.toFixed(2)`) + additional in money + TOTAL (primary) + CTA "Solicitar crédito" via `openWhatsApp`.
 - Results include a `Precio de contado` summary line and a disclaimer note ("Valores aproximados. Sujetos a aprobación de la entidad."). Form card has a `.credit-hint` explaining "recargo". Cards fade in only on first valid render (`.credit-results--anim`).
-- Formatting COP (`$1.176.471`, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js` (same rules as UrbanPay).
+- Formatting COP (`$1.176.471`, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js`.
 - `window.prefillCredit(value)` (global en `credit.js`) llena `#credit-amount` y dispara un evento `input`; lo usa el enlace "Financiar" de `js/products.js` con el precio de la variante seleccionada.
 
 ## Payment carousel
-- 7 methods × 2 sets = 14 items for infinite scroll animation
+- Each method set is duplicated once (2×N items) to make the infinite scroll seamless
 - Images fill SVG (`x="0" y="0" width="100" height="70"`, `preserveAspectRatio="xMidYMid slice"`)
 - Text label below SVG in `<span class="payment-label">`
 - Animation: `payment-scroll` translates -50% (needs duplicate set for seamless loop)
 
 ## Assets & cache-busting
 - Images: `assets/images/` (products/, accessories/, payments/, avatars/)
-- Cache-busting is manual: URLs include `?v=N`. Bump `v` when replacing an image.
-- Payment images: `addi.png`, `banco-bogota.png`, `efectivo.png`, `sistecredito.png`, `t-credito.png`, `t-debito.png`, `transferencia.png`.
-- Product images follow convention: `iphone-{model}-{color}.webp` (English color names).
+- Cache-busting is manual: URLs include `?v=N`. Bump `v` when replacing an image. **No** add `?v=` to new product images: `js/gallery.js:36-39` matches the `<img src>` against `data-images` by substring to recover the lightbox index, and a mismatch drops it to 0. No product image currently carries a query string.
+- Payment logos: one file per method in `payments/`, named `{method}.png` (kebab-case, matching the label below it).
+- Product images follow convention: `products/iphone-{model}/{color}[-{n}].webp` (English color names, `{n}` = 2..N for carousel images, omitted on the first). All are 1000×1000 RGB WebP — match that when replacing. Carousel length varies per card; `n` is not a global constant.
 - Accessory images follow convention: `{descriptive-name}.webp`.
 
 ## Conventions & gotchas
@@ -79,17 +101,18 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Small-screen hero sizing: CSS breakpoints; `hero.js` only manipulates `transform`.
 - Products with `stock-badge--out` have disabled buttons (no comprar).
 - "Agotado" items still show price (for reference).
-- Hero alt text: descriptive, e.g. `alt="iPhone 17 Pro Max Cosmic Orange - Urban Tech"`.
+- Hero and product `alt` text is descriptive and follows `"<Model> <Color> - Urban Tech"`; the first `<img>` of a card also carries explicit `width`/`height` and `loading="lazy"`.
 - Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `products.js` → `credit.js` → `main.js` (globals, no ES module imports).
-- Trust band `.trust-band` (Garantía, Envíos, Pago seguro, 100% original) en flujo al pie del hero (hero es flex column, `.container` con `flex: 1`; la banda es `position: relative`, no absolute); en ≤940px usa grid 2×2 con título y descripción apilados (frases nowrap). Horarios reales en footer y JSON-LD: Lun-Sáb 10:00-19:00, Dom-Fes 10:30-16:00.
-- Indentation: product cards use 10-space indent for `<article>`/children, 12 for `.dual-capacity-option`, 14 for price/chip, 8 for `</article>`. Accessories use flat 10-space indent.
+- Trust band `.trust-band` sits in normal flow at the foot of the hero, **not** absolutely positioned — the hero is a flex column and `.container` carries `flex: 1`. Its texts are `nowrap`, so a longer phrase needs a CSS change, not a markup change. Opening hours are duplicated in the footer and the JSON-LD; keep them in sync.
+- Indentation: product cards use 10-space indent for `<article>` AND its direct children (`stock-badge`, `product-img-wrapper`, `h3`, `product-color`, `dual-capacity`), 12 for `.dual-capacity-option`/`.btn` and `<img>`/arrows, 14 for price/chip, 10 for `</div>` of `.dual-capacity`, 8 for `</article>`. Accessories use flat 10-space indent.
+- **Color names are English everywhere**: the `.product-color` label, the JSON-LD `name`, and the image filename slug. Translate any Spanish source label on the way in (Negro → Black, Glaciar → Glacier); never let a Spanish color reach the HTML.
 
 ## SEO-critical
 - Sitemap: `https://urbantechcol.com/sitemap.xml` (single URL, changefreq weekly)
 - robots.txt: permissive, points to sitemap
 - Meta robots: `index, follow`
 - WhatsApp links: `href="#"`, JS constructs `wa.me` URL
-- JSON-LD products: all 48 items with price, availability, condition
+- JSON-LD products: every entry carries price, availability and condition. Every `item.url` fragment must resolve to a real `id` in `index.html` (`js/main.js` deep-links the fragment to `.product-card`), so per-capacity cards put the id on the `.dual-capacity-option`, not the `<article>`.
 - og:image: absolute URL with width/height
 
 ## Where to look next

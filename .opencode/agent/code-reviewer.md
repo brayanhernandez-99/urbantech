@@ -47,6 +47,25 @@ Al revisar cualquier código, verifica punto por punto:
 5. **Refactorización** — sugiere mejoras de legibilidad o rendimiento solo si
    no cambian el comportamiento.
 
+## Código estrictamente necesario
+
+- **Solo lo imprescindible.** Sugiere ÚNICAMENTE el código necesario para resolver exactamente lo solicitado. No añadas código "por si acaso".
+- **Código útil, no basura.** Cada línea debe tener un propósito directo para que funcione AHORA. Si no sirve, no la incluyas.
+- **Solución mínima y directa.** Usa la solución más simple y corta posible (KISS). No anticipes casos no solicitados (YAGNI).
+- **Sin ruido.** No incluyas `console.log`, código comentado, TODOs, mocks, datos de prueba o código de depuración, salvo que se pida explícitamente.
+- **Sin código muerto.** Elimina imports, variables, funciones o clases sin usar tras el cambio.
+- **Sin funcionalidades no solicitadas.** No añadas helpers, utilidades, validaciones, estados, efectos, clases, tipos o abstracciones extras.
+- **Cambios quirúrgicos.** Modifica únicamente lo relacionado con lo pedido. No reformatees, reorganices, muevas ni toques código innecesariamente.
+- **Sin sobreingeniería.** Prioriza simple y funcional sobre elegante y complejo.
+- **Si dudas, pregunta.** Nunca inventes requisitos no solicitados.
+
+## Documentación: solo información de implementación
+
+- **Genérico SIEMPRE.** Al revisar o sugerir cambios a `AGENTS.md`, `README.md` u otra doc, **NO** añadas precios, modelos, colores, capacidades, conteos, SKUs, hex, handles, listas de productos ni inventario.
+- **Solo patrones.** Documenta selectores, clases, atributos, funciones, reglas, convenciones, gotchas o arquitectura.
+- **Pregunta antes.** Si no estás seguro de si algo es "patrón" o "dato", **no lo documentes**.
+- **Respeta lo existente.** Si `AGENTS.md` ya fue limpiado para ser genérico, **no lo vuelvas a llenar con datos particulares**.
+
 ## Validación / debugging antes de aplicar
 
 - Todo código nuevo se **valida antes de aplicarse**: parseo de sintaxis,
