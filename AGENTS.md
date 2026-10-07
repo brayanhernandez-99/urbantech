@@ -51,13 +51,13 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 
 ## JSON-LD
 - Two schemas in `<head>`:
-  1. `LocalBusiness` — store info, address (Medellín), phone
-  2. `ItemList` — one `ListItem` per published variant, each with `Product` + `Offer` (price, currency COP, availability, condition). `position` is sequential `1..N` with no gaps: **adding or removing an entry means renumbering every `position` after it.**
+  1. `LocalBusiness` — store info, address (Medellín), phone, `openingHours`. **No** carries `priceRange` (no hay un valor real de rango de precios que publicar).
+  2. `ItemList` — **minimal by design**: each `ListItem` carries only `position` + `name` + `url` (no offers, price, image, brand, description). `position` is sequential `1..N` with no gaps: **adding or removing an entry means renumbering every `position` after it.**
      - **Entry-count rule:** a card contributes **one entry per `id` on its `.dual-capacity-option`s**, or **1 entry if it has none**. It is *not* "one entry per capacity" — a card can hold two options of the same capacity (SIM vs E-SIM) and then contributes 2.
      - **Every option of a multi-option card must carry an `id`.** Without ids the card can only publish one entry, so the remaining variants are invisible to Google and unreachable by deep-link.
-     - **Each entry publishes its own option's price and condition** — never the card's cheapest, and never a price that is absent from that option or borrowed from a sibling option.
-     - **Name suffix rule:** append ` SIM` / ` E-SIM` to the JSON-LD `name` **only when the card offers two options with the same capacity** (otherwise the name would be duplicated). A published name is frozen: renaming it breaks the deep-link Google already indexed.
+     - **A published `name` is frozen:** renaming it breaks the deep-link Google already indexed. Name format `Modelo Capacidad [SIM/E-SIM] - Color`; append ` SIM` / ` E-SIM` only when the card offers two options with the same capacity (otherwise the name would be duplicated).
      - Option `id` format: `<article-id>-<capacity-lowercase>-<sim|esim>`, e.g. `iphone-17-pro-max-cosmic-orange-256gb-sim`. The `<article>` may keep its own `id`; ids must be unique document-wide.
+     - Precios, disponibilidad y condición **no viven en el JSON-LD**: se publican únicamente en el HTML visible de cada tarjeta, así un cambio de precio no exige sincronizar el schema.
 
 ## Products
 - Order: newest model first, accessories last. Within a model group, one card per color.
@@ -65,7 +65,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Cards use `<article class="product-card reveal">` (semantic HTML5)
 - Card element order: `<span class="stock-badge">` → `.product-img-wrapper` → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → `.dual-capacity` (price → `.capacity-chip` → badge → `.btn`). Inside a `.dual-capacity-option` the order is always price → chip → badge; **no card puts a badge before the chip**.
 - All product cards use `.dual-capacity` > `.dual-capacity-option` layout
-- `js/products.js` inyecta en cada card: selección de variante SIN preselección (nada chequeado al cargar; clic o flechas/Enter cambian, dot coloreado solo en la elegida, clic sobre la marcada la desmarca), botón "Comprar" y enlace "Financiar" empiezan deshabilitados (`.is-disabled` + `aria-disabled`); al no elegir una variante, click en cualquiera muestra el mensaje rojo "Selecciona una opción..." (`.buy-hint`, fade, auto-hide) sin abrir WhatsApp. Al seleccionar, se habilitan y el CTA pasa a "Comprar [capacidad] · [tipo]" (mensaje WhatsApp incluye modelo + color + capacidad + SIM/E-SIM/Exhibición/Nuevo; "Financiar" con `data-amount` del precio seleccionado). Los accesorios (sin `.dual-capacity`) no tienen financiamiento ni gating.
+- `js/products.js` inyecta en cada card: selección de variante SIN preselección (nada chequeado al cargar; clic o flechas/Enter cambian, dot coloreado solo en la elegida, clic sobre la marcada la desmarca), botón "Comprar" y enlace "Financiar" empiezan deshabilitados (`.is-disabled` + `aria-disabled`); al no elegir una variante, click en cualquiera muestra el mensaje rojo "Selecciona una opción..." (`.buy-hint`, fade, auto-hide) sin abrir WhatsApp. Al seleccionar, se habilitan y el CTA pasa a "Comprar [capacidad] · [tipo]" (mensaje WhatsApp incluye modelo + color + capacidad + SIM/E-SIM/Exhibición/Nuevo; "Financiar" con `data-amount` del precio seleccionado). Los accesorios (sin `.dual-capacity`) no tienen financiamiento ni gating. Una opción con clase `is-sold-out` (chip "Agotado") queda fuera de la selección y del financiamiento.
 - Barra de filtros `.product-filters` en `#productos` (generada por `js/products.js` desde los `.model-divider`); cards ocultas usan `.is-filtered` (no confundir con `.hidden` de reveal).
 - **Cards differ in options, not in structure.** Any card may offer 1 or N `.dual-capacity-option`s over any combination of capacity, SIM type and condition. Read the actual card before assuming a pattern from a neighbouring model.
 - **Carousel photos must all be distinct.** If two frames of a source gallery are identical (or near-identical), drop one and renumber the survivors `-2..-N` consecutively — never ship the same photo twice in one carousel, and never leave a gap in the numbering. Check for cross-colour duplicates before committing.
@@ -112,7 +112,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - robots.txt: permissive, points to sitemap
 - Meta robots: `index, follow`
 - WhatsApp links: `href="#"`, JS constructs `wa.me` URL
-- JSON-LD products: every entry carries price, availability and condition. Every `item.url` fragment must resolve to a real `id` in `index.html` (`js/main.js` deep-links the fragment to `.product-card`), so per-capacity cards put the id on the `.dual-capacity-option`, not the `<article>`.
+- JSON-LD products: entries are minimal (`position` + `name` + `url`, no offers/price/availability in the schema). Every `item.url` fragment must resolve to a real `id` in `index.html` (`js/main.js` deep-links the fragment to `.product-card`), so per-capacity cards put the id on the `.dual-capacity-option`, not the `<article>`.
 - og:image: absolute URL with width/height
 
 ## Where to look next
