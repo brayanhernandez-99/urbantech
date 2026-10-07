@@ -891,6 +891,20 @@
   margin-bottom: 0;
 }
 
+.dual-capacity-option.is-sold-out {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dual-capacity-option.is-sold-out:hover {
+  background: transparent;
+}
+
+.dual-capacity-option.is-sold-out::before {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: transparent;
+}
+
 .dual-capacity-option .capacity-chip,
 .dual-capacity-option .badge-sim,
 .dual-capacity-option .badge-esim,

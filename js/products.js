@@ -71,7 +71,8 @@ function initVariantSelection() {
   var groups = document.querySelectorAll('.dual-capacity');
 
   groups.forEach(function(dc) {
-    var options = Array.prototype.slice.call(dc.querySelectorAll('.dual-capacity-option'));
+    var allOptions = Array.prototype.slice.call(dc.querySelectorAll('.dual-capacity-option'));
+    var options = allOptions.filter(function(o) { return !o.classList.contains('is-sold-out'); });
     if (!options.length) return;
 
     var card = dc.closest('.product-card');
