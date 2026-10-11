@@ -14,20 +14,6 @@ function getCardColor(card) {
   return el ? el.textContent.trim() : '';
 }
 
-function dotForColor(hex) {
-  hex = String(hex == null ? '' : hex).trim();
-  if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return hex;
-  var lin = function(c) {
-    c /= 255;
-    return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-  };
-  var r = lin(parseInt(hex.substr(1, 2), 16));
-  var g = lin(parseInt(hex.substr(3, 2), 16));
-  var b = lin(parseInt(hex.substr(5, 2), 16));
-  var L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  return L > 0.75 ? '#26E0D4' : hex;
-}
-
 function parsePrice(text) {
   var digits = String(text == null ? '' : text).replace(/[^\d]/g, '');
   return parseInt(digits, 10) || 0;
@@ -77,11 +63,6 @@ function initVariantSelection() {
 
     var card = dc.closest('.product-card');
     if (!card) return;
-    var colorDot = card.querySelector('.product-color');
-    if (colorDot) {
-      var hex = colorDot.style.getPropertyValue('--dot');
-      if (hex) dc.style.setProperty('--dot', dotForColor(hex));
-    }
     var buy = dc.querySelector('.btn.btn-primary');
     if (!buy) return;
 
@@ -345,11 +326,10 @@ function initProductFilters() {
 
   grid.parentNode.insertBefore(bar, grid);
 
-  // shortcut: el modelo por defecto está fijado; si se renombra su .model-divider, actualiza este label
   var urlModel = new URLSearchParams(window.location.search).get('modelo') || '';
   var hashEl = document.getElementById(window.location.hash.slice(1));
   var hashCard = hashEl && hashEl.closest('.product-card');
-  var defaultLabel = urlModel || (hashCard && hashCard.dataset.model) || 'iPhone 18 Pro Max';
+  var defaultLabel = urlModel || (hashCard && hashCard.dataset.model) || models[0];
   var defaultBtn = allBtn;
   buttons.forEach(function(b) {
     if (b.textContent === defaultLabel) defaultBtn = b;

@@ -62,7 +62,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
      - **Entry-count rule:** a card contributes **one entry per `id` on its `.dual-capacity-option`s**, or **1 entry if it has none**. It is *not* "one entry per capacity" — a card can hold two options of the same capacity (SIM vs E-SIM) and then contributes 2.
      - **Every option of a multi-option card must carry an `id`.** Without ids the card can only publish one entry, so the remaining variants are invisible to Google and unreachable by deep-link.
      - **A published `name` is frozen:** renaming it breaks the deep-link Google already indexed. Name format `Modelo Capacidad [SIM/E-SIM] - Color`; append ` SIM` / ` E-SIM` only when the card offers two options with the same capacity (otherwise the name would be duplicated).
-     - Option `id` format: `<article-id>-<capacity-lowercase>-<sim|esim>`, e.g. `iphone-17-pro-max-cosmic-orange-256gb-sim`. The `<article>` may keep its own `id`; ids must be unique document-wide.
+     - Option `id` format: `<article-id>-<capacity-lowercase>-<sim|esim>`, donde `<article-id>` es el id o slug de la propia tarjeta. The `<article>` may keep its own `id`; ids must be unique document-wide.
      - Precios, disponibilidad y condición **no viven en el JSON-LD**: se publican únicamente en el HTML visible de cada tarjeta, así un cambio de precio no exige sincronizar el schema.
 
 ## Products
@@ -71,12 +71,12 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Cards use `<article class="product-card reveal">` (semantic HTML5)
 - Card element order: `<span class="stock-badge">` → `.product-img-wrapper` → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → `.dual-capacity` (price → `.capacity-chip` → badge → `.btn`). Inside a `.dual-capacity-option` the order is always price → chip → badge; **no card puts a badge before the chip**.
 - All product cards use `.dual-capacity` > `.dual-capacity-option` layout
-- `js/products.js` inyecta en cada card: selección de variante SIN preselección (nada chequeado al cargar; clic o flechas/Enter cambian, dot coloreado solo en la elegida, clic sobre la marcada la desmarca), botón "Comprar" y enlace "Financiar" empiezan deshabilitados (`.is-disabled` + `aria-disabled`); al no elegir una variante, click en cualquiera muestra el mensaje rojo "Selecciona una opción..." (`.buy-hint`, fade, auto-hide) sin abrir WhatsApp. Al seleccionar, se habilitan y el CTA pasa a "Comprar [capacidad] · [tipo]" (mensaje WhatsApp incluye modelo + color + capacidad + SIM/E-SIM/Exhibición/Nuevo; "Financiar" con `data-amount` del precio seleccionado). Los accesorios (sin `.dual-capacity`) no tienen financiamiento ni gating. Una opción con clase `is-sold-out` (chip "Agotado") queda fuera de la selección y del financiamiento.
+- `js/products.js` inyecta en cada card: selección de variante SIN preselección (nada chequeado al cargar; clic o flechas/Enter cambian, dot cyan solo en la elegida, clic sobre la marcada la desmarca), botón "Comprar" y enlace "Financiar" empiezan deshabilitados (`.is-disabled` + `aria-disabled`); al no elegir una variante, click en cualquiera muestra el mensaje rojo "Selecciona una opción..." (`.buy-hint`, fade, auto-hide) sin abrir WhatsApp. Al seleccionar, se habilitan y el CTA pasa a "Comprar [capacidad] · [tipo]" (mensaje WhatsApp incluye modelo + color + capacidad + SIM/E-SIM/Exhibición/Nuevo; "Financiar" con `data-amount` del precio seleccionado). Los accesorios (sin `.dual-capacity`) no tienen financiamiento ni gating. Una opción con clase `is-sold-out` (chip "Agotado") queda fuera de la selección y del financiamiento.
 - Barra de filtros `.product-filters` en `#productos` (generada por `js/products.js` desde los `.model-divider`); cards ocultas usan `.is-filtered` (no confundir con `.hidden` de reveal). Si la URL no trae `?modelo=`, el filtro arranca en el modelo del fragmento cuando éste apunta a una card del grid de `#productos` (con `data-model`); las cards de accesorios (sin `.model-divider`) y cualquier otro fragmento caen al modelo por defecto. `apply()` escribe el `?modelo=` resultante en la URL con `history.replaceState`.
 - **Cards differ in options, not in structure.** Any card may offer 1 or N `.dual-capacity-option`s over any combination of capacity, SIM type and condition. Read the actual card before assuming a pattern from a neighbouring model.
 - **Carousel photos must all be distinct.** If two frames of a source gallery are identical (or near-identical), drop one and renumber the survivors `-2..-N` consecutively — never ship the same photo twice in one carousel, and never leave a gap in the numbering. Check for cross-colour duplicates before committing.
-- **One image folder per model**: `products/iphone-{model}/`, even when two models share a prefix (`iphone-16-pro/` vs `iphone-16-pro-max/`), otherwise their galleries overwrite each other.
-- **Color swatch:** `--dot` on `.product-color` is the swatch hex. `dotForColor()` (`js/products.js`) forces any swatch above relative luminance 0.75 to cyan `#26E0D4`, so keep very light colors just under that or pick a darker hex.
+- **One image folder per model**: `products/iphone-{model}/`, even when a model's folder name is a prefix of another's, otherwise their galleries overwrite each other.
+- **Color swatch:** `--dot` on `.product-color` is the swatch hex (solo el circulito junto al nombre del color). El punto de la variante seleccionada usa siempre el cyan de marca (`--primary`), no el color del equipo.
 - ⚠️ **Pending:** some cards still use provisional images sourced externally; replace them with photos of the store's own units.
 
 ## Credit simulator
@@ -86,7 +86,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Input `#credit-amount` (digits only, max 12, live thousands separator). Errors: "Ingresa el valor." (empty) / "El valor debe ser mayor a cero." (≤0).
 - Results rendered by JS into `#credit-results`; per-entity card shows `Recargo <factor>` (the financing factor, `divisor.toFixed(2)`) + additional in money + TOTAL (primary) + CTA "Solicitar crédito" via `openWhatsApp`.
 - Results include a `Precio de contado` summary line and a disclaimer note ("Valores aproximados. Sujetos a aprobación de la entidad."). Form card has a `.credit-hint` explaining "recargo". Cards fade in only on first valid render (`.credit-results--anim`).
-- Formatting COP (`$1.176.471`, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js`.
+- Formatting COP (`$1.234.567`, thousands grouped with dots, round to nearest) uses local `formatCOP`/`groupDigits` in `credit.js`.
 - `window.prefillCredit(value)` (global en `credit.js`) llena `#credit-amount` y dispara un evento `input`; lo usa el enlace "Financiar" de `js/products.js` con el precio de la variante seleccionada.
 
 ## Payment carousel
@@ -105,13 +105,13 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 ## Conventions & gotchas
 - Module script CORS: any local testing must use an HTTP server.
 - Small-screen hero sizing: CSS breakpoints; `hero.js` only manipulates `transform`.
-- Products with `stock-badge--out` have disabled buttons (no comprar).
+- Products with `stock-badge--out` have disabled buttons (no comprar) and their single option carries `is-sold-out` (row dimmed, fuera de selección y financiamiento).
 - "Agotado" items still show price (for reference).
 - Hero and product `alt` text is descriptive and follows `"<Model> <Color> - Urban Tech"`; the first `<img>` of a card also carries explicit `width`/`height` and `loading="lazy"`.
 - Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `products.js` → `credit.js` → `main.js` (globals, no ES module imports).
 - Trust band `.trust-band` sits in normal flow at the foot of the hero, **not** absolutely positioned — the hero is a flex column and `.container` carries `flex: 1`. Its texts are `nowrap`, so a longer phrase needs a CSS change, not a markup change. Opening hours are duplicated in the footer and the JSON-LD; keep them in sync — exception: the footer's "Dom y Festivos" has no schema.org equivalent (`openingHours` can only declare `Su`), so don't drop the holidays from the footer to "sync" it.
 - Indentation: product cards use 10-space indent for `<article>` AND its direct children (`stock-badge`, `product-img-wrapper`, `h3`, `product-color`, `dual-capacity`), 12 for `.dual-capacity-option`/`.btn` and `<img>`/arrows, 14 for price/chip, 10 for `</div>` of `.dual-capacity`, 8 for `</article>`. Accessories use flat 10-space indent.
-- **Color names are English everywhere**: the `.product-color` label, the JSON-LD `name`, and the image filename slug. Translate any Spanish source label on the way in (Negro → Black, Glaciar → Glacier); never let a Spanish color reach the HTML.
+- **Color names are English everywhere**: the `.product-color` label, the JSON-LD `name`, and the image filename slug. Translate any Spanish source label to English on the way in; never let a Spanish color reach the HTML.
 - Footer social (`.footer-social-item`): ítem en columna — círculo 44px sobre la etiqueta — y los 4 ítems en fila (centrada) bajo el título; como `.footer-social` es `flex-wrap: wrap`, en anchos de escritorio estrechos la fila envuelve a una segunda fila y el bloque queda centrado por `justify-content: center` (el grid del footer usa `align-items: center` para equilibrar las 3 columnas). El `<a>` es lo único clicable y el texto queda **fuera** del botón (sin separador). Links externos llevan `target="_blank" rel="noopener"` y URLs sin parámetros de tracking. Al hover/focus del círculo solo el `<svg>` salta (`wa-bounce 0.5s ×2`) — sin tooltip.
 
 ## SEO-critical

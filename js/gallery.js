@@ -29,16 +29,25 @@ function initGallery() {
       updateCardImg(idx + 1);
     });
 
-    wrapper.addEventListener('click', function() {
+    function openFromWrapper() {
       currentImages = images;
-      wrapper.tabIndex = -1;
-      lastFocused = wrapper;
+      lastFocused = img;
       var currentSrc = img.getAttribute('src');
       var matchIdx = images.findIndex(function(u) {
         return currentSrc.indexOf(u) !== -1 || u.indexOf(currentSrc.split('/').pop()) !== -1;
       });
       currentIndex = matchIdx >= 0 ? matchIdx : 0;
       openLightbox(currentIndex);
+    }
+
+    wrapper.addEventListener('click', openFromWrapper);
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openFromWrapper();
+      }
     });
   });
 

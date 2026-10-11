@@ -14,10 +14,8 @@
   --light: #FDFDFD;
   --glow: rgba(38, 224, 212, 0.35);
 
-  --badge-new-bg: #e0f7fa;
   --badge-new-text: #006064;
   --badge-deal-bg: #fff3e0;
-  --badge-deal-text: var(--badge-new-text);
   --badge-stock-bg: #a5d6a7;
   --badge-stock-text: #1b5e20;
   --danger: #ff8a8a;

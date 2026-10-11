@@ -340,7 +340,7 @@
 .product-card .price {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--primary-dark);
+  color: var(--dark);
   margin-bottom: 4px;
 }
 
@@ -421,8 +421,8 @@
   border-radius: 999px;
   font-size: 0.688rem;
   font-weight: 600;
-  background: var(--badge-new-bg);
-  color: var(--badge-new-text);
+  background: rgba(131, 131, 131, 0.12);
+  color: var(--gray);
 }
 
 .dual-capacity-option .badge-new {
@@ -430,8 +430,8 @@
 }
 
 .badge-deal {
-  background: var(--badge-deal-bg);
-  color: var(--badge-deal-text);
+  background: rgba(131, 131, 131, 0.12);
+  color: var(--gray);
 }
 
 .badge-sm {
@@ -960,10 +960,12 @@
 .dual-capacity-option .capacity-chip,
 .dual-capacity-option .badge-sim,
 .dual-capacity-option .badge-esim,
-.dual-capacity-option .badge-new {
+.dual-capacity-option .badge-new,
+.dual-capacity-option .badge-deal.badge-sm {
   font-size: 0.625rem;
   padding: 2px 8px;
   margin-bottom: 0;
+  line-height: 1.4;
 }
 
 .dual-capacity > .btn {
@@ -984,9 +986,11 @@
   .dual-capacity-option .capacity-chip,
   .dual-capacity-option .badge-sim,
   .dual-capacity-option .badge-esim,
-  .dual-capacity-option .badge-new {
+  .dual-capacity-option .badge-new,
+  .dual-capacity-option .badge-deal.badge-sm {
     font-size: 0.625rem;
     padding: 1px 6px;
+    line-height: 1.4;
   }
 }
 
@@ -1100,7 +1104,8 @@
   line-height: 1;
 }
 
-.product-card:hover .product-img-arrow {
+.product-card:hover .product-img-arrow,
+.product-img-arrow:focus-visible {
   opacity: 1;
 }
 
@@ -1465,8 +1470,8 @@ footer[id] {
 }
 
 .dual-capacity-option.selected::before {
-  border-color: var(--dot, var(--primary));
-  background: var(--dot, var(--primary));
+  border-color: var(--primary);
+  background: var(--primary);
 }
 
 .dual-capacity-option:focus-visible {
