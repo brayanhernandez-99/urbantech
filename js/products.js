@@ -219,7 +219,7 @@ function initFinanceLinks() {
     if (!buy) return;
 
     var link = document.createElement('a');
-    link.href = '#calcula-tu-credito';
+    link.href = '#credito';
     link.className = 'product-finance';
     link.textContent = 'Financiar';
 
@@ -240,9 +240,9 @@ function initFinanceLinks() {
       }
       var amount = parseInt(link.dataset.amount, 10) || 0;
       if (amount > 0 && window.prefillCredit) window.prefillCredit(amount);
-      var target = document.getElementById('calcula-tu-credito');
+      var target = document.getElementById('credito');
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      history.pushState(null, '', '#calcula-tu-credito');
+      history.pushState(null, '', '#credito');
     });
   });
 }
@@ -345,12 +345,14 @@ function initProductFilters() {
 
   grid.parentNode.insertBefore(bar, grid);
 
+  // shortcut: el modelo por defecto está fijado; si se renombra su .model-divider, actualiza este label
   var urlModel = new URLSearchParams(window.location.search).get('modelo') || '';
+  var hashEl = document.getElementById(window.location.hash.slice(1));
+  var hashCard = hashEl && hashEl.closest('.product-card');
+  var defaultLabel = urlModel || (hashCard && hashCard.dataset.model) || 'iPhone 18 Pro Max';
   var defaultBtn = allBtn;
-  if (urlModel) {
-    buttons.forEach(function(b) {
-      if (b.textContent === urlModel) defaultBtn = b;
-    });
-  }
+  buttons.forEach(function(b) {
+    if (b.textContent === defaultLabel) defaultBtn = b;
+  });
   apply(defaultBtn === allBtn ? '' : defaultBtn.textContent, defaultBtn);
 }

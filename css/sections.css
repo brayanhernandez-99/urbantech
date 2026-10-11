@@ -710,18 +710,44 @@
 }
 
 .footer .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
   align-items: center;
   justify-content: space-between;
+  column-gap: 24px;
+}
+
+.footer-col--brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-title {
+  margin: 0 0 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
 }
 
 .footer-social {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
 }
 
-.footer-social a {
+.footer-social-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-social-item a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -733,10 +759,20 @@
   transition: var(--transition);
 }
 
-.footer-social a:hover {
+.footer-social-item a:hover {
   background: rgba(38, 224, 212, 0.1);
   color: var(--primary);
   transform: translateY(-2px);
+}
+
+.footer-social-item a:hover svg,
+.footer-social-item a:focus-visible svg {
+  animation: wa-bounce 0.5s ease-in-out 2;
+}
+
+.footer-social-item span {
+  font-size: 0.8125rem;
+  color: var(--light);
 }
 
 .footer-info {
@@ -796,9 +832,25 @@
 
 @media (max-width: 768px) {
   .footer .container {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 20px;
     text-align: center;
+  }
+
+  .footer-col--brand .nav-logo {
+    justify-content: center;
+  }
+
+  .footer-col--brand {
+    display: contents;
+  }
+
+  .footer-copy {
+    order: 1;
+  }
+
+  .footer-info {
+    align-items: center;
   }
 }
 
@@ -962,6 +1014,47 @@
 
 .wa-float:active {
   transform: scale(0.95);
+}
+
+.wa-float:hover svg,
+.wa-float:focus-visible svg {
+  animation: wa-bounce 0.5s ease-in-out 2;
+}
+
+.wa-float::after {
+  content: 'Escríbenos por WhatsApp';
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #150c26;
+  border: 1px solid rgba(37, 211, 102, 0.45);
+  color: #f4f0ff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%) translateX(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  pointer-events: none;
+}
+
+.wa-float:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wa-float:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+  }
 }
 
 @media (max-width: 768px) {

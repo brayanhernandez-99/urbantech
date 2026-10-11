@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initProducts();
   initCreditCalculator();
 
+  const footerYear = document.getElementById('footer-year');
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
+
   const hash = window.location.hash;
   if (hash) {
     const target = document.getElementById(hash.slice(1));
