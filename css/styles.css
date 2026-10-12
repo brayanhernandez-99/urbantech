@@ -1,5 +1,5 @@
-@import url('variables.css');
-@import url('hero.css');
-@import url('sections.css');
-@import url('credit.css');
-@import url('animations.css');
+@import url('variables.css?v=7');
+@import url('hero.css?v=7');
+@import url('sections.css?v=7');
+@import url('credit.css?v=7');
+@import url('animations.css?v=7');

@@ -46,8 +46,17 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - `js/credit.js` — "Calcula tu crédito": data de entidades, `formatCOP()`, cálculo y render del simulador; expone `window.prefillCredit(value)`.
 - `js/whatsapp.js` — defines `WA_NUMBER` + `openWhatsApp()` for all CTAs.
 - `css/styles.css` — entry point; imports `variables.css`, `hero.css`, `sections.css`, `credit.css`, `animations.css`.
-- `css/variables.css` — CSS custom properties (colors, fonts, spacing).
+- `css/variables.css` — tema normal: CSS custom properties (colors, fonts, spacing) + los tokens de zona (fondos decorativos) vacíos. El acento se define con `--primary-rgb`; `--primary` y `--glow` se derivan de él. `--brand` es el cian fijo de la marca (solo `.nav-logo span`), no sigue el tema.
+- `css/themes/<tema>.css` — tema activo; solo sobreescribe tokens (ver "Temas").
 - `css/credit.css` — estilos del simulador de crédito (sección oscura).
+
+## Temas (theming)
+- El tema normal es `css/variables.css`. Un tema estacional es un archivo en `css/themes/` que **solo sobreescribe valores del tema** (colores y fondos, sin reglas de layout) y se activa con un `<link>` en `index.html` después de `css/styles.css` (mismo selector `:root`, gana por orden de carga).
+- **Acento:** se declara una sola vez como `--primary-rgb: r, g, b`; `--primary: rgb(var(--primary-rgb))` y `--glow: rgba(var(--primary-rgb), .35)` se derivan. En CSS toda transparencia del acento se escribe `rgba(var(--primary-rgb), α)` (nunca el hex), así un tema cambia `--primary-rgb` (+ `--primary-soft`/`--primary-dark` para los tonos claro/oscuro) y siguen todas.
+- **Fondos decorativos por zona:** `--hero-bg` + `--hero-scrim`/`--hero-scrim-sm` (hero y su `≤1024px`), `--hero-panel` (panel oscuro detrás del texto del hero, que pinta `.hero-content::before` en `hero.css`) y `--section-bg` (una por sección, vía selector en el tema) + `--section-veil`. En el tema normal todos valen `none`; `.hero` y el grupo de zonas de `css/sections.css` (el mismo que asigna `--gray`) los componen con `background-image`. `--section-gray` es el gris de esas zonas cuando llevan velo: el tema solo lo aclara en las que oscurece (el velo oscurece el gris base y lo vuelve ilegible).
+- **Rutas en `url()` de custom properties:** se resuelven contra la hoja donde se **usa** el `var()`, no donde se declara. Por eso `--hero-bg` (usado solo en `css/hero.css`) va relativo a `css/` (`../assets/…`) y los `--section-bg` (usados en el propio tema) van relativos a `css/themes/` (`../../assets/…`). Un `..` de más en http lo recorta el navegador en la raíz y carga igual, pero en `file://` sale del repo y la imagen no aparece.
+- `--halo-fill` es el relleno del disco `.hero-halo`. `--price-color` es el color del precio de las tarjetas.
+- **Receta para un tema nuevo:** (1) crear `css/themes/<tema>.css` con un `:root` que sobreescriba `--primary-rgb`, `--primary-soft`, `--primary-dark` y los tokens de fondo/velo/gris/precio que apliquen (rutas `../../assets/images/<tema>/…`, salvo `--hero-bg`, que va relativo a `css/`: `../assets/images/<tema>/…`); (2) poner el arte en `assets/images/<tema>/`; (3) en `index.html`, apuntar el `<link>` del tema a ese archivo y subir su `?v=`. No crear archivos de tema vacíos: un tema sin overrides es ruido.
 
 ## WhatsApp links
 - Anchors use `onclick="return openWhatsApp(this)"` with `message` attribute (plain text, no URL encoding).
@@ -76,7 +85,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - **Cards differ in options, not in structure.** Any card may offer 1 or N `.dual-capacity-option`s over any combination of capacity, SIM type and condition. Read the actual card before assuming a pattern from a neighbouring model.
 - **Carousel photos must all be distinct.** If two frames of a source gallery are identical (or near-identical), drop one and renumber the survivors `-2..-N` consecutively — never ship the same photo twice in one carousel, and never leave a gap in the numbering. Check for cross-colour duplicates before committing.
 - **One image folder per model**: `products/iphone-{model}/`, even when a model's folder name is a prefix of another's, otherwise their galleries overwrite each other.
-- **Color swatch:** `--dot` on `.product-color` is the swatch hex (solo el circulito junto al nombre del color). El punto de la variante seleccionada usa siempre el cyan de marca (`--primary`), no el color del equipo.
+- **Color swatch:** `--dot` on `.product-color` is the swatch hex (solo el circulito junto al nombre del color). El punto de la variante seleccionada usa siempre el color de acento (`--primary`), no el color del equipo.
 - ⚠️ **Pending:** some cards still use provisional images sourced externally; replace them with photos of the store's own units.
 
 ## Credit simulator
@@ -97,6 +106,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 
 ## Assets & cache-busting
 - Images: `assets/images/` (products/, accessories/, payments/, avatars/)
+- Seasonal art (fondos de hero/secciones/footer de una temporada) vive en `assets/images/<tema>/`; sus rutas se referencian solo desde el archivo de tema en `css/themes/` (tokens `--hero-bg`, `--section-bg`), nunca desde JS ni desde el CSS base.
 - Cache-busting is manual: URLs include `?v=N`. Bump `v` when replacing an image. **No** add `?v=` to new product images: `js/gallery.js:36-39` matches the `<img src>` against `data-images` by substring to recover the lightbox index, and a mismatch drops it to 0. No product image currently carries a query string.
 - Payment logos: one file per method in `payments/`, named `{method}.png` (kebab-case, matching the label below it).
 - Product images follow convention: `products/iphone-{model}/{color}[-{n}].webp` (English color names, `{n}` = 2..N for carousel images, omitted on the first). All are 1000×1000 RGB WebP — match that when replacing. Carousel length varies per card; `n` is not a global constant.

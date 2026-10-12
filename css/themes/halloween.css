@@ -1,0 +1,123 @@
+/* Temática Halloween.
+   Sobreescribe SOLO valores del tema (colores y fondos), sin reglas de layout.
+   Se activa con el <link> a este archivo en index.html, después de css/styles.css
+   (mismo selector :root, gana por orden de carga).
+   Los url(...) de las custom properties se resuelven contra la hoja donde se USA el
+   var(), no donde se declaran: los fondos de sección se usan aquí (css/themes/) ->
+   `../../assets/...`; --hero-bg se usa en css/hero.css -> `../assets/...`.
+   Con un `..` de más en http el navegador recorta en la raíz y carga igual, pero en
+   file:// sale del repo y la imagen no aparece. */
+:root {
+  --primary-rgb: 255, 148, 61;
+  --primary-soft: #FFC48A;
+  --primary-dark: #C2410C;
+
+  /* Relativa a css/hero.css, que es la hoja que usa el var(). */
+  --hero-bg: url('../assets/images/halloween/hero-bg-halloween.webp?v=1');
+  /* El halo es un disco oscuro, no un recorte de la foto: el teléfono resalta
+     sobre él en vez de perderse en el arte del fondo. */
+  --halo-fill: rgba(3, 3, 3, 0.65);
+  /* El texto del hero va sobre su propio panel oscuro en vez de un velo sobre todo
+     el fondo: así el arte se ve entero y el texto igual resalta. */
+  --hero-panel: rgba(3, 3, 3, 0.6);
+  --hero-scrim-sm: linear-gradient(180deg, rgba(3, 3, 3, 0.05) 0 25%, rgba(3, 3, 3, 0.25) 45%, rgba(3, 3, 3, 0.3) 100%);
+}
+
+/* El gris claro de las secciones con velo oscuro. En las claras (#productos,
+   #accesorios) el texto quedaría ilegible, así que conservan el gris normal. */
+#services,
+#credito,
+#testimonios,
+#pagos,
+.footer {
+  --section-gray: #cfcfcf;
+}
+
+/* Una imagen por zona y su propio velo: van por sección, no en :root, porque cada
+   fondo necesita una opacidad distinta para no perder el contraste del texto. */
+#services {
+  --section-bg: url('../../assets/images/halloween/services-bg-halloween.webp?v=1');
+  --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
+  background-image: var(--section-veil), var(--section-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#credito {
+  --section-bg: url('../../assets/images/halloween/credit-bg-halloween.webp?v=1');
+  --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
+  background-image: var(--section-veil), var(--section-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#testimonios {
+  --section-bg: url('../../assets/images/halloween/payments-bg-halloween.webp?v=1');
+  --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
+  background-image: var(--section-veil), var(--section-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.footer {
+  --section-bg: url('../../assets/images/halloween/payments-bg-halloween.webp?v=1');
+  --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
+  background-image: var(--section-veil), var(--section-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* El acento no llega a 4.5:1 sobre el fondo claro de estas secciones: usa el tono oscuro. */
+#productos .section-label,
+#accesorios .section-label { color: var(--primary-dark); }
+
+/* Texto auxiliar del simulador: el velo oscurece el fondo, así que sube su opacidad. */
+.credit-input::placeholder { color: rgba(255, 255, 255, 0.68); }
+.credit-hint { color: rgba(255, 255, 255, 0.75); }
+.credit-results-note { color: rgba(255, 255, 255, 0.72); }
+
+/* Fondos decorativos para el resto de secciones */
+#productos {
+  --section-bg: url('../../assets/images/halloween/products-bg-halloween.webp?v=1');
+  --section-veil: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.25));
+  background-image: var(--section-veil), var(--section-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#accesorios {
+  --section-bg: url('../../assets/images/halloween/products-bg-halloween.webp?v=1');
+  --section-veil: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.25));
+  background-image: var(--section-veil), var(--section-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#pagos {
+  --section-bg: url('../../assets/images/halloween/payments-bg-halloween.webp?v=1');
+  --section-veil: linear-gradient(rgba(3,3,3,0.35), rgba(3,3,3,0.55));
+  background-image: var(--section-veil), var(--section-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* La imagen se ancla al viewport. Con `scroll` su tamaño se calcula contra la
+   sección: #productos con todos los modelos mide ~10.000px y la imagen quedaría
+   ampliada ~10× (una mancha plana, no se ve). Anclada al viewport se ve entera.
+   shortcut: iOS Safari ignora `fixed` (vuelve a escalar contra la sección). */
+#services,
+#credito,
+#testimonios,
+#productos,
+#accesorios,
+#pagos,
+.footer {
+  background-attachment: fixed;
+}

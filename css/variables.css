@@ -5,14 +5,32 @@
 }
 
 :root {
-  --primary: #26E0D4;
+  /* Acento del tema. El tema activo (css/themes/*.css) solo sobreescribe --primary-rgb,
+     --primary-soft y --primary-dark; --primary y --glow se derivan de --primary-rgb. */
+  --primary-rgb: 38, 224, 212;
+  --primary: rgb(var(--primary-rgb));
   --primary-soft: #97F0EA;
   --primary-dark: #1ab8ae;
   --dark: #030303;
   --gray: #838383;
   --gray-light: #e5e5e5;
   --light: #FDFDFD;
-  --glow: rgba(38, 224, 212, 0.35);
+  --glow: rgba(var(--primary-rgb), 0.35);
+  /* Cian de marca: identidad del logo, no sigue el tema estacional. */
+  --brand: #26E0D4;
+
+  /* Fondos decorativos: vacíos en el tema normal; el tema activo los rellena. */
+  --hero-bg: none;
+  --hero-scrim: none;
+  --hero-scrim-sm: none;
+  --halo-fill: transparent;
+  --hero-panel: none;
+  --section-bg: none;
+  --section-veil: none;
+  /* Gris de las secciones con velo (el velo oscurece, así que este gris es más claro). */
+  --section-gray: #838383;
+  /* El tema puede recolorear el precio de las tarjetas. */
+  --price-color: var(--dark);
 
   --badge-new-text: #006064;
   --badge-deal-bg: #fff3e0;
@@ -146,7 +164,7 @@ ul {
 }
 
 .btn-outline:hover {
-  background: rgba(38, 224, 212, 0.1);
+  background: rgba(var(--primary-rgb), 0.1);
   transform: translateY(-1px);
 }
 

@@ -1,7 +1,7 @@
 /* ============ Calcula tu crédito ============ */
 
 .credit-section {
-  background: var(--dark);
+  background-color: var(--dark);
   position: relative;
 }
 
@@ -28,8 +28,8 @@
   width: 80%;
   max-width: 600px;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(38, 224, 212, 0.25), transparent);
-  box-shadow: 0 0 6px rgba(38, 224, 212, 0.15);
+  background: linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0.25), transparent);
+  box-shadow: 0 0 6px rgba(var(--primary-rgb), 0.15);
   z-index: 0;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .credit-form-card:focus-within {
-  border-color: rgba(38, 224, 212, 0.35);
+  border-color: rgba(var(--primary-rgb), 0.35);
 }
 
 .credit-label {
@@ -87,6 +87,7 @@
   transition: var(--transition);
   font-family: var(--font-sans);
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .credit-input::-webkit-outer-spin-button,
@@ -181,7 +182,7 @@
 }
 
 .credit-result-card:hover {
-  border-color: rgba(38, 224, 212, 0.25);
+  border-color: rgba(var(--primary-rgb), 0.25);
   transform: translateY(-3px);
 }
 
