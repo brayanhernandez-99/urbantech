@@ -109,7 +109,8 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Images: `assets/images/` (products/, accessories/, payments/, avatars/)
 - Seasonal art (fondos de hero/secciones/footer de una temporada) vive en `assets/images/<tema>/`; sus rutas se referencian solo desde el archivo de tema en `css/themes/` (tokens `--hero-bg`, `--section-bg`) o, si el arte va en el markup (p. ej. el botón flotante), desde `index.html`; nunca desde JS ni desde el CSS base.
 - Cache-busting is manual: URLs include `?v=N`. Bump `v` when replacing an image. **No** add `?v=` to new product images: `js/gallery.js:36-39` matches the `<img src>` against `data-images` by substring to recover the lightbox index, and a mismatch drops it to 0. No product image currently carries a query string.
-- Payment logos: one file per method in `payments/`, named `{method}.png` (kebab-case, matching the label below it).
+- Payment logos: one file per method in `payments/`, named `{method}.<ext>` con la extensión de su formato real (kebab-case, matching the label below it).
+- **La extensión debe coincidir con el formato real del archivo.** Renombrar la extensión no convierte el formato: el `Content-Type` que recibe el navegador lo dicta la extensión, y los navegadores estrictos (Safari/iOS) no pintan la imagen si no coincide con sus bytes (en un `<img>` se ve rota; en un fondo CSS o un `<image>` de SVG queda invisible, sin aviso). Verifica con `file --mime-type` antes de subir.
 - Product images follow convention: `products/iphone-{model}/{color}[-{n}].webp` (English color names, `{n}` = 2..N for carousel images, omitted on the first). All are 1000×1000 RGB WebP — match that when replacing. Carousel length varies per card; `n` is not a global constant.
 - Accessory images follow convention: `{descriptive-name}.webp`.
 
