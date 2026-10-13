@@ -1,5 +1,5 @@
 /* Temática Halloween.
-   Sobreescribe SOLO valores del tema (colores y fondos), sin reglas de layout.
+   Sobreescribe SOLO valores del tema (colores, fondos e iconografía), sin reglas de layout.
    Se activa con el <link> a este archivo en index.html, después de css/styles.css
    (mismo selector :root, gana por orden de carga).
    Los url(...) de las custom properties se resuelven contra la hoja donde se USA el
@@ -23,12 +23,12 @@
   --hero-scrim-sm: linear-gradient(180deg, rgba(3, 3, 3, 0.05) 0 25%, rgba(3, 3, 3, 0.25) 45%, rgba(3, 3, 3, 0.3) 100%);
 }
 
-/* El gris claro de las secciones con velo oscuro. En las claras (#productos,
-   #accesorios) el texto quedaría ilegible, así que conservan el gris normal. */
+/* El gris claro de las secciones con velo oscuro. En las claras (#products,
+   #accessories) el texto quedaría ilegible, así que conservan el gris normal. */
 #services,
-#credito,
-#testimonios,
-#pagos,
+#credit,
+#reviews,
+#payments,
 .footer {
   --section-gray: #cfcfcf;
 }
@@ -36,7 +36,7 @@
 /* Una imagen por zona y su propio velo: van por sección, no en :root, porque cada
    fondo necesita una opacidad distinta para no perder el contraste del texto. */
 #services {
-  --section-bg: url('../../assets/images/halloween/services-bg-halloween.webp?v=1');
+  --section-bg: url('../../assets/images/halloween/services-bg-halloween.webp?v=2');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
   background-image: var(--section-veil), var(--section-bg);
   background-position: center;
@@ -44,8 +44,8 @@
   background-repeat: no-repeat;
 }
 
-#credito {
-  --section-bg: url('../../assets/images/halloween/credit-bg-halloween.webp?v=1');
+#credit {
+  --section-bg: url('../../assets/images/halloween/credit-bg-halloween.webp?v=2');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
   background-image: var(--section-veil), var(--section-bg);
   background-position: center;
@@ -53,8 +53,8 @@
   background-repeat: no-repeat;
 }
 
-#testimonios {
-  --section-bg: url('../../assets/images/halloween/payments-bg-halloween.webp?v=1');
+#reviews {
+  --section-bg: url('../../assets/images/halloween/others-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
   background-image: var(--section-veil), var(--section-bg);
   background-position: center;
@@ -63,7 +63,7 @@
 }
 
 .footer {
-  --section-bg: url('../../assets/images/halloween/payments-bg-halloween.webp?v=1');
+  --section-bg: url('../../assets/images/halloween/others-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
   background-image: var(--section-veil), var(--section-bg);
   background-position: center;
@@ -72,8 +72,8 @@
 }
 
 /* El acento no llega a 4.5:1 sobre el fondo claro de estas secciones: usa el tono oscuro. */
-#productos .section-label,
-#accesorios .section-label { color: var(--primary-dark); }
+#products .section-label,
+#accessories .section-label { color: var(--primary-dark); }
 
 /* Texto auxiliar del simulador: el velo oscurece el fondo, así que sube su opacidad. */
 .credit-input::placeholder { color: rgba(255, 255, 255, 0.68); }
@@ -81,7 +81,7 @@
 .credit-results-note { color: rgba(255, 255, 255, 0.72); }
 
 /* Fondos decorativos para el resto de secciones */
-#productos {
+#products {
   --section-bg: url('../../assets/images/halloween/products-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.25));
   background-image: var(--section-veil), var(--section-bg);
@@ -90,7 +90,7 @@
   background-repeat: no-repeat;
 }
 
-#accesorios {
+#accessories {
   --section-bg: url('../../assets/images/halloween/products-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.25));
   background-image: var(--section-veil), var(--section-bg);
@@ -99,8 +99,8 @@
   background-repeat: no-repeat;
 }
 
-#pagos {
-  --section-bg: url('../../assets/images/halloween/payments-bg-halloween.webp?v=1');
+#payments {
+  --section-bg: url('../../assets/images/halloween/others-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(3,3,3,0.35), rgba(3,3,3,0.55));
   background-image: var(--section-veil), var(--section-bg);
   background-position: center;
@@ -109,15 +109,71 @@
 }
 
 /* La imagen se ancla al viewport. Con `scroll` su tamaño se calcula contra la
-   sección: #productos con todos los modelos mide ~10.000px y la imagen quedaría
+   sección: #products con todos los modelos mide ~10.000px y la imagen quedaría
    ampliada ~10× (una mancha plana, no se ve). Anclada al viewport se ve entera.
    shortcut: iOS Safari ignora `fixed` (vuelve a escalar contra la sección). */
 #services,
-#credito,
-#testimonios,
-#productos,
-#accesorios,
-#pagos,
+#credit,
+#reviews,
+#products,
+#accessories,
+#payments,
 .footer {
   background-attachment: fixed;
+}
+
+/* Botón flotante: el botón completo es la calabaza del tema. Se oculta el glifo
+   de marca y el círculo (fondo y sombra); el img decorativo, oculto por defecto
+   en el CSS base, ocupa todo el botón. */
+.wa-float {
+  background: transparent;
+  box-shadow: none;
+}
+
+.wa-float:hover {
+  box-shadow: none;
+}
+
+.wa-float::after {
+  border-color: rgba(var(--primary-rgb), 0.5);
+}
+
+.wa-float svg {
+  display: none;
+}
+
+.wa-float-pumpkin {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35)) drop-shadow(0 6px 16px rgba(var(--primary-rgb), 0.45));
+  transition: filter 0.2s;
+}
+
+.wa-float:hover .wa-float-pumpkin {
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.4)) drop-shadow(0 8px 20px rgba(var(--primary-rgb), 0.6));
+}
+
+.wa-float:hover .wa-float-pumpkin,
+.wa-float:focus-visible .wa-float-pumpkin {
+  animation: wa-bounce 0.5s ease-in-out 2;
+}
+
+/* Móvil/tablet en vertical: el arte 3:2 con `cover` contra un viewport vertical se
+   recorta a ~1/3 de su ancho (se ve ampliado). Se sirve una versión vertical de cada
+   arte (la escena entera a lo ancho + relleno difuminado) para verla completa sin
+   dejar de llenar la sección; mismos `fixed`/`cover`. En apaisado el arte 3:2 ya cabe
+   entero, así que la condición es `orientation: portrait`. */
+@media (max-width: 1024px) and (orientation: portrait) {
+  :root {
+    --hero-bg: url('../assets/images/halloween/hero-bg-halloween-mobile.webp?v=1');
+  }
+
+  #services { --section-bg: url('../../assets/images/halloween/services-bg-halloween-mobile.webp?v=1'); }
+  #credit { --section-bg: url('../../assets/images/halloween/credit-bg-halloween-mobile.webp?v=1'); }
+  #reviews,
+  .footer,
+  #payments { --section-bg: url('../../assets/images/halloween/others-bg-halloween-mobile.webp?v=1'); }
+  #products,
+  #accessories { --section-bg: url('../../assets/images/halloween/products-bg-halloween-mobile.webp?v=1'); }
 }

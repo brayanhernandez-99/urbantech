@@ -4,6 +4,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 ## Flujo de validación de cambios
 - **Toda propuesta se valida antes de entregarse.** Antes de presentar cualquier solución, lánzala al subagente `validator` (contexto fresco, solo lectura).
 - Si responde **"CAMBIOS REQUERIDOS"**, corrige y vuelve a lanzarlo. Repite hasta **"APROBADO"**. Solo entonces presenta la propuesta.
+- **Lánzalo en background** y sigue con trabajo independiente mientras corre; espera su veredicto antes de entregar. Pásale el **diff**, no la propuesta completa.
 - **Nada se aplica sin aprobación explícita del usuario.** La aplicación la hace el agente `build`.
 
 ## Política de documentación
@@ -38,11 +39,11 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 
 ## Entrypoints & important files
 - `index.html` — single-page landing; primary edit point for content/markup.
-- `js/main.js` — runtime entry; calls `initHero()`, `initScroll()`, `initGallery()`, `initProducts()`, `initCreditCalculator()` on DOMContentLoaded, y rellena `#footer-year` con el año en curso.
+- `js/main.js` — runtime entry; calls `initHero()`, `initScroll()`, `initGallery()`, `initProducts()`, `initCreditCalculator()` on DOMContentLoaded, y rellena `#footer-year` con el año en curso. Al inicio mapea los hashes de sección antiguos en español (`#productos`, `#credito`, …) a su id actual con `history.replaceState`.
 - `js/gallery.js` — product image carousel arrows (`data-images` on `.product-img-wrapper`) + lightbox.
 - `js/hero.js` — controls hero parallax transforms (applies `transform` on `.hero-phone` img only).
 - `js/scroll.js` — scroll spy / reveal animations + mobile menu (scroll lock, Escape).
-- `js/products.js` — enhances product cards: variante seleccionable (`.selected`, `role="radio"`), CTA "Comprar" refleja variante, enlace "Financiar" (solo en celulares con `.dual-capacity`; llene el simulador vía `window.prefillCredit`) y filtro por modelo en `#productos` (el filtro activo se persiste en la URL vía `?modelo=…` con `history.replaceState`).
+- `js/products.js` — enhances product cards: variante seleccionable (`.selected`, `role="radio"`), CTA "Comprar" refleja variante, enlace "Financiar" (solo en celulares con `.dual-capacity`; llene el simulador vía `window.prefillCredit`) y filtro por modelo en `#products` (el filtro activo se persiste en la URL vía `?modelo=…` con `history.replaceState`).
 - `js/credit.js` — "Calcula tu crédito": data de entidades, `formatCOP()`, cálculo y render del simulador; expone `window.prefillCredit(value)`.
 - `js/whatsapp.js` — defines `WA_NUMBER` + `openWhatsApp()` for all CTAs.
 - `css/styles.css` — entry point; imports `variables.css`, `hero.css`, `sections.css`, `credit.css`, `animations.css`.
@@ -51,18 +52,18 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - `css/credit.css` — estilos del simulador de crédito (sección oscura).
 
 ## Temas (theming)
-- El tema normal es `css/variables.css`. Un tema estacional es un archivo en `css/themes/` que **solo sobreescribe valores del tema** (colores y fondos, sin reglas de layout) y se activa con un `<link>` en `index.html` después de `css/styles.css` (mismo selector `:root`, gana por orden de carga).
+- El tema normal es `css/variables.css`. Un tema estacional es un archivo en `css/themes/` que **solo sobreescribe valores del tema** (colores, fondos e iconografía del tema, sin reglas de layout) y se activa con un `<link>` en `index.html` después de `css/styles.css` (mismo selector `:root`, gana por orden de carga).
 - **Acento:** se declara una sola vez como `--primary-rgb: r, g, b`; `--primary: rgb(var(--primary-rgb))` y `--glow: rgba(var(--primary-rgb), .35)` se derivan. En CSS toda transparencia del acento se escribe `rgba(var(--primary-rgb), α)` (nunca el hex), así un tema cambia `--primary-rgb` (+ `--primary-soft`/`--primary-dark` para los tonos claro/oscuro) y siguen todas.
 - **Fondos decorativos por zona:** `--hero-bg` + `--hero-scrim`/`--hero-scrim-sm` (hero y su `≤1024px`), `--hero-panel` (panel oscuro detrás del texto del hero, que pinta `.hero-content::before` en `hero.css`) y `--section-bg` (una por sección, vía selector en el tema) + `--section-veil`. En el tema normal todos valen `none`; `.hero` y el grupo de zonas de `css/sections.css` (el mismo que asigna `--gray`) los componen con `background-image`. `--section-gray` es el gris de esas zonas cuando llevan velo: el tema solo lo aclara en las que oscurece (el velo oscurece el gris base y lo vuelve ilegible).
 - **Rutas en `url()` de custom properties:** se resuelven contra la hoja donde se **usa** el `var()`, no donde se declara. Por eso `--hero-bg` (usado solo en `css/hero.css`) va relativo a `css/` (`../assets/…`) y los `--section-bg` (usados en el propio tema) van relativos a `css/themes/` (`../../assets/…`). Un `..` de más en http lo recorta el navegador en la raíz y carga igual, pero en `file://` sale del repo y la imagen no aparece.
 - `--halo-fill` es el relleno del disco `.hero-halo`. `--price-color` es el color del precio de las tarjetas.
-- **Receta para un tema nuevo:** (1) crear `css/themes/<tema>.css` con un `:root` que sobreescriba `--primary-rgb`, `--primary-soft`, `--primary-dark` y los tokens de fondo/velo/gris/precio que apliquen (rutas `../../assets/images/<tema>/…`, salvo `--hero-bg`, que va relativo a `css/`: `../assets/images/<tema>/…`); (2) poner el arte en `assets/images/<tema>/`; (3) en `index.html`, apuntar el `<link>` del tema a ese archivo y subir su `?v=`. No crear archivos de tema vacíos: un tema sin overrides es ruido.
+- **Receta para un tema nuevo:** (1) crear `css/themes/<tema>.css` con un `:root` que sobreescriba `--primary-rgb`, `--primary-soft`, `--primary-dark` y los tokens de fondo/velo/gris/precio que apliquen (rutas `../../assets/images/<tema>/…`, salvo `--hero-bg`, que va relativo a `css/`: `../assets/images/<tema>/…`); (2) poner el arte en `assets/images/<tema>/`, incluida una versión vertical `*-mobile.webp` de cada fondo (la escena completa a lo ancho sobre un relleno difuminado del mismo arte), que el tema sirve en `@media (max-width: 1024px) and (orientation: portrait)` — en apaisado el arte 3:2 ya cabe entero; sin ella el arte 3:2 con `cover` en un viewport vertical se recorta a ~1/3 del ancho; (3) en `index.html`, apuntar el `<link>` del tema a ese archivo y subir su `?v=`. No crear archivos de tema vacíos: un tema sin overrides es ruido.
 
 ## WhatsApp links
 - Anchors use `onclick="return openWhatsApp(this)"` with `message` attribute (plain text, no URL encoding).
 - `href="#"` — JS builds the full `wa.me` URL from `WA_NUMBER` + `message` via `openWhatsApp()`.
 - `js/whatsapp.js` defines `WA_NUMBER` and the `openWhatsApp` function.
-- Floating button `.wa-float` fixed bottom-right (24px/24px, 56px circle, #25D366 bg, white icon). Added before scripts in `<body>`. Bounce animation `wa-bounce` in `animations.css`. Mobile: 50px, 16px inset. Al hacer hover: la sombra verde se intensifica y el `<svg>` interno salta (`wa-bounce 0.5s ×2`, aplicado al svg para no chocar con el rebote idle del anchor) y aparece la etiqueta `::after` "Escríbenos por WhatsApp" (sin emoji; solo bajo `@media (hover: hover) and (pointer: fine)` o `:focus-visible`).
+- Floating button `.wa-float` fixed bottom-right (24px/24px, 56px circle, #25D366 bg, white icon). Added before scripts in `<body>`. Bounce animation `wa-bounce` in `animations.css`. Mobile: 50px, 16px inset. Al hacer hover: la sombra verde se intensifica y el `<svg>` interno salta (`wa-bounce 0.5s ×2`, aplicado al svg para no chocar con el rebote idle del anchor) y aparece la etiqueta `::after` "Escríbenos por WhatsApp" (sin emoji; solo bajo `@media (hover: hover) and (pointer: fine)` o `:focus-visible`). Un tema puede ocultar el glifo de marca y el círculo del botón (fondo y sombra), y hacer que el elemento decorativo `.wa-float-pumpkin` ocupe todo el botón (oculto por defecto en `sections.css`).
 
 ## JSON-LD
 - Two schemas in `<head>`:
@@ -81,7 +82,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Card element order: `<span class="stock-badge">` → `.product-img-wrapper` → `<h3>iPhone [Model]</h3>` → `<span class="product-color">[Color]</span>` → `.dual-capacity` (price → `.capacity-chip` → badge → `.btn`). Inside a `.dual-capacity-option` the order is always price → chip → badge; **no card puts a badge before the chip**.
 - All product cards use `.dual-capacity` > `.dual-capacity-option` layout
 - `js/products.js` inyecta en cada card: selección de variante SIN preselección (nada chequeado al cargar; clic o flechas/Enter cambian, dot cyan solo en la elegida, clic sobre la marcada la desmarca), botón "Comprar" y enlace "Financiar" empiezan deshabilitados (`.is-disabled` + `aria-disabled`); al no elegir una variante, click en cualquiera muestra el mensaje rojo "Selecciona una opción..." (`.buy-hint`, fade, auto-hide) sin abrir WhatsApp. Al seleccionar, se habilitan y el CTA pasa a "Comprar [capacidad] · [tipo]" (mensaje WhatsApp incluye modelo + color + capacidad + SIM/E-SIM/Exhibición/Nuevo; "Financiar" con `data-amount` del precio seleccionado). Los accesorios (sin `.dual-capacity`) no tienen financiamiento ni gating. Una opción con clase `is-sold-out` (chip "Agotado") queda fuera de la selección y del financiamiento.
-- Barra de filtros `.product-filters` en `#productos` (generada por `js/products.js` desde los `.model-divider`); cards ocultas usan `.is-filtered` (no confundir con `.hidden` de reveal). Si la URL no trae `?modelo=`, el filtro arranca en el modelo del fragmento cuando éste apunta a una card del grid de `#productos` (con `data-model`); las cards de accesorios (sin `.model-divider`) y cualquier otro fragmento caen al modelo por defecto. `apply()` escribe el `?modelo=` resultante en la URL con `history.replaceState`.
+- Barra de filtros `.product-filters` en `#products` (generada por `js/products.js` desde los `.model-divider`); cards ocultas usan `.is-filtered` (no confundir con `.hidden` de reveal). Si la URL no trae `?modelo=`, el filtro arranca en el modelo del fragmento cuando éste apunta a una card del grid de `#products` (con `data-model`); las cards de accesorios (sin `.model-divider`) y cualquier otro fragmento caen al modelo por defecto. `apply()` escribe el `?modelo=` resultante en la URL con `history.replaceState`.
 - **Cards differ in options, not in structure.** Any card may offer 1 or N `.dual-capacity-option`s over any combination of capacity, SIM type and condition. Read the actual card before assuming a pattern from a neighbouring model.
 - **Carousel photos must all be distinct.** If two frames of a source gallery are identical (or near-identical), drop one and renumber the survivors `-2..-N` consecutively — never ship the same photo twice in one carousel, and never leave a gap in the numbering. Check for cross-colour duplicates before committing.
 - **One image folder per model**: `products/iphone-{model}/`, even when a model's folder name is a prefix of another's, otherwise their galleries overwrite each other.
@@ -89,8 +90,8 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - ⚠️ **Pending:** some cards still use provisional images sourced externally; replace them with photos of the store's own units.
 
 ## Credit simulator
-- Section `#credito` after `#accesorios`, before `#pagos` (dark background).
-- Nav links "Crédito" (`#credito`) and "Contacto" (`#contacto`) in menu; `#pagos` and `#testimonios` remain as sections but are NOT in the nav.
+- Section `#credit` after `#accessories`, before `#payments` (dark background).
+- Nav links "Crédito" (`#credit`) and "Contacto" (`#contact`) in menu; `#payments` and `#reviews` remain as sections but are NOT in the nav.
 - Entities and their financing factors live in `js/credit.js` (`{ name, divisor }`) — edit them there, never in the HTML. Formula: `calculated = cash / divisor`, `additional = calculated - cash`, `total = cash + additional`.
 - Input `#credit-amount` (digits only, max 12, live thousands separator). Errors: "Ingresa el valor." (empty) / "El valor debe ser mayor a cero." (≤0).
 - Results rendered by JS into `#credit-results`; per-entity card shows `Recargo <factor>` (the financing factor, `divisor.toFixed(2)`) + additional in money + TOTAL (primary) + CTA "Solicitar crédito" via `openWhatsApp`.
@@ -106,7 +107,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 
 ## Assets & cache-busting
 - Images: `assets/images/` (products/, accessories/, payments/, avatars/)
-- Seasonal art (fondos de hero/secciones/footer de una temporada) vive en `assets/images/<tema>/`; sus rutas se referencian solo desde el archivo de tema en `css/themes/` (tokens `--hero-bg`, `--section-bg`), nunca desde JS ni desde el CSS base.
+- Seasonal art (fondos de hero/secciones/footer de una temporada) vive en `assets/images/<tema>/`; sus rutas se referencian solo desde el archivo de tema en `css/themes/` (tokens `--hero-bg`, `--section-bg`) o, si el arte va en el markup (p. ej. el botón flotante), desde `index.html`; nunca desde JS ni desde el CSS base.
 - Cache-busting is manual: URLs include `?v=N`. Bump `v` when replacing an image. **No** add `?v=` to new product images: `js/gallery.js:36-39` matches the `<img src>` against `data-images` by substring to recover the lightbox index, and a mismatch drops it to 0. No product image currently carries a query string.
 - Payment logos: one file per method in `payments/`, named `{method}.png` (kebab-case, matching the label below it).
 - Product images follow convention: `products/iphone-{model}/{color}[-{n}].webp` (English color names, `{n}` = 2..N for carousel images, omitted on the first). All are 1000×1000 RGB WebP — match that when replacing. Carousel length varies per card; `n` is not a global constant.

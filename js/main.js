@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Hashes de sección antiguos (en español) → id actual, para no romper enlaces ya compartidos.
+  const legacyHash = {
+    '#productos': '#products',
+    '#accesorios': '#accessories',
+    '#credito': '#credit',
+    '#pagos': '#payments',
+    '#testimonios': '#reviews',
+    '#contacto': '#contact',
+  };
+  if (legacyHash[window.location.hash]) history.replaceState(null, '', legacyHash[window.location.hash]);
+
   initHero();
   initScroll();
   initGallery();

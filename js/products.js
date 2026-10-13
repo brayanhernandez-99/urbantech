@@ -200,7 +200,7 @@ function initFinanceLinks() {
     if (!buy) return;
 
     var link = document.createElement('a');
-    link.href = '#credito';
+    link.href = '#credit';
     link.className = 'product-finance';
     link.textContent = 'Financiar';
 
@@ -221,15 +221,15 @@ function initFinanceLinks() {
       }
       var amount = parseInt(link.dataset.amount, 10) || 0;
       if (amount > 0 && window.prefillCredit) window.prefillCredit(amount);
-      var target = document.getElementById('credito');
+      var target = document.getElementById('credit');
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      history.pushState(null, '', '#credito');
+      history.pushState(null, '', '#credit');
     });
   });
 }
 
 function initProductFilters() {
-  var section = document.getElementById('productos');
+  var section = document.getElementById('products');
   if (!section) return;
   var grid = section.querySelector('.products-grid');
   if (!grid) return;

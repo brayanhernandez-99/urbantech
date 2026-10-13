@@ -135,11 +135,11 @@
 }
 
 #services,
-#credito,
-#testimonios,
-#productos,
-#accesorios,
-#pagos,
+#credit,
+#reviews,
+#products,
+#accessories,
+#payments,
 .footer {
   --gray: var(--section-gray);
   background-image: var(--section-veil), var(--section-bg);
@@ -294,12 +294,12 @@
   }
 }
 
-#productos {
+#products {
   background: var(--light);
   position: relative;
 }
 
-#productos::after {
+#products::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -481,12 +481,12 @@
   }
 }
 
-#accesorios {
+#accessories {
   background: var(--accent-bg);
   position: relative;
 }
 
-#accesorios::after {
+#accessories::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -500,13 +500,13 @@
   z-index: 0;
 }
 
-#testimonios {
+#reviews {
   background-color: var(--dark);
   color: var(--light);
   position: relative;
 }
 
-#testimonios::after {
+#reviews::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -1023,6 +1023,10 @@
   box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
   transition: transform 0.2s, box-shadow 0.2s;
   animation: wa-bounce 2s ease-in-out infinite;
+}
+
+.wa-float-pumpkin {
+  display: none;
 }
 
 .wa-float:hover {

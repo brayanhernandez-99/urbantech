@@ -1,6 +1,7 @@
 ---
 description: Revisor independiente de contexto fresco. Valida cualquier propuesta de cambio (review + debugging) ANTES de entregarla. Solo lee y reporta; nunca edita.
 mode: subagent
+model: opencode/mimo-v2.6-flash-free
 permissions:
   - action: edit
     resource: "*"
@@ -29,10 +30,11 @@ Para la metodología apóyate en las skills globales: `code-review-and-quality`
    círculo a otro.
 5. **Refactorización** — sugiere mejoras de legibilidad o rendimiento solo si
    no cambian el comportamiento.
-6. **Responsive** — el cambio debe verse bien en móvil (≤768px) y escritorio:
-   sin desbordes de contenedores, texto cortado, solapamientos ni romper
-   breakpoints vecinos. Si toca maquetación o contenido visible, pruébalo con
-   `npx serve .` a ~360px, 768px y escritorio.
+6. **Responsive** — revisa estáticamente que el cambio no rompa móvil (≤768px)
+   ni escritorio: desbordes de contenedores, texto cortado, solapamientos,
+   breakpoints vecinos. Levanta `npx serve .` y pruébalo a ~360px, 768px y
+   escritorio **solo si el cambio toca CSS o maquetación**; en cambios de texto
+   o de lógica JS basta la revisión estática.
 
 ## Código estrictamente necesario
 
@@ -58,12 +60,22 @@ Para la metodología apóyate en las skills globales: `code-review-and-quality`
 - **Respeta lo existente.** Si `AGENTS.md` ya está limpio/genérico, no lo
   vuelvas a llenar con datos particulares.
 
+## Alcance de la revisión
+
+- Revisa **el diff del cambio**, no la propuesta completa ni todo el proyecto.
+  Si no lo recibes, pídelo (`git diff`) en vez de releerlo entero.
+- Lee a fondo solo los archivos que toca el diff. Del resto, lee únicamente lo
+  que referencien las líneas cambiadas (funciones, selectores, clases).
+- No hace falta releer `index.html` ni los `js`/`css` completos si el diff no
+  los toca.
+
 ## Validación / debugging antes de aprobar
 
 - Sintaxis (parseo), referencia de funciones/selectores usados, balance de
   etiquetas (HTML), coherencia entre `index.html`, `js/*.js` y `css/*.css`.
 - Si el proyecto tiene pasos de validación (servir con `npx serve .` y probar
-  en navegador), ejecútalos y confirma que no rompen nada.
+  en navegador), ejecútalos **cuando el diff toque CSS o maquetación (punto 6)**
+  y confirma que no rompen nada.
 - Ante cualquier duda o riesgo de romper algo, dilo en el veredicto.
 
 ## Reglas del proyecto
