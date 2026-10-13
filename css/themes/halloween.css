@@ -36,7 +36,7 @@
 /* Una imagen por zona y su propio velo: van por sección, no en :root, porque cada
    fondo necesita una opacidad distinta para no perder el contraste del texto. */
 #services {
-  --section-bg: url('../../assets/images/halloween/services-bg-halloween.webp?v=2');
+  --section-bg: url('../../assets/images/halloween/services-bg-halloween.webp?v=3');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
   background-image: var(--section-veil), var(--section-bg);
   background-position: center;
@@ -166,14 +166,14 @@
    entero, así que la condición es `orientation: portrait`. */
 @media (max-width: 1024px) and (orientation: portrait) {
   :root {
-    --hero-bg: url('../assets/images/halloween/hero-bg-halloween-mobile.webp?v=1');
+    --hero-bg: url('../assets/images/halloween/hero-bg-halloween-mobile.webp?v=2');
   }
 
-  #services { --section-bg: url('../../assets/images/halloween/services-bg-halloween-mobile.webp?v=1'); }
-  #credit { --section-bg: url('../../assets/images/halloween/credit-bg-halloween-mobile.webp?v=1'); }
+  #services { --section-bg: url('../../assets/images/halloween/services-bg-halloween-mobile.webp?v=2'); }
+  #credit { --section-bg: url('../../assets/images/halloween/credit-bg-halloween-mobile.webp?v=2'); }
   #reviews,
   .footer,
-  #payments { --section-bg: url('../../assets/images/halloween/others-bg-halloween-mobile.webp?v=1'); }
+  #payments { --section-bg: url('../../assets/images/halloween/others-bg-halloween-mobile.webp?v=2'); }
   #products,
-  #accessories { --section-bg: url('../../assets/images/halloween/products-bg-halloween-mobile.webp?v=1'); }
+  #accessories { --section-bg: url('../../assets/images/halloween/products-bg-halloween-mobile.webp?v=2'); }
 }
