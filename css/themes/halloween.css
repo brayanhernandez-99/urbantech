@@ -3,8 +3,9 @@
    Se activa con el <link> a este archivo en index.html, después de css/styles.css
    (mismo selector :root, gana por orden de carga).
    Los url(...) de las custom properties se resuelven contra la hoja donde se USA el
-   var(), no donde se declaran: los fondos de sección se usan aquí (css/themes/) ->
-   `../../assets/...`; --hero-bg se usa en css/hero.css -> `../assets/...`.
+   var(), no donde se declaran: tanto los fondos de sección (`.section-bg`, en
+   css/sections.css) como --hero-bg (css/hero.css) se usan desde css/ ->
+   `../assets/...`.
    Con un `..` de más en http el navegador recorta en la raíz y carga igual, pero en
    file:// sale del repo y la imagen no aparece. */
 :root {
@@ -36,39 +37,23 @@
 /* Una imagen por zona y su propio velo: van por sección, no en :root, porque cada
    fondo necesita una opacidad distinta para no perder el contraste del texto. */
 #services {
-  --section-bg: url('../../assets/images/halloween/services-bg-halloween.webp?v=3');
+  --section-bg: url('../assets/images/halloween/services-bg-halloween.webp?v=3');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
-  background-image: var(--section-veil), var(--section-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 #credit {
-  --section-bg: url('../../assets/images/halloween/credit-bg-halloween.webp?v=2');
+  --section-bg: url('../assets/images/halloween/credit-bg-halloween.webp?v=2');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
-  background-image: var(--section-veil), var(--section-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 #reviews {
-  --section-bg: url('../../assets/images/halloween/others-bg-halloween.webp?v=1');
+  --section-bg: url('../assets/images/halloween/others-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
-  background-image: var(--section-veil), var(--section-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 .footer {
-  --section-bg: url('../../assets/images/halloween/others-bg-halloween.webp?v=1');
+  --section-bg: url('../assets/images/halloween/others-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
-  background-image: var(--section-veil), var(--section-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 /* El acento no llega a 4.5:1 sobre el fondo claro de estas secciones: usa el tono oscuro. */
@@ -82,44 +67,18 @@
 
 /* Fondos decorativos para el resto de secciones */
 #products {
-  --section-bg: url('../../assets/images/halloween/products-bg-halloween.webp?v=1');
+  --section-bg: url('../assets/images/halloween/products-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.25));
-  background-image: var(--section-veil), var(--section-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 #accessories {
-  --section-bg: url('../../assets/images/halloween/products-bg-halloween.webp?v=1');
+  --section-bg: url('../assets/images/halloween/products-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.25));
-  background-image: var(--section-veil), var(--section-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 #payments {
-  --section-bg: url('../../assets/images/halloween/others-bg-halloween.webp?v=1');
+  --section-bg: url('../assets/images/halloween/others-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(3,3,3,0.35), rgba(3,3,3,0.55));
-  background-image: var(--section-veil), var(--section-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-/* La imagen se ancla al viewport. Con `scroll` su tamaño se calcula contra la
-   sección: #products con todos los modelos mide ~10.000px y la imagen quedaría
-   ampliada ~10× (una mancha plana, no se ve). Anclada al viewport se ve entera.
-   shortcut: iOS Safari ignora `fixed` (vuelve a escalar contra la sección). */
-#services,
-#credit,
-#reviews,
-#products,
-#accessories,
-#payments,
-.footer {
-  background-attachment: fixed;
 }
 
 /* Botón flotante: el botón completo es la calabaza del tema. Se oculta el glifo
@@ -162,18 +121,18 @@
 /* Móvil/tablet en vertical: el arte 3:2 con `cover` contra un viewport vertical se
    recorta a ~1/3 de su ancho (se ve ampliado). Se sirve una versión vertical de cada
    arte (la escena entera a lo ancho + relleno difuminado) para verla completa sin
-   dejar de llenar la sección; mismos `fixed`/`cover`. En apaisado el arte 3:2 ya cabe
-   entero, así que la condición es `orientation: portrait`. */
+   dejar de llenar la sección; mismo `cover` sobre la capa `.section-bg`. En apaisado
+   el arte 3:2 ya cabe entero, así que la condición es `orientation: portrait`. */
 @media (max-width: 1024px) and (orientation: portrait) {
   :root {
     --hero-bg: url('../assets/images/halloween/hero-bg-halloween-mobile.webp?v=2');
   }
 
-  #services { --section-bg: url('../../assets/images/halloween/services-bg-halloween-mobile.webp?v=2'); }
-  #credit { --section-bg: url('../../assets/images/halloween/credit-bg-halloween-mobile.webp?v=2'); }
+  #services { --section-bg: url('../assets/images/halloween/services-bg-halloween-mobile.webp?v=2'); }
+  #credit { --section-bg: url('../assets/images/halloween/credit-bg-halloween-mobile.webp?v=2'); }
   #reviews,
   .footer,
-  #payments { --section-bg: url('../../assets/images/halloween/others-bg-halloween-mobile.webp?v=2'); }
+  #payments { --section-bg: url('../assets/images/halloween/others-bg-halloween-mobile.webp?v=2'); }
   #products,
-  #accessories { --section-bg: url('../../assets/images/halloween/products-bg-halloween-mobile.webp?v=2'); }
+  #accessories { --section-bg: url('../assets/images/halloween/products-bg-halloween-mobile.webp?v=2'); }
 }

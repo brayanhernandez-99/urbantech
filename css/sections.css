@@ -142,6 +142,22 @@
 #payments,
 .footer {
   --gray: var(--section-gray);
+  isolation: isolate;
+}
+
+/* Ventana del arte de cada zona, anclada al viewport. iOS ignora
+   `background-attachment: fixed` y escalaría el arte contra la sección entera (en
+   #products, de decenas de miles de px, una mancha plana), así que el anclaje lo
+   da una capa `sticky`, que sí funciona en todos los motores. El margen negativo
+   la saca del flujo: no ocupa espacio ni desplaza al contenido. */
+.section-bg {
+  position: sticky;
+  top: 0;
+  z-index: -1;
+  height: 100vh;
+  height: 100svh;
+  margin-bottom: -100vh;
+  margin-bottom: -100svh;
   background-image: var(--section-veil), var(--section-bg);
   background-position: center;
   background-size: cover;
@@ -708,6 +724,10 @@
   border-top: 1px solid rgba(255,255,255,0.05);
   padding: 48px 0;
   position: relative;
+  /* La capa de arte es más alta que el footer y, al no tener nada detrás, alargaría
+     la página y dejaría ver arte suelto. El footer es más bajo que el viewport, así
+     que recortarlo no le quita anclaje. */
+  overflow: hidden;
 }
 
 .footer::before {
