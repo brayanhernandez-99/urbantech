@@ -119,6 +119,7 @@ Keep this file minimal and high-signal. Only include facts an OpenCode session w
 - Small-screen hero sizing: CSS breakpoints; `hero.js` only manipulates `transform`.
 - Products with `stock-badge--out` have disabled buttons (no comprar) and their single option carries `is-sold-out` (row dimmed, fuera de selección y financiamiento).
 - "Agotado" items still show price (for reference).
+- Heading hierarchy: strict h1 → h2 → h3 → h4 (no skipped levels).
 - Hero and product `alt` text is descriptive and follows `"<Model> <Color> - Urban Tech"`; the first `<img>` of a card also carries explicit `width`/`height` and `loading="lazy"`.
 - Script loading order: `whatsapp.js` → `gallery.js` → `hero.js` → `scroll.js` → `products.js` → `credit.js` → `main.js` (globals, no ES module imports).
 - Trust band `.trust-band` sits in normal flow at the foot of the hero, **not** absolutely positioned — the hero is a flex column and `.container` carries `flex: 1`. Its texts are `nowrap`, so a longer phrase needs a CSS change, not a markup change. Opening hours are duplicated in the footer and the JSON-LD; keep them in sync — exception: the footer's "Dom y Festivos" has no schema.org equivalent (`openingHours` can only declare `Su`), so don't drop the holidays from the footer to "sync" it.

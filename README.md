@@ -1,12 +1,12 @@
 # Urban Tech Colombia
 
-Sitio web estático (landing page) para Urban Tech Colombia — venta de iPhones premium, accesorios y reparación de celulares en Medellín.
+Landing page de Urban Tech Colombia, tienda de iPhones, accesorios y servicio de reparación de celulares en Medellín. Sitio estático de una sola página, escrito en HTML, CSS y JavaScript puro, sin frameworks ni proceso de compilación.
 
-Stack: HTML, CSS, JavaScript (JS clásico con globales). Sin framework, sin build step.
+## Qué ofrece el sitio
 
-## Requisitos
+Una sola página con varias secciones: un hero con la imagen del celular, los servicios de reparación, el catálogo de iPhones (una tarjeta por color, con selector de capacidad y, en varios modelos, de tipo de SIM), los accesorios, un simulador de crédito, los medios de pago aceptados, reseñas de clientes y los datos de contacto en el pie de página.
 
-- Node no es necesario. Para servir localmente: `npx serve .`
+Los botones de compra y de financiación abren WhatsApp con un mensaje armado a partir de lo que el usuario eligió en la tarjeta del producto. El simulador de crédito calcula, para cada entidad financiera, el recargo y el total a pagar partiendo del precio de contado.
 
 ## Ejecutar localmente
 
@@ -14,60 +14,40 @@ Stack: HTML, CSS, JavaScript (JS clásico con globales). Sin framework, sin buil
 npx serve .
 ```
 
-Abrir la URL que imprime el servidor. **No usar `file://`** — servir por HTTP.
+El sitio debe servirse por HTTP; no usar `file://`.
 
-## Estructura del proyecto
+## Estructura
 
 ```
-├── index.html              # Landing page (única)
-├── robots.txt              # Crawl rules, apunta a sitemap
-├── sitemap.xml             # URLs para Google
+├── index.html                 # Toda la página
+├── robots.txt                 # Reglas para los rastreadores
+├── sitemap.xml                # Sitemap para Google
+├── google-merchant-feed.tsv   # Feed de productos para Google Merchant Center
 ├── css/
-│   ├── styles.css          # Entry point CSS (importa parciales)
-│   ├── variables.css       # Custom properties (colores, fuentes)
-│   ├── hero.css            # Estilos del hero
-│   ├── sections.css        # Estilos por sección
-│   └── animations.css      # Keyframes
+│   ├── styles.css             # Entrada; importa el resto
+│   ├── variables.css          # Colores, tipografías y espaciados
+│   ├── hero.css               # Hero
+│   ├── sections.css           # Secciones de la página
+│   ├── credit.css             # Simulador de crédito
+│   ├── animations.css         # Animaciones
+│   └── themes/                # Temas de temporada (solo variables)
 ├── js/
-│   ├── main.js             # Entry point JS
-│   ├── whatsapp.js         # WA_NUMBER + openWhatsApp() handler
-│   ├── hero.js             # Parallax del hero
-│   ├── scroll.js           # Scroll spy / reveal animations
-│   ├── gallery.js          # Carrusel de producto + lightbox
-│   ├── products.js         # Selección de variante, CTA y filtro por modelo
-│   └── credit.js           # Simulador de crédito
+│   ├── main.js                # Arranque
+│   ├── whatsapp.js            # Número y mensajes de WhatsApp
+│   ├── hero.js                # Parallax del hero
+│   ├── scroll.js              # Animaciones al hacer scroll
+│   ├── gallery.js             # Carrusel y visor ampliado de fotos
+│   ├── products.js            # Selector de variante y botones de compra
+│   └── credit.js              # Simulador de crédito
 └── assets/images/
-    ├── products/           # Fotos de iPhones por modelo
-    ├── accessories/        # Fotos de accesorios
-    ├── payments/           # Iconos de métodos de pago
-    └── avatars/            # Fotos de reseñas
+    ├── products/              # Fotos de los iPhones
+    ├── accessories/           # Fotos de accesorios
+    ├── payments/              # Logos de medios de pago
+    ├── avatars/               # Fotos de las reseñas
+    ├── <temporada>/           # Arte de temporada
+    └── (sueltos)              # hero, favicon e icono
 ```
 
-## Convenciones
+El sitio publicado vive en https://urbantechcol.com; ahí apuntan el canonical, Open Graph, el sitemap y los datos estructurados.
 
-- **WhatsApp**: los anchors usan `onclick="return openWhatsApp(this)"` con atributo `message`. El número se define en `js/whatsapp.js` (`WA_NUMBER`). Los `href` son `#` — el JS construye la URL completa desde `WA_NUMBER` + `message`.
-- **Cache-busting**: las URLs de imágenes incluyen `?v=N`. Al reemplazar una imagen, incrementar `v`.
-- **JSON-LD**: hay dos schemas en el `<head>`: `LocalBusiness` (información de la tienda) e `ItemList` **minimal** (cada `ListItem` solo `position` + `item` con `name`/`url`; los precios y la disponibilidad viven solo en el HTML visible de cada tarjeta).
-- **Productos**: ordenados de más nuevo a más viejo, con los accesorios al final. Cada modelo agrupado con `<div class="model-divider">`. Usan `<article class="product-card">` semántico.
-- **Métodos de pago**: carrusel infinito con 2 sets idénticos para el loop sin costura. Las imágenes llenan el SVG con `preserveAspectRatio="xMidYMid slice"` y el texto queda debajo en `.payment-label`.
-
-## SEO / indexación
-
-El sitio está optimizado para Google:
-- ✅ Sitemap.xml funcional con URL canónica
-- ✅ robots.txt permisivo
-- ✅ Meta robots: index, follow
-- ✅ JSON-LD **minimal** (`LocalBusiness` + `ItemList`)
-- ✅ WhatsApp links con `href="#"` — JS construye `wa.me` URL
-- ✅ Open Graph con URL absoluta y dimensiones
-- ✅ Heading hierarchy: h1 → h2 → h3 (sin saltos)
-- ✅ Alt text descriptivo en todas las imágenes de producto
-
-## Dominio
-
-Todas las referencias (canonical, og:url, JSON-LD, sitemap) apuntan a:
-**https://urbantechcol.com**
-
-## Política de commits
-
-No se hace commit ni push automático. Toda modificación se sube únicamente por instrucción explícita del usuario.
+Las convenciones de desarrollo (WhatsApp, temas, JSON-LD, productos, SEO) están documentadas en `AGENTS.md`.
