@@ -2,7 +2,7 @@
   'use strict';
 
   var CREDIT_ENTITIES = [
-    { name: 'Banco de Bogotá', divisor: 0.85 },
+    { name: 'Banco de Bogotá', divisor: 10 / 11 },
     { name: 'ADDI', divisor: 0.77 },
     { name: 'Sistecrédito', divisor: 0.70 }
   ];
