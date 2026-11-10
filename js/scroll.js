@@ -87,10 +87,13 @@ function initScrollSpy() {
   }
 
   function update() {
-    const scrollY = window.scrollY + NAV_HEIGHT;
     let current = '';
-    for (const section of sections) {
-      if (scrollY >= section.offsetTop) current = section.id;
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+      current = sections[sections.length - 1].id;
+    } else {
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= NAV_HEIGHT + 1) current = section.id;
+      }
     }
     setActive(current);
   }

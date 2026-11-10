@@ -3,10 +3,17 @@ node_modules/
 .env
 *.log
 
-# Agent / OpenCode artifacts (local agent sessions, caches, configs)
-.opencode.json
-.opencode.jsonc
-.opencode_cache
-.opencode_sessions
+# Configuración de IAs / agentes
+.claude/
+.codex/
+.agents/
 .cursor/
+.impeccable/
+.opencode*
 .cursorrules
+CLAUDE.md
+opencode.json
+
+# Contexto de producto y diseño generado por la skill impeccable
+PRODUCT.md
+DESIGN.md

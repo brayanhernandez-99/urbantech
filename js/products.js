@@ -50,7 +50,7 @@ function flashHintIn(card) {
   if (hint.__timer) clearTimeout(hint.__timer);
   hint.__timer = setTimeout(function() {
     hint.classList.remove('buy-hint--show');
-  }, 2600);
+  }, 4000);
 }
 
 function initVariantSelection() {

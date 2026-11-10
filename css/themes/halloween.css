@@ -12,6 +12,7 @@
   --primary-rgb: 255, 148, 61;
   --primary-soft: #FFC48A;
   --primary-dark: #C2410C;
+  --primary-ink: #C2410C;
 
   /* Relativa a css/hero.css, que es la hoja que usa el var(). */
   --hero-bg: url('../assets/images/halloween/hero-bg-halloween.webp?v=1');
@@ -55,10 +56,6 @@
   --section-bg: url('../assets/images/halloween/others-bg-halloween.webp?v=1');
   --section-veil: linear-gradient(rgba(3,3,3,0.25), rgba(3,3,3,0.5));
 }
-
-/* El acento no llega a 4.5:1 sobre el fondo claro de estas secciones: usa el tono oscuro. */
-#products .section-label,
-#accessories .section-label { color: var(--primary-dark); }
 
 /* Texto auxiliar del simulador: el velo oscurece el fondo, así que sube su opacidad. */
 .credit-input::placeholder { color: rgba(255, 255, 255, 0.68); }

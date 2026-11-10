@@ -11,6 +11,8 @@
   --primary: rgb(var(--primary-rgb));
   --primary-soft: #97F0EA;
   --primary-dark: #1ab8ae;
+  /* Acento como texto/borde sobre fondo claro (≥4.5:1); el cian puro no llega. */
+  --primary-ink: #00786f;
   --dark: #030303;
   --gray: #838383;
   --gray-light: #e5e5e5;
@@ -37,9 +39,13 @@
   --badge-stock-bg: #a5d6a7;
   --badge-stock-text: #1b5e20;
   --danger: #ff8a8a;
+  /* Rojo de error sobre fondo claro (el --danger solo se lee sobre oscuro). */
+  --danger-ink: #c62828;
 
-  --text-soft: #777;
-  --text-faint: #999;
+  --text-soft: #666;
+  --text-faint: #6b6b6b;
+  /* Gris secundario de las zonas claras (#products, #accessories). */
+  --gray-on-light: #666;
   --input-bg: #f8f8f8;
   --accent-bg: #f9f9f9;
 
@@ -69,6 +75,14 @@ html {
 
 button {
   font-family: inherit;
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+p, blockquote {
+  text-wrap: pretty;
 }
 
 body {
@@ -103,16 +117,6 @@ ul {
 
 .section {
   padding: 100px 0;
-}
-
-.section-label {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--primary);
-  margin-bottom: 12px;
 }
 
 .section-title {
@@ -185,7 +189,7 @@ ul {
 }
 
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--focus-ring, var(--primary));
   outline-offset: 2px;
 }
 

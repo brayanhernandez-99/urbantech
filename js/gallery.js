@@ -32,6 +32,7 @@ function initGallery() {
     function openFromWrapper() {
       currentImages = images;
       lastFocused = img;
+      lightboxImg.alt = img.alt;
       var currentSrc = img.getAttribute('src');
       var matchIdx = images.findIndex(function(u) {
         return currentSrc.indexOf(u) !== -1 || u.indexOf(currentSrc.split('/').pop()) !== -1;
