@@ -1,12 +1,6 @@
 # Urban Tech — AGENTS.md
 Keep this file minimal and high-signal. Only include facts an OpenCode session would likely miss.
 
-## Flujo de validación de cambios
-- **Toda propuesta se valida antes de entregarse.** Antes de presentar cualquier solución, lánzala al subagente `validator` (contexto fresco, solo lectura).
-- Si responde **"CAMBIOS REQUERIDOS"**, corrige y vuelve a lanzarlo. Repite hasta **"APROBADO"**. Solo entonces presenta la propuesta.
-- **Lánzalo en background** y sigue con trabajo independiente mientras corre; espera su veredicto antes de entregar. Pásale el **diff**, no la propuesta completa.
-- **Nada se aplica sin aprobación explícita del usuario.** La aplicación la hace el agente `build`.
-
 ## Política de documentación
 
 - **Documenta patrones, no inventario.** En `AGENTS.md` solo debe explicarse **CÓMO** funciona el proyecto: selectores, clases CSS, funciones JS, atributos `data-*`, flujos, convenciones y gotchas.
