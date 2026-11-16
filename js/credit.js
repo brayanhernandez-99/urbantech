@@ -182,6 +182,10 @@
         hasResults = false;
       }
     });
+
+    // Valor recibido por la URL (?valor=): lo envían las vistas de producto.
+    var initial = parseInt(new URLSearchParams(location.search).get('valor'), 10);
+    if (initial > 0) window.prefillCredit(initial);
   }
 
   window.prefillCredit = function(value) {

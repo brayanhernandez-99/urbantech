@@ -25,7 +25,8 @@
   --hero-bg: none;
   --hero-scrim: none;
   --hero-scrim-sm: none;
-  --halo-fill: transparent;
+  --halo-fill: var(--dark);
+  --hero-circuit: url('../assets/images/hero-circuit.svg?v=13');
   --hero-panel: none;
   --section-bg: none;
   --section-veil: none;
@@ -44,7 +45,7 @@
 
   --text-soft: #666;
   --text-faint: #6b6b6b;
-  /* Gris secundario de las zonas claras (#products, #accessories). */
+  /* Gris secundario de las zonas claras (#celulares, #accesorios). */
   --gray-on-light: #666;
   --input-bg: #f8f8f8;
   --accent-bg: #f9f9f9;
@@ -59,6 +60,13 @@
   --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   scroll-behavior: smooth;
+}
+
+/* Hero vertical: el circuito apaisado se recortaría a una franja central. */
+@media (max-width: 1024px) and (orientation: portrait) {
+  :root {
+    --hero-circuit: url('../assets/images/hero-circuit-mobile.svg?v=2');
+  }
 }
 
 html {
@@ -155,10 +163,12 @@ ul {
   color: var(--dark);
 }
 
-.btn-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px var(--glow);
+@media (hover: hover) {
+  .btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px var(--glow);
+  }
 }
 
 .btn-outline {
@@ -167,9 +177,11 @@ ul {
   border: 1.5px solid var(--primary);
 }
 
-.btn-outline:hover {
-  background: rgba(var(--primary-rgb), 0.1);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .btn-outline:hover {
+    background: rgba(var(--primary-rgb), 0.1);
+    transform: translateY(-1px);
+  }
 }
 
 .btn:active {

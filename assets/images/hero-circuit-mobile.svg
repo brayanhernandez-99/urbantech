@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1100" preserveAspectRatio="xMidYMid slice">
+<defs><filter id="g" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<style>.p{fill:none;stroke:rgb(38,224,212);stroke-width:1.2;stroke-linejoin:round}.t{opacity:.28}.s{stroke-width:2;opacity:.95;stroke-dasharray:70 1500;stroke-dashoffset:1570;animation:f 9s linear infinite}.n{fill:#030303;stroke:rgb(38,224,212);stroke-width:1.4;opacity:.6}@keyframes f{to{stroke-dashoffset:0}}@media (prefers-reduced-motion:reduce){.s{animation:none;opacity:0}}</style>
+<g filter="url(#g)">
+<path class="p t" d="M-20 90 L180 90 L230 140 L620 140"/>
+<path class="p t" d="M-20 104 L180 104 L230 154 L620 154"/>
+<path class="p t" d="M20 -20 L20 420 L70 470 L70 700"/>
+<path class="p t" d="M34 -20 L34 420 L84 470 L84 700"/>
+<path class="p t" d="M580 420 L580 800 L530 850 L530 1120"/>
+<path class="p t" d="M566 420 L566 800 L516 850 L516 1120"/>
+<path class="p t" d="M-20 1010 L300 1010 L350 960 L620 960"/>
+<path class="p t" d="M-20 1024 L300 1024 L350 974 L620 974"/>
+<path class="p s" style="animation-delay:-0s;animation-duration:8s" d="M-20 90 L180 90 L230 140 L620 140"/>
+<path class="p s" style="animation-delay:-7s;animation-duration:10s" d="M20 -20 L20 420 L70 470 L70 700"/>
+<path class="p s" style="animation-delay:-5s;animation-duration:12s" d="M580 420 L580 800 L530 850 L530 1120"/>
+<path class="p s" style="animation-delay:-3s;animation-duration:14s" d="M-20 1010 L300 1010 L350 960 L620 960"/>
+<circle class="n" cx="70" cy="700" r="5"/>
+<circle class="n" cx="84" cy="700" r="5"/>
+</g></svg>

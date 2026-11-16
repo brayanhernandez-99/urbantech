@@ -1,0 +1,121 @@
+/* Listado de celulares (celulares.html). Reusa .pdp, .pdp-crumbs y .pdp-status de product.css. */
+
+.cat-title {
+  margin-bottom: 12px;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.cat-intro {
+  max-width: 640px;
+  margin-bottom: 32px;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+}
+
+.cat-card[hidden] {
+  display: none;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  transition: var(--transition);
+}
+
+@media (hover: hover) {
+  .cat-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.cat-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  margin-bottom: 20px;
+  border-radius: var(--radius-md);
+  background: radial-gradient(circle at 50% 40%, #fff 0%, #eef0f3 100%);
+  overflow: hidden;
+}
+
+/* Sombra de contacto bajo el producto: las fotos traen fondo blanco, así que la sombra va en la tarjeta y no en la imagen. */
+.cat-media::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 8%;
+  height: 6%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.22);
+  filter: blur(10px);
+  transition: var(--transition);
+}
+
+.cat-media img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Algunas fotos traen el fondo gris claro incrustado (≈#f8f8f8); este realce lo lleva a blanco como en las demás. */
+  filter: brightness(1.04);
+  /* multiply funde el blanco de la foto con el degradado de la tarjeta. */
+  mix-blend-mode: multiply;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media (hover: hover) {
+  .cat-card:hover .cat-media img {
+    transform: scale(1.08);
+  }
+
+  .cat-card:hover .cat-media::after {
+    opacity: 0.7;
+    transform: scaleX(0.85);
+  }
+}
+
+.cat-name {
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.cat-amount {
+  flex: 1;
+  margin-bottom: 20px;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .cat-title {
+    font-size: 1.75rem;
+  }
+
+  .cat-intro {
+    font-size: 1rem;
+  }
+
+  .cat-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

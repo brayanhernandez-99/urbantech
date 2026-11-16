@@ -21,8 +21,6 @@ function initScroll() {
     const href = anchor.getAttribute('href');
     // WhatsApp CTAs usan href="#" y JS construye la URL de wa.me
     if (!href || href === '#') return;
-    // El enlace "Financiar" gestiona su propio scroll/pushState (products.js)
-    if (anchor.classList.contains('product-finance')) return;
     // El skip-link debe usar el salto nativo (mueve el foco al destino)
     if (anchor.classList.contains('skip-link')) return;
     anchor.addEventListener('click', (e) => {
@@ -36,7 +34,35 @@ function initScroll() {
   });
 
   initMobileToggle();
+  initNavDropdown();
   initScrollSpy();
+}
+
+function initNavDropdown() {
+  const dropdown = document.querySelector('.nav-dropdown');
+  if (!dropdown) return;
+  const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+
+  function setOpen(open, focus) {
+    dropdown.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    if (!open && focus) toggle.focus();
+  }
+
+  toggle.addEventListener('click', () => {
+    setOpen(!dropdown.classList.contains('open'));
+  });
+
+  dropdown.querySelectorAll('.nav-submenu a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dropdown.classList.contains('open')) setOpen(false, true);
+  });
 }
 
 function initMobileToggle() {
@@ -84,6 +110,10 @@ function initScrollSpy() {
     navLinks.forEach((link) => {
       link.classList.toggle('nav-link--active', link.getAttribute('href') === `#${id}`);
     });
+    const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
+    if (dropdownToggle) {
+      dropdownToggle.classList.toggle('nav-link--active', !!document.querySelector('.nav-submenu .nav-link--active'));
+    }
   }
 
   function update() {

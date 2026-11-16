@@ -10,7 +10,18 @@
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
+  isolation: isolate;
   padding-top: var(--nav-height);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--hero-circuit) center / cover no-repeat;
+  opacity: 0.7;
 }
 
 .hero-bg-glow {

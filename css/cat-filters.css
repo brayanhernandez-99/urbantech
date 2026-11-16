@@ -1,0 +1,232 @@
+/* Panel de filtros de los listados (lo inyecta js/cat-filters.js alrededor de #cat-grid). Reusa .cat-* de celulares.css. */
+
+.prod-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.prod-filters {
+  position: sticky;
+  top: 96px;
+  max-height: calc(100vh - 112px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.prod-group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.prod-group legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.prod-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.prod-check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--primary-ink);
+}
+
+.prod-check-count {
+  margin-left: auto;
+  font-weight: 400;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.prod-sub {
+  margin: 0 0 8px 28px;
+  padding-left: 12px;
+  border-left: 2px solid var(--gray-light);
+}
+
+/* Control de precio de dos extremos: dos <input type="range"> superpuestos sobre una pista; solo las perillas reciben el puntero. */
+.prod-range {
+  position: relative;
+  height: 28px;
+  margin: 4px 0 8px;
+}
+
+.prod-range-track {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--gray-light);
+}
+
+.prod-range-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 2px;
+  background: var(--primary-ink);
+}
+
+.prod-range input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: none;
+  pointer-events: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.prod-range input::-webkit-slider-runnable-track {
+  height: 28px;
+  background: none;
+}
+
+.prod-range input::-moz-range-track {
+  height: 28px;
+  background: none;
+}
+
+.prod-range input::-webkit-slider-thumb {
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--primary-ink);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-md);
+  pointer-events: auto;
+  cursor: grab;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.prod-range input::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--primary-ink);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-md);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.prod-range input:focus-visible {
+  outline: none;
+}
+
+.prod-range input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--primary-ink);
+  outline-offset: 2px;
+}
+
+.prod-range input:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--primary-ink);
+  outline-offset: 2px;
+}
+
+.prod-range-values {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.prod-clear {
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--primary-ink);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.prod-count {
+  margin-bottom: 16px;
+  font-size: 0.9375rem;
+  color: var(--text-soft);
+}
+
+.prod-filters-toggle {
+  display: none;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid var(--gray-light);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--dark);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.prod-results .cat-grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Precio secundario respecto al nombre, como el "Desde" de las filas de celulares.html. */
+.prod-results .cat-amount {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text-soft);
+}
+
+@media (max-width: 960px) {
+  .prod-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .prod-filters-toggle {
+    display: block;
+    justify-self: start;
+  }
+
+  .prod-filters {
+    display: none;
+    position: static;
+  }
+
+  .prod-filters.is-open {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .prod-results .cat-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

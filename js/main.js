@@ -1,40 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Hashes de sección antiguos (en español) → id actual, para no romper enlaces ya compartidos.
+window.partialsReady.then(() => {
+  // Hashes de sección antiguos (en inglés) → id actual, para no romper enlaces ya compartidos.
   const legacyHash = {
-    '#productos': '#products',
-    '#accesorios': '#accessories',
-    '#credito': '#credit',
-    '#pagos': '#payments',
-    '#testimonios': '#reviews',
-    '#contacto': '#contact',
+    '#hero': '#inicio',
+    '#payments': '#pagos',
+    '#reviews': '#resenas',
+    '#testimonios': '#resenas',
+    '#contact': '#contacto',
+    '#offers': '#ofertas',
+    '#lineup': '#modelos',
   };
   if (legacyHash[window.location.hash]) history.replaceState(null, '', legacyHash[window.location.hash]);
 
   initHero();
   initScroll();
-  initGallery();
-  initProducts();
-  initCreditCalculator();
 
-  const footerYear = document.getElementById('footer-year');
-  if (footerYear) footerYear.textContent = new Date().getFullYear();
+  const offers = document.querySelector('.offers-grid');
+  document.querySelectorAll('#ofertas .lineup-arrow').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const step = offers.firstElementChild.offsetWidth + 20;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      offers.scrollBy({ left: btn.dataset.dir === 'prev' ? -step : step, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
 
   const hash = window.location.hash;
   if (hash) {
     const target = document.getElementById(hash.slice(1));
-    if (target) {
-      const card = target.closest('.product-card');
-      setTimeout(() => {
-        if (card) {
-          card.classList.remove('hidden');
-          card.classList.remove('is-filtered');
-          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          card.classList.add('anchor-highlight');
-          setTimeout(() => card.classList.remove('anchor-highlight'), 3000);
-        } else {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
   }
 });
