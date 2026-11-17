@@ -207,7 +207,7 @@
       list.push({
         name: name,
         category: 'accessories',
-        href: 'producto.html?accesorio=' + card.id,
+        href: 'producto.html?accesorio=' + encodeURIComponent(card.id),
         nameWords: words(name),
         words: words(name),
         prices: card.querySelector('.stock-badge--out') ? [] : [price],
@@ -314,6 +314,7 @@
   input.setAttribute('aria-autocomplete', 'list');
   input.setAttribute('aria-label', 'Buscar productos');
   input.setAttribute('autocomplete', 'off');
+  input.maxLength = 150;
   input.placeholder = 'Busca Celulares, Accesorios, DJI, Suunto…';
   field.appendChild(input);
   var list = el('div', 'nav-search-list');
@@ -400,7 +401,7 @@
   }
 
   function render() {
-    var text = input.value;
+    var text = input.value.replace(/[\u0000-\u001f\u007f]/g, '');
     list.textContent = '';
     rows = [];
     active = -1;

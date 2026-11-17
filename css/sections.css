@@ -1131,14 +1131,25 @@
   align-items: center;
   text-align: center;
   scroll-snap-align: start;
+  padding: 16px;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  transition: var(--transition);
+}
+
+@media (hover: hover) {
+  .lineup-card:hover {
+    box-shadow: var(--shadow-md);
+  }
 }
 
 .lineup-media {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: var(--radius-lg);
-  background: #fff;
+  border-radius: var(--radius-md);
+  background: radial-gradient(circle at 50% 40%, #fff 0%, #eef0f3 100%);
   overflow: hidden;
 }
 
@@ -1148,6 +1159,8 @@
   object-fit: contain;
   /* Algunas fotos traen el fondo gris claro incrustado (≈#f1f1f1); este realce lo lleva a blanco. */
   filter: brightness(1.07);
+  /* multiply funde el blanco de la foto con el degradado de la tarjeta. */
+  mix-blend-mode: multiply;
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
