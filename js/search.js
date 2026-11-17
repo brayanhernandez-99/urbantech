@@ -110,10 +110,10 @@
     control: ['rc'], mando: ['rc'], radiocontrol: ['rc'],
     bateria: ['battery', 'batery', 'batterie'], battery: ['battery', 'batery', 'batterie']
   };
-  // Palabras que indican una categoría (no un producto concreto).
+  // Palabras que indican una categoría (no un producto concreto); una lista si la palabra existe en varias.
   var CATEGORY_TERMS = {
     iphone: 'phones',
-    case: 'accessories', vidrio: 'accessories', adaptador: 'accessories', cable: 'accessories',
+    case: 'accessories', vidrio: 'accessories', adaptador: 'accessories', cable: ['accessories', 'suunto'],
     airpod: 'accessories', protector: 'accessories', antiespia: 'accessories',
     correa: 'suunto', reloj: 'suunto', audifono: 'suunto', suunto: 'suunto',
     dji: 'dji', dron: 'dji', drone: 'dji', microfono: 'dji', mic: 'dji', estabilizador: 'dji', insta360: 'insta360'
@@ -261,7 +261,7 @@
     // Si todo lo escrito son palabras de una misma categoría, se ofrece ir a su sección.
     // Un término cuyas alternativas apuntan a varias categorías (p. ej. "audífonos") no fija ninguna.
     var cats = terms.map(function(t) {
-      var found = t.alts.map(function(a) { return CATEGORY_TERMS[a]; }).filter(function(c, i, all) { return c && all.indexOf(c) === i; });
+      var found = [].concat.apply([], t.alts.map(function(a) { return CATEGORY_TERMS[a] || []; })).filter(function(c, i, all) { return all.indexOf(c) === i; });
       return found.length === 1 ? found[0] : null;
     });
     var category = cats.every(function(c) { return c && c === cats[0]; }) ? cats[0] : null;

@@ -6,7 +6,7 @@
   var SECTIONS = [
     { id: 'celulares', label: 'Celulares', kinds: { nuevo: 'Nuevo', exhibicion: 'Exhibición' } },
     { id: 'accesorios', label: 'Accesorios', kinds: { cargadores: 'Cargadores y cables', audifonos: 'Audífonos', protectores: 'Protectores', cases: 'Cases' } },
-    { id: 'suunto', label: 'Suunto', kinds: { relojes: 'Relojes', audifonos: 'Audífonos', correas: 'Correas' } },
+    { id: 'suunto', label: 'Suunto', kinds: { relojes: 'Relojes', audifonos: 'Audífonos', correas: 'Correas', cables: 'Cables de carga' } },
     { id: 'dji', label: 'DJI', kinds: { drones: 'Drones', camaras: 'Cámaras', microfonos: 'Micrófonos', estabilizadores: 'Estabilizadores' } },
     { id: 'insta360', label: 'Insta360', kinds: { camaras: 'Cámaras' } }
   ];
@@ -54,6 +54,7 @@
               name: node.querySelector('h3').textContent.trim(),
               href: 'producto.html?accesorio=' + node.id,
               price: node.querySelector('.stock-badge--out') ? null : parseInt(node.querySelector('.price').textContent.replace(/\D/g, ''), 10),
+              was: parseInt(node.querySelector('.price').getAttribute('data-was'), 10) || 0,
               image: firstImage(node)
             });
             return;
@@ -61,7 +62,10 @@
           if (!current.image) current.image = firstImage(node);
           Array.prototype.forEach.call(node.querySelectorAll('.dual-capacity-option:not(.is-sold-out)'), function(o) {
             var price = parseInt(o.querySelector('.price').textContent.replace(/\D/g, ''), 10) || 0;
-            if (current.price === null || price < current.price) current.price = price;
+            if (current.price === null || price < current.price) {
+              current.price = price;
+              current.was = parseInt(o.querySelector('.price').getAttribute('data-was'), 10) || 0;
+            }
             var kind = o.querySelector('.badge-new') ? 'nuevo' : o.querySelector('.badge-deal') ? 'exhibicion' : '';
             if (section.id === 'celulares' && kind && current.kinds.indexOf(kind) === -1) current.kinds.push(kind);
           });
@@ -92,7 +96,13 @@
     card.appendChild(media);
 
     card.appendChild(el('h2', 'cat-name', item.name));
-    card.appendChild(el('p', 'cat-amount', item.price === null ? 'Agotado' : (item.desde ? 'Desde ' : '') + '$' + groupDigits(String(item.price))));
+    var amount = el('p', 'cat-amount');
+    if (item.price !== null && item.was > item.price) {
+      card.appendChild(el('span', 'cat-save', 'Ahorra $' + groupDigits(String(item.was - item.price))));
+      amount.appendChild(el('s', 'cat-was', '$' + groupDigits(String(item.was))));
+    }
+    amount.appendChild(document.createTextNode(item.price === null ? 'Agotado' : (item.desde ? 'Desde ' : '') + '$' + groupDigits(String(item.price))));
+    card.appendChild(amount);
 
     var more = el('a', 'btn btn-primary cat-buy');
     more.href = item.href;

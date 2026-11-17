@@ -107,6 +107,21 @@
   grid-column: 1 / -1;
 }
 
+.pdp-save {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
 .pdp-track {
   display: flex;
   height: 100%;
@@ -195,6 +210,14 @@
   color: var(--price-color);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
+}
+
+.pdp-was {
+  flex-basis: 100%;
+  margin-bottom: -8px;
+  font-size: 1.125rem;
+  color: var(--gray-on-light);
+  font-variant-numeric: tabular-nums;
 }
 
 .pdp-chip {

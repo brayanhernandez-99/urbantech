@@ -27,6 +27,7 @@
 }
 
 .cat-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 24px;
@@ -104,6 +105,27 @@
   font-weight: 400;
   color: var(--text-soft);
   font-variant-numeric: tabular-nums;
+}
+
+/* Descuento: cinta "Ahorra $X" sobre la foto y precio anterior tachado encima del actual. */
+.cat-save {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.cat-was {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--gray-on-light);
 }
 
 @media (max-width: 768px) {

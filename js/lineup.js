@@ -47,7 +47,10 @@
         if (dot) current.dots.push(dot[1].trim());
         Array.prototype.forEach.call(node.querySelectorAll('.dual-capacity-option:not(.is-sold-out)'), function(o) {
           var price = parseInt(o.querySelector('.price').textContent.replace(/\D/g, ''), 10) || 0;
-          if (current.price === null || price < current.price) current.price = price;
+          if (current.price === null || price < current.price) {
+            current.price = price;
+            current.was = parseInt(o.querySelector('.price').getAttribute('data-was'), 10) || 0;
+          }
         });
       }
     });
@@ -79,13 +82,17 @@
               tagline: section.label,
               href: 'producto.html?accesorio=' + node.id,
               price: node.querySelector('.stock-badge--out') ? null : parseInt(node.querySelector('.price').textContent.replace(/\D/g, ''), 10),
+              was: parseInt(node.querySelector('.price').getAttribute('data-was'), 10) || 0,
               image: firstImage(node)
             });
           } else if (current) {
             if (!current.image) current.image = firstImage(node);
             Array.prototype.forEach.call(node.querySelectorAll('.dual-capacity-option:not(.is-sold-out)'), function(o) {
               var price = parseInt(o.querySelector('.price').textContent.replace(/\D/g, ''), 10) || 0;
-              if (current.price === null || price < current.price) current.price = price;
+              if (current.price === null || price < current.price) {
+                current.price = price;
+                current.was = parseInt(o.querySelector('.price').getAttribute('data-was'), 10) || 0;
+              }
             });
           }
         }
@@ -101,6 +108,17 @@
       }
     });
     return items;
+  }
+
+  // Precio de la tarjeta; con descuento (was > price) añade la cinta "Ahorra" y el precio anterior tachado encima.
+  function appendPrice(card, item, text) {
+    var price = el('span', 'lineup-price');
+    if (item.price !== null && item.was > item.price) {
+      card.appendChild(el('span', 'lineup-save', 'Ahorra ' + formatCOP(item.was - item.price)));
+      price.appendChild(el('s', 'lineup-was', formatCOP(item.was)));
+    }
+    price.appendChild(document.createTextNode(text));
+    card.appendChild(price);
   }
 
   function renderModel(model) {
@@ -128,7 +146,7 @@
     card.appendChild(el('h3', 'lineup-name', model.name));
     var tagline = model.tagline || taglines[model.name.split(' ')[1]];
     if (tagline) card.appendChild(el('span', 'lineup-tagline', tagline));
-    card.appendChild(el('span', 'lineup-price', model.price === null ? 'Agotado' : 'Desde ' + formatCOP(model.price)));
+    appendPrice(card, model, model.price === null ? 'Agotado' : 'Desde ' + formatCOP(model.price));
     return card;
   }
 
@@ -149,7 +167,7 @@
     card.appendChild(el('span', 'lineup-dots'));
     card.appendChild(el('h3', 'lineup-name', item.name));
     card.appendChild(el('span', 'lineup-tagline', item.tagline));
-    card.appendChild(el('span', 'lineup-price', item.price === null ? 'Agotado' : (item.desde ? 'Desde ' : '') + formatCOP(item.price)));
+    appendPrice(card, item, item.price === null ? 'Agotado' : (item.desde ? 'Desde ' : '') + formatCOP(item.price));
     return card;
   }
 

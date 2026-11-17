@@ -72,6 +72,7 @@
         type: optionType(o),
         condition: optionCondition(o),
         price: price ? parseInt(price.textContent.replace(/\D/g, ''), 10) || 0 : 0,
+        was: price ? parseInt(price.getAttribute('data-was'), 10) || 0 : 0,
         soldOut: o.classList.contains('is-sold-out')
       };
     });
@@ -118,6 +119,7 @@
             type: '',
             condition: '',
             price: price ? parseInt(price.textContent.replace(/\D/g, ''), 10) || 0 : 0,
+            was: price ? parseInt(price.getAttribute('data-was'), 10) || 0 : 0,
             soldOut: !!card.querySelector('.stock-badge--out')
           }]
         }]
@@ -372,10 +374,18 @@
       tags.appendChild(el('span', 'pdp-tag pdp-tag--' + (option.condition === 'Exhibición' ? 'display' : 'condition'), option.condition));
       if (option.condition !== 'Exhibición') tags.appendChild(el('span', 'pdp-tag', 'Envío gratis'));
     }
+    // La cinta de descuento vive sobre la foto principal; la galería solo se repinta al cambiar de color, así que se actualiza aquí.
+    var stage = document.querySelector('#pdp-gallery .pdp-stage');
+    if (stage) {
+      var oldSave = stage.querySelector('.pdp-save');
+      if (oldSave) oldSave.remove();
+      if (option && !option.soldOut && option.was > option.price) stage.appendChild(el('span', 'pdp-save', 'Ahorra ' + formatCOP(option.was - option.price)));
+    }
     if (tags.children.length) root.appendChild(tags);
     root.appendChild(el('h1', 'pdp-title', model.name));
 
     var priceRow = el('div', 'pdp-price-row');
+    if (shown && shown.was > shown.price) priceRow.appendChild(el('s', 'pdp-was', formatCOP(shown.was)));
     priceRow.appendChild(el('p', 'pdp-price', shown && shown.price ? formatCOP(shown.price) : ''));
     if (shown && shown.type && shown.type !== shown.condition) priceRow.appendChild(el('span', 'pdp-chip', shown.type));
     root.appendChild(priceRow);

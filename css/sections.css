@@ -1125,6 +1125,7 @@
 }
 
 .lineup-card {
+  position: relative;
   flex: 0 0 min(300px, 78vw);
   display: flex;
   flex-direction: column;
@@ -1219,6 +1220,25 @@
   font-variant-numeric: tabular-nums;
 }
 
+.lineup-save {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 1;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.lineup-was {
+  display: block;
+  font-size: 0.875rem;
+}
+
 .offers-grid {
   display: flex;
   gap: 20px;
@@ -1269,11 +1289,11 @@
   text-align: center;
 }
 
-.offers-item:nth-child(n+4):nth-child(-n+5)::after {
+.offers-item:nth-child(n+5):nth-child(-n+6)::after {
   content: "Somos distribuidores";
 }
 
-.offers-item:nth-child(n+6)::after {
+.offers-item:nth-child(n+7)::after {
   content: none;
 }
 
